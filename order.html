@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>自助選購試算｜富林組合屋</title>
+<meta name="description" content="富林組合屋自助選購：選主體、加衛浴、門窗、露台、水電，即時試算總價，一鍵用 LINE 傳給我們。">
+<link rel="icon" href="img/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#156a74;--teal-d:#0e4e56;--lime:#d4e021;--ink:#1d2224;--mute:#5a6468;--bg:#f4f5f2;--line:#dfe3e0;--red:#b3261e}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit}
+img{display:block;max-width:100%}
+.app{display:grid;grid-template-rows:auto 1fr;height:100dvh}
+/* top */
+.top{background:var(--teal);color:#fff;display:flex;align-items:center;gap:12px;padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top))}
+.top a.back{color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;font-weight:900;font-size:17px;min-height:44px}
+.top img{width:36px;height:36px;border-radius:8px}
+.top .ttl{margin-left:auto;text-align:right;line-height:1.3}
+.top .ttl b{display:block;font-size:18px;letter-spacing:2px}
+.top .ttl span{font-size:12px;opacity:.85}
+/* body */
+.main{display:grid;grid-template-columns:200px 1fr;min-height:0}
+.rail{background:#fff;border-right:1px solid var(--line);overflow-y:auto;padding:10px 0 120px}
+.rail button{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;text-align:left;padding:14px 16px;font-size:16px;font-weight:500;cursor:pointer;border-left:5px solid transparent;min-height:52px}
+.rail button[aria-current=true]{background:#eef5f5;border-left-color:var(--teal);color:var(--teal);font-weight:900}
+.rail .ic{width:30px;height:30px;border-radius:8px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rail button[aria-current=true] .ic{background:var(--teal);color:#fff}
+.rail .cnt{margin-left:auto;background:var(--lime);color:var(--ink);font-size:12px;font-weight:900;border-radius:10px;padding:0 7px;min-width:22px;text-align:center}
+.content{overflow-y:auto;padding:20px 20px 140px;min-height:0}
+.chead{display:flex;align-items:baseline;gap:12px;margin:0 0 4px}
+.chead h1{font-size:28px;margin:0;font-weight:900;letter-spacing:2px}
+.chead span{color:var(--mute);font-size:14px}
+.hint{color:var(--mute);font-size:14px;margin:0 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.item{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;text-align:left;cursor:pointer;display:flex;flex-direction:column;padding:0;position:relative;transition:transform .12s,box-shadow .12s}
+.item:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.08)}
+.item:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.item .ph{aspect-ratio:4/3;background:#fff;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line)}
+.item .ph img{width:100%;height:100%;object-fit:cover}
+.item .ph.ic{background:linear-gradient(135deg,#eef5f5,#f8faf6);color:var(--teal)}
+.item .ph.ic svg{width:56px;height:56px}
+.item .bd{padding:12px 14px 14px;display:flex;flex-direction:column;gap:2px;flex-grow:1}
+.item b{font-size:17px;line-height:1.35}
+.item .sub{font-size:13px;color:var(--mute)}
+.item .pr{margin-top:auto;padding-top:8px;font-weight:900;color:var(--teal);font-size:18px;font-variant-numeric:tabular-nums}
+.item .pr small{font-size:12px;color:var(--mute);font-weight:500}
+.item .pr.neg{color:var(--red)}
+.item .badge{position:absolute;top:10px;right:10px;background:var(--lime);color:var(--ink);font-weight:900;font-size:13px;border-radius:20px;padding:2px 10px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.item .star{position:absolute;top:10px;left:10px;background:var(--teal);color:#fff;font-weight:700;font-size:12px;border-radius:20px;padding:2px 10px}
+/* cart bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(0,0,0,.08);padding:10px 16px;padding-bottom:max(10px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:14px}
+.bar .bag{position:relative;width:48px;height:48px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--teal);flex-shrink:0}
+.bar .bag i{position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;font-style:normal;font-size:12px;font-weight:900;border-radius:10px;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.bar .tot{line-height:1.25}
+.bar .tot span{font-size:13px;color:var(--mute)}
+.bar .tot b{display:block;font-size:24px;font-weight:900;font-variant-numeric:tabular-nums}
+.bar .go{margin-left:auto;background:var(--teal);color:#fff;border:0;border-radius:12px;padding:0 24px;min-height:52px;font-size:17px;font-weight:900;cursor:pointer}
+.bar .go:disabled{background:#b8c4c6;cursor:not-allowed}
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;display:none}
+.scrim.on{display:block}
+.sheet{position:fixed;z-index:60;left:50%;bottom:0;transform:translate(-50%,105%);width:min(640px,100%);max-height:92dvh;background:#fff;border-radius:20px 20px 0 0;display:flex;flex-direction:column;transition:transform .22s ease}
+.sheet.on{transform:translate(-50%,0)}
+.sh-hd{display:flex;align-items:flex-start;gap:12px;padding:16px 16px 12px;border-bottom:1px solid var(--line)}
+.sh-hd .t{flex-grow:1}
+.sh-hd h2{margin:0;font-size:22px;font-weight:900}
+.sh-hd p{margin:2px 0 0;font-size:13px;color:var(--mute)}
+.x{width:44px;height:44px;border:0;background:var(--bg);border-radius:12px;font-size:22px;cursor:pointer;flex-shrink:0}
+.sh-bd{overflow-y:auto;padding:14px 16px 8px}
+.sh-img{border-radius:14px;overflow:hidden;margin-bottom:12px;background:var(--bg)}
+.sh-img img{width:100%;max-height:220px;object-fit:cover}
+.opt{margin-bottom:16px}
+.opt .lb{font-weight:900;font-size:15px;margin-bottom:8px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;cursor:pointer;min-height:48px;text-align:left;line-height:1.3}
+.pill small{display:block;font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.pill[aria-pressed=true]{border-color:var(--teal);background:#eef5f5}
+.pill[aria-pressed=true] small{color:var(--teal);font-weight:700}
+.pill:disabled{opacity:.4;cursor:not-allowed}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{width:48px;height:48px;border-radius:12px;border:2px solid var(--line);background:#fff;font-size:24px;font-weight:700;cursor:pointer;line-height:1}
+.qty input{width:84px;height:48px;text-align:center;font-size:20px;font-weight:900;border:2px solid var(--line);border-radius:12px;font-family:inherit}
+.qty .u{color:var(--mute)}
+.note{font-size:13px;color:var(--mute);background:var(--bg);border-radius:10px;padding:8px 12px;margin:0 0 12px}
+.sh-ft{border-top:1px solid var(--line);padding:12px 16px;padding-bottom:max(12px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px}
+.sh-ft .sum{font-size:13px;color:var(--mute);line-height:1.2}
+.sh-ft .sum b{display:block;font-size:24px;color:var(--ink);font-variant-numeric:tabular-nums}
+.add{margin-left:auto;background:var(--lime);color:var(--ink);border:0;border-radius:12px;min-height:54px;padding:0 26px;font-size:18px;font-weight:900;cursor:pointer}
+/* cart */
+.line{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.line .n{font-weight:700}
+.line .o{font-size:13px;color:var(--mute)}
+.line .p{font-weight:900;text-align:right;font-variant-numeric:tabular-nums}
+.line .p.neg{color:var(--red)}
+.line .ctl{grid-column:1/-1;display:flex;align-items:center;gap:8px}
+.line .ctl button{width:40px;height:40px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:20px;cursor:pointer}
+.line .ctl .q{min-width:56px;text-align:center;font-weight:700}
+.line .ctl .rm{width:auto;padding:0 12px;font-size:14px;color:var(--red);margin-left:auto}
+.empty{text-align:center;color:var(--mute);padding:40px 0}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 6px}
+.total b{font-size:28px;font-variant-numeric:tabular-nums}
+.disc{font-size:12px;color:var(--mute);margin:0 0 14px}
+.form{display:grid;gap:10px;margin:8px 0 6px}
+.form label{font-size:14px;font-weight:700;display:grid;gap:4px}
+.form input,.form textarea{font:inherit;font-size:16px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;min-height:46px}
+.acts{display:grid;gap:10px;margin-top:10px}
+.acts button,.acts a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:12px;border:0;font-size:17px;font-weight:900;cursor:pointer;text-decoration:none}
+.acts .ln{background:#06c755;color:#fff}
+.acts .cp{background:var(--bg);color:var(--ink);border:1.5px solid var(--line)}
+.acts .pt{background:#fff;color:var(--teal);border:1.5px solid var(--teal)}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:30px;padding:10px 18px;font-size:15px;z-index:80;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+/* print */
+#printArea{display:none}
+@media print{
+  body{background:#fff}
+  .app,.bar,.scrim,.sheet,.toast{display:none!important}
+  #printArea{display:block;padding:10mm;font-size:11pt}
+  #printArea h1{font-size:18pt;margin:0 0 4px}
+  #printArea table{width:100%;border-collapse:collapse;margin-top:10px}
+  #printArea th,#printArea td{border-bottom:1px solid #ccc;padding:6px 4px;text-align:left;vertical-align:top}
+  #printArea td.r,#printArea th.r{text-align:right}
+}
+@media (max-width:760px){
+  .main{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .rail{display:flex;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--line);padding:6px 8px;gap:4px;scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  .rail button{flex-direction:column;gap:2px;width:auto;flex-shrink:0;padding:6px 10px;border-left:0;border-bottom:4px solid transparent;font-size:13px;min-height:auto;border-radius:10px 10px 0 0;position:relative}
+  .rail button[aria-current=true]{border-bottom-color:var(--teal)}
+  .rail .cnt{position:absolute;top:0;right:0;margin:0}
+  .content{padding:14px 12px 130px}
+  .chead h1{font-size:22px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .item b{font-size:15px}
+  .item .pr{font-size:16px}
+  .item .bd{padding:10px 10px 12px}
+  .bar .tot b{font-size:20px}
+  .bar .go{padding:0 18px}
+  .top .ttl b{font-size:16px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <a class="back" href="./"><img src="img/logo.jpg" alt="">富林組合屋</a>
+    <div class="ttl"><b>自助選購試算</b><span>選好加入清單，總價即時計算</span></div>
+  </header>
+  <div class="main">
+    <nav class="rail" id="rail" aria-label="商品分類"></nav>
+    <main class="content" id="content"></main>
+  </div>
+</div>
+
+<div class="bar">
+  <div class="bag" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><i id="bagN">0</i></div>
+  <div class="tot"><span>試算合計（未稅）</span><b id="barTot">NT$ 0</b></div>
+  <button class="go" id="goCart" type="button" disabled>查看清單</button>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shT"></section>
+<div class="toast" id="toast" role="status"></div>
+<div id="printArea"></div>
+
+<script>
+/* ===== 商品資料：價格取自富林組合屋款式追加報價單 ===== */
+var LINE_ID='@aa168';
+var I={
+ house:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>',
+ bath:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M6 12V5a2 2 0 0 1 4 0"/><path d="M7 20l-1 2M17 20l1 2"/></svg>',
+ door:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="3" width="14" height="18" rx="1"/><circle cx="15" cy="12" r="1" fill="currentColor"/></svg>',
+ win:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M12 4v16M4 12h16"/></svg>',
+ deck:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 14h18M3 18h18M5 14v6M19 14v6M5 14V9M19 14V9M5 9h14"/></svg>',
+ stair:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 20h5v-4h4v-4h4V8h5"/></svg>',
+ roof:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2 13 12 5l10 8"/><path d="M5 11v8h14v-8"/></svg>',
+ bolt:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>',
+ bulb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg>',
+ drop:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg>',
+ snow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="8" rx="2"/><path d="M7 16v2M12 16v4M17 16v2"/></svg>',
+ floor:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18v12H3z"/><path d="M3 12h18M9 6v6M15 12v6"/></svg>',
+ ground:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 18h20"/><path d="M5 18v-4h14v4"/><path d="M8 14V9M16 14V9"/></svg>',
+ truck:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2 6h12v10H2zM14 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>',
+ tool:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M14 7a4 4 0 0 0 5 5l-8 8-3-3 8-8a4 4 0 0 0-2-2z"/></svg>'
+};
+var CATS=[
+ {id:'main',name:'主體',ic:'house',hint:'先選房子本體。組合屋可選尺寸與牆板款式，展翼屋、折疊屋為整組。'},
+ {id:'bath',name:'衛浴',ic:'bath',hint:'一體式衛浴安裝快；磁磚衛浴質感佳；戶外衛浴獨立設置。'},
+ {id:'door',name:'門窗',ic:'door',hint:'組合屋標配基本門窗，以下為加購或升級。'},
+ {id:'deck',name:'露台・樓梯',ic:'deck',hint:'露台、框架露台、階梯、室內外樓梯與無障礙坡道。'},
+ {id:'roof',name:'屋頂',ic:'roof',hint:'以坪計價的項目請依屋頂面積輸入數量。'},
+ {id:'elec',name:'水電・照明',ic:'bolt',hint:'電箱、燈具、插座、水塔與管線。'},
+ {id:'inside',name:'室內・設備',ic:'snow',hint:'冷氣、廚房、地板、裝潢板、隔間、加高。'},
+ {id:'ground',name:'地面・基礎',ic:'ground',hint:'基礎工程實際數量依現場勘查為準。'},
+ {id:'work',name:'施工・運費',ic:'truck',hint:'組裝、二樓三樓組裝、運送安裝、外縣市補助。'}
+];
+function V(label,price,sub){return {l:label,p:price,s:sub||''}}
+var ITEMS=[
+ /* 主體 */
+ {id:'mh',cat:'main',name:'組合屋（鋼構屋）',sub:'主力產品・標配基本門窗',img:'img/c2.jpg',unit:'顆',top:true,
+  dims:[{key:'size',name:'尺寸',vals:['3×6m','3×8m','4×6m','4×8m']},{key:'style',name:'款式',vals:['標準','平面天花','水泥板','PU板']}],
+  price:{'3×6m':{'標準':98000,'平面天花':118000,'水泥板':120000,'PU板':198000},'3×8m':{'標準':138000,'平面天花':158000},'4×6m':{'標準':118000,'平面天花':138000,'水泥板':150000,'PU板':208000},'4×8m':{'標準':156000,'平面天花':176000,'水泥板':180000,'PU板':260000}},
+  note:'放在二樓／三樓請到「施工・運費」加選二樓或三樓組裝費。'},
+ {id:'fdeck',cat:'main',name:'框架露台（含平面天花）',sub:'有屋頂的半戶外空間',img:'img/steel-house.jpg',unit:'組',
+  vars:[V('2×6m',88000),V('3×6m',93000),V('4×6m',97000),V('2×8m',108000),V('3×8m',118000),V('4×8m',138000)]},
+ {id:'wing',cat:'main',name:'展翼屋',sub:'不含運費、安裝',img:'img/w20.jpg',unit:'組',
+  vars:[V('10呎',298000,'18.5 m²'),V('20呎',408000,'36.7 m²'),V('開放式展翼屋',270000),V('平頂 20呎',438000),V('平頂 30呎',658000,'56 m²'),V('平頂 40呎',888000,'74.8 m²')],
+  note:'運費安裝請到「施工・運費」加選。'},
+ {id:'fold',cat:'main',name:'折疊屋',sub:'20 分鐘展開・不含運費',img:'img/fold-lift.jpg',unit:'組',p:66000,note:'展開尺寸 L5800×W2470×H2450mm。運費安裝請到「施工・運費」加選。'},
+ /* 衛浴 */
+ {id:'bjp',cat:'bath',name:'日式衛浴',sub:'一體式・220v 抽風式・1.48×2.08m',img:'img/bath-jp.jpg',unit:'組',p:70000,top:true},
+ {id:'bl',cat:'bath',name:'大衛浴',sub:'一體式・220v 抽風式・1.2×1.9m',img:'img/bath-l.jpg',unit:'組',p:55000},
+ {id:'bs',cat:'bath',name:'小衛浴',sub:'一體式・220v 抽風式・1.1×1.4m',img:'img/bath-s.jpg',unit:'組',p:40000},
+ {id:'btile',cat:'bath',name:'磁磚衛浴',sub:'室內・1.5×2.4m',img:'img/bath-in3.jpg',unit:'組',vars:[V('浴簾',75000),V('拉門',85000)]},
+ {id:'bout',cat:'bath',name:'戶外衛浴',sub:'獨立式・1.7×2.6×2.8m',img:'img/bath-out.jpg',unit:'組',vars:[V('浴簾',98000),V('拉門',108000)]},
+ {id:'bnanya',cat:'bath',name:'戶外廁所／淋浴（南亞）',sub:'不含電箱',ic:'bath',unit:'組',vars:[V('戶外廁所',23000),V('戶外淋浴',33000)]},
+ {id:'heater',cat:'bath',name:'即熱式熱水器',ic:'drop',unit:'台',p:8500},
+ {id:'vanity',cat:'bath',name:'浴櫃含鏡子',ic:'bath',unit:'組',p:16000},
+ {id:'urinal',cat:'bath',name:'小便斗',ic:'bath',unit:'組',p:6500},
+ {id:'grab',cat:'bath',name:'無障礙扶手',ic:'bath',unit:'組',p:6500},
+ /* 門窗 */
+ {id:'wbasic',cat:'door',name:'基本窗',ic:'win',unit:'窗',dims:[{key:'c',name:'顏色',vals:['黑灰','白']}],p:4500},
+ {id:'wair',cat:'door',name:'氣密窗 93×110cm',ic:'win',unit:'窗',dims:[{key:'c',name:'顏色',vals:['黑灰','白']}],p:8000,top:true},
+ {id:'wsec',cat:'door',name:'防盜氣密窗 93×110cm',ic:'win',unit:'窗',p:12000},
+ {id:'wgrill',cat:'door',name:'防盜框 93×110cm',ic:'win',unit:'窗',p:4500},
+ {id:'wsmall',cat:'door',name:'廁所小窗',ic:'win',unit:'窗',dims:[{key:'c',name:'顏色',vals:['白','黑灰']}],p:6000},
+ {id:'wview',cat:'door',name:'強化玻璃景觀窗 W188×H110',ic:'win',unit:'窗',vars:[V('可開關',16500),V('固定式',13000)]},
+ {id:'wawn',cat:'door',name:'窗戶遮雨棚',ic:'roof',unit:'窗',p:6500},
+ {id:'wblind',cat:'door',name:'捲簾／窗簾',ic:'win',unit:'窗',p:1500},
+ {id:'dbasic',cat:'door',name:'基本門（外開）',ic:'door',unit:'組',dims:[{key:'c',name:'顏色',vals:['黑灰','白']}],p:6500},
+ {id:'dscreen',cat:'door',name:'鋁紗門',ic:'door',unit:'組',p:8500},
+ {id:'d3in1',cat:'door',name:'三合一門（有開天）',ic:'door',unit:'組',dims:[{key:'c',name:'顏色',vals:['黑灰','白']}],p:18500},
+ {id:'ddouble',cat:'door',name:'雙開門 166×210',ic:'door',unit:'組',p:16000},
+ {id:'dslide',cat:'door',name:'落地門',sub:'高 247.5cm',ic:'door',unit:'組',top:true,vars:[V('2門 寬188',32000),V('4門 寬283',46000),V('6門 寬563',73000),V('6米落地門',68000)],dims:[{key:'c',name:'顏色',vals:['黑','白']}]},
+ {id:'nodoor',cat:'door',name:'不要標配基本門（折抵）',ic:'door',unit:'組',p:-3500},
+ {id:'nowin',cat:'door',name:'不要標配基本窗（折抵）',ic:'win',unit:'窗',p:-1500},
+ /* 露台・樓梯 */
+ {id:'deck',cat:'deck',name:'露台',sub:'木平台',img:'img/case9-2.jpg',unit:'組',top:true,vars:[V('1×3m',20000),V('1×4m',30000),V('1×6m',40000),V('2×6m',64000),V('2×8m',70000),V('3×6m',70000),V('4×6m',90000)]},
+ {id:'ramp',cat:'deck',name:'無障礙斜坡',sub:'1.5×3m・適用高度 36cm',ic:'deck',unit:'組',p:40000},
+ {id:'step',cat:'deck',name:'階梯',ic:'stair',unit:'組',vars:[V('1階',6000),V('2階',8000),V('3階',10000)]},
+ {id:'ostair',cat:'deck',name:'戶外樓梯',ic:'stair',unit:'組',p:32000},
+ {id:'istair',cat:'deck',name:'室內樓梯（鐵梯）',ic:'stair',unit:'組',vars:[V('U形／L形',98000),V('直上',50000)]},
+ {id:'wstair',cat:'deck',name:'木板室內樓梯',ic:'stair',unit:'組',vars:[V('U形／L形',138000),V('直上',80000)]},
+ /* 屋頂 */
+ {id:'r4s',cat:'roof',name:'簡易四合一屋頂',sub:'整組價',ic:'roof',unit:'式',top:true,vars:[V('3×6m',18000),V('4×6m',22000)]},
+ {id:'rwave',cat:'roof',name:'簡易浪板屋頂 3×6m',ic:'roof',unit:'式',p:12000},
+ {id:'r4',cat:'roof',name:'四合一屋頂',ic:'roof',unit:'坪',vars:[V('單斜',4500),V('雙斜',5500)]},
+ {id:'rglaze',cat:'roof',name:'琉璃鋼瓦屋頂',ic:'roof',unit:'坪',p:6500},
+ {id:'r3',cat:'roof',name:'簡易三合一屋頂',ic:'roof',unit:'坪',p:3500},
+ {id:'rwavep',cat:'roof',name:'簡易浪板屋頂（依坪）',ic:'roof',unit:'坪',p:2500},
+ {id:'rcanopy',cat:'roof',name:'遮雨棚 1×3m',ic:'roof',unit:'組',p:6500},
+ {id:'rgutter',cat:'roof',name:'不鏽鋼雨水槽',ic:'drop',unit:'米',p:1500},
+ {id:'rtrim',cat:'roof',name:'屋頂封邊',ic:'roof',unit:'組',p:50000},
+ /* 水電・照明 */
+ {id:'panel',cat:'elec',name:'配電箱 110v/220v',ic:'bolt',unit:'組',p:8500,top:true},
+ {id:'meter',cat:'elec',name:'分電錶',ic:'bolt',unit:'組',p:2500},
+ {id:'lamp',cat:'elec',name:'燈具（明管・含開關）',ic:'bulb',unit:'組',vars:[V('圓形白光',3500),V('圓形自然光',3500),V('崁燈',3500)]},
+ {id:'led',cat:'elec',name:'LED 燈管（明管）',ic:'bulb',unit:'組',vars:[V('單管 40W',2500),V('雙管',3500)]},
+ {id:'track',cat:'elec',name:'軌道燈（含 2 顆 LED）',ic:'bulb',unit:'組',p:4500},
+ {id:'olamp',cat:'elec',name:'戶外筒燈（明管）',ic:'bulb',unit:'組',p:2800},
+ {id:'wclamp',cat:'elec',name:'廁所燈',ic:'bulb',unit:'組',p:2500},
+ {id:'sock',cat:'elec',name:'插座（明管）',ic:'bolt',unit:'組',vars:[V('110v',1500),V('220v',2800)]},
+ {id:'conceal',cat:'elec',name:'暗管處理',ic:'bolt',unit:'組',p:1000},
+ {id:'ground',cat:'elec',name:'接地棒（往下打 100cm）',ic:'bolt',unit:'組',p:5000},
+ {id:'ext',cat:'elec',name:'外接電',sub:'依距離計價',ic:'bolt',unit:'米',vars:[V('4.99m 內',1000),V('5–20m',800),V('20m 以上',500)]},
+ {id:'tank5',cat:'elec',name:'5 噸水塔',ic:'drop',unit:'組',p:55000},
+ {id:'tank1',cat:'elec',name:'不鏽鋼水塔 1 噸（含配件）',ic:'drop',unit:'桶',p:15000},
+ {id:'tankacc',cat:'elec',name:'水塔配件',ic:'drop',unit:'式',p:4000},
+ {id:'pump',cat:'elec',name:'加壓馬達 0.5hp',ic:'drop',unit:'組',p:9500},
+ {id:'hpipe',cat:'elec',name:'不鏽鋼熱水管',ic:'drop',unit:'式',p:4500},
+ {id:'pipe',cat:'elec',name:'給排水管',sub:'依長度計價',ic:'drop',unit:'米',vars:[V('給水管',500),V('排水管',800),V('污水管',1000)]},
+ /* 室內・設備 */
+ {id:'ac',cat:'inside',name:'冷氣',ic:'snow',unit:'台',p:22500,top:true},
+ {id:'sink',cat:'inside',name:'不鏽鋼廚房桌',ic:'tool',unit:'組',vars:[V('流理台桌（含水槽）',4500),V('平台桌',4500)]},
+ {id:'spc',cat:'inside',name:'SPC 超耐磨地板',ic:'floor',unit:'坪',vars:[V('自黏式',2000),V('卡扣式',3000)]},
+ {id:'panelw',cat:'inside',name:'裝潢板',ic:'floor',unit:'坪',vars:[V('平面',2300),V('竹木纖維',2500),V('企口板',3500),V('麒麟板',3500),V('麒麟板（需骨架）',4500)]},
+ {id:'part',cat:'inside',name:'隔間',ic:'floor',unit:'米',p:3000},
+ {id:'raise',cat:'inside',name:'室內加高',ic:'house',unit:'組',vars:[V('室內 H300（室外 330）',30000),V('室內 H330（室外 360）',50000)]},
+ {id:'link',cat:'inside',name:'連通套件（已扣牆面費）',sub:'兩顆組合屋打通',ic:'house',unit:'式',vars:[V('單門連通',6500),V('雙牆連通',8500)]},
+ /* 地面・基礎 */
+ {id:'septic',cat:'ground',name:'化糞池',ic:'ground',unit:'組',p:28500,top:true},
+ {id:'level',cat:'ground',name:'整地',sub:'需先告知地下水管位置',ic:'ground',unit:'組',p:8000},
+ {id:'raiseg',cat:'ground',name:'地面升高',ic:'ground',unit:'組',vars:[V('一般',12000),V('4×8 專用',18000)]},
+ {id:'base',cat:'ground',name:'水泥基座 40×40',ic:'ground',unit:'顆',p:8000},
+ {id:'anchor',cat:'ground',name:'化學錨栓固定',ic:'ground',unit:'組',p:3000},
+ {id:'screw',cat:'ground',name:'地螺絲',ic:'ground',unit:'支',p:3500},
+ {id:'bull',cat:'ground',name:'地牛／地錨',ic:'ground',unit:'組',p:2500},
+ {id:'skirt',cat:'ground',name:'組合屋底下封邊',ic:'ground',unit:'組',p:30000},
+ {id:'tile',cat:'ground',name:'鋪設磁磚',ic:'floor',unit:'坪',p:8500},
+ {id:'hbeam',cat:'ground',name:'H 鋼 150×200',ic:'ground',unit:'米',p:2800},
+ /* 施工・運費 */
+ {id:'assm',cat:'work',name:'組合屋組裝費',ic:'tool',unit:'式',p:20000,top:true},
+ {id:'dism',cat:'work',name:'組合屋拆開費',ic:'tool',unit:'式',p:20000},
+ {id:'f2',cat:'work',name:'二樓組裝費',ic:'tool',unit:'顆',p:20000},
+ {id:'f3',cat:'work',name:'三樓組裝費',ic:'tool',unit:'顆',p:40000},
+ {id:'shipw',cat:'work',name:'展翼屋運費安裝',ic:'truck',unit:'組',vars:[V('10呎',28000),V('20呎',50000)]},
+ {id:'shipf',cat:'work',name:'折疊屋運費安裝',ic:'truck',unit:'式',p:12000},
+ {id:'stay',cat:'work',name:'外縣市住宿補助',ic:'truck',unit:'日',p:5000},
+ {id:'diy',cat:'work',name:'自行組裝（折抵）',ic:'tool',unit:'組',p:-20000}
+];
+var BY={};ITEMS.forEach(function(it){BY[it.id]=it});
+
+/* ===== 狀態 ===== */
+var cart=[],cur='main',sel=null;
+try{var s=localStorage.getItem('fulin_cart_v1');if(s)cart=JSON.parse(s)||[]}catch(e){cart=[]}
+cart=cart.filter(function(l){return BY[l.id]});
+function save(){try{localStorage.setItem('fulin_cart_v1',JSON.stringify(cart))}catch(e){}}
+function fmt(n){var neg=n<0;n=Math.abs(n);return (neg?'−':'')+'NT$ '+n.toLocaleString('en-US')}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+function minPrice(it){
+  if(it.price){var m=Infinity;for(var a in it.price)for(var b in it.price[a])m=Math.min(m,it.price[a][b]);return m}
+  if(it.vars)return Math.min.apply(null,it.vars.map(function(v){return v.p}));
+  return it.p;
+}
+function hasRange(it){return !!(it.price||(it.vars&&it.vars.length>1&&new Set(it.vars.map(function(v){return v.p})).size>1))}
+function unitPrice(it,o){
+  if(it.price){var r=it.price[o.size];return r?r[o.style]:undefined}
+  if(it.vars){var v=it.vars.filter(function(v){return v.l===o.v})[0];return v?v.p:undefined}
+  return it.p;
+}
+function optText(it,o){
+  var t=[];
+  if(it.vars)t.push(o.v);
+  (it.dims||[]).forEach(function(d){t.push(o[d.key])});
+  return t.join('・');
+}
+function qtyIn(cat){return cart.filter(function(l){return BY[l.id].cat===cat}).length}
+function total(){return cart.reduce(function(s,l){return s+l.u*l.q},0)}
+
+/* ===== 畫面 ===== */
+var rail=document.getElementById('rail'),content=document.getElementById('content');
+function renderRail(){
+  rail.innerHTML=CATS.map(function(c){var n=qtyIn(c.id);
+    return '<button type="button" data-c="'+c.id+'" aria-current="'+(c.id===cur)+'"><span class="ic">'+I[c.ic].replace('<svg','<svg width="20" height="20"')+'</span>'+c.name+(n?'<span class="cnt">'+n+'</span>':'')+'</button>'}).join('');
+}
+function renderGrid(){
+  var c=CATS.filter(function(x){return x.id===cur})[0];
+  var its=ITEMS.filter(function(i){return i.cat===cur});
+  var h='<div class="chead"><h1>'+c.name+'</h1><span>'+its.length+' 項</span></div><p class="hint">'+c.hint+'</p><div class="grid">';
+  its.forEach(function(it){
+    var inCart=cart.filter(function(l){return l.id===it.id}).reduce(function(s,l){return s+l.q},0);
+    var mp=minPrice(it);
+    h+='<button type="button" class="item" data-i="'+it.id+'">'+
+      (it.top?'<span class="star">推薦</span>':'')+(inCart?'<span class="badge">已選 '+inCart+'</span>':'')+
+      (it.img?'<div class="ph"><img src="'+it.img+'" alt="" loading="lazy"></div>':'<div class="ph ic">'+I[it.ic||'house']+'</div>')+
+      '<div class="bd"><b>'+esc(it.name)+'</b>'+(it.sub?'<span class="sub">'+esc(it.sub)+'</span>':'')+
+      '<span class="pr'+(mp<0?' neg':'')+'">'+fmt(mp)+'<small> /'+it.unit+(hasRange(it)?' 起':'')+'</small></span></div></button>';
+  });
+  content.innerHTML=h+'</div>';
+  content.scrollTop=0;
+}
+function renderBar(){
+  var n=cart.reduce(function(s,l){return s+1},0);
+  document.getElementById('bagN').textContent=n;
+  document.getElementById('barTot').textContent=fmt(total());
+  document.getElementById('goCart').disabled=!n;
+}
+function renderAll(){renderRail();renderGrid();renderBar()}
+rail.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cur=b.dataset.c;renderRail();renderGrid();
+  if(window.innerWidth<=760)b.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})});
+content.addEventListener('click',function(e){var b=e.target.closest('.item');if(b)openItem(b.dataset.i)});
+
+/* ===== 商品選項面板 ===== */
+var sheet=document.getElementById('sheet'),scrim=document.getElementById('scrim'),lastFocus=null;
+function openSheet(){lastFocus=document.activeElement;scrim.classList.add('on');sheet.classList.add('on');setTimeout(function(){var x=sheet.querySelector('.x');x&&x.focus()},50)}
+function closeSheet(){scrim.classList.remove('on');sheet.classList.remove('on');if(lastFocus)lastFocus.focus()}
+scrim.addEventListener('click',function(){closeSheet()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&sheet.classList.contains('on'))closeSheet()});
+
+function openItem(id){
+  var it=BY[id];sheet.dataset.mode='';sel={id:id,o:{},q:1};
+  if(it.vars)sel.o.v=it.vars[0].l;
+  (it.dims||[]).forEach(function(d){sel.o[d.key]=d.vals[0]});
+  drawItem();openSheet();
+}
+function drawItem(){
+  var it=BY[sel.id],o=sel.o,u=unitPrice(it,o);
+  var h='<div class="sh-hd"><div class="t"><h2 id="shT">'+esc(it.name)+'</h2>'+(it.sub?'<p>'+esc(it.sub)+'</p>':'')+'</div><button class="x" type="button" data-a="close" aria-label="關閉">×</button></div><div class="sh-bd">';
+  if(it.img)h+='<div class="sh-img"><img src="'+it.img+'" alt=""></div>';
+  if(it.vars){
+    h+='<div class="opt"><div class="lb">選擇規格</div><div class="pills">'+it.vars.map(function(v){
+      return '<button type="button" class="pill" data-k="v" data-v="'+esc(v.l)+'" aria-pressed="'+(o.v===v.l)+'">'+esc(v.l)+'<small>'+fmt(v.p)+(v.s?'・'+esc(v.s):'')+'</small></button>'}).join('')+'</div></div>';
+  }
+  (it.dims||[]).forEach(function(d){
+    h+='<div class="opt"><div class="lb">'+d.name+'</div><div class="pills">'+d.vals.map(function(val){
+      var dis=false,sm='';
+      if(it.price){
+        var test={};for(var k in o)test[k]=o[k];test[d.key]=val;
+        var pp=unitPrice(it,test);
+        if(d.key==='style'){dis=pp===undefined;sm=dis?'此尺寸無':fmt(pp)}
+        else{var r=it.price[val];sm=fmt(Math.min.apply(null,Object.keys(r).map(function(k){return r[k]})))+' 起'}
+      }
+      return '<button type="button" class="pill" data-k="'+d.key+'" data-v="'+esc(val)+'" aria-pressed="'+(o[d.key]===val)+'"'+(dis?' disabled':'')+'>'+esc(val)+(sm?'<small>'+sm+'</small>':'')+'</button>'}).join('')+'</div></div>';
+  });
+  h+='<div class="opt"><div class="lb">數量</div><div class="qty"><button type="button" data-a="dec" aria-label="減少">−</button><input id="qIn" type="number" inputmode="numeric" min="1" value="'+sel.q+'" aria-label="數量"><button type="button" data-a="inc" aria-label="增加">+</button><span class="u">'+it.unit+'</span></div></div>';
+  if(it.note)h+='<p class="note">'+esc(it.note)+'</p>';
+  h+='</div><div class="sh-ft"><div class="sum">小計<b>'+(u===undefined?'—':fmt(u*sel.q))+'</b></div><button type="button" class="add" data-a="add"'+(u===undefined?' disabled':'')+'>加入清單</button></div>';
+  sheet.innerHTML=h;
+}
+sheet.addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  if(b.dataset.a==='close'){closeSheet();return}
+  if(sheet.dataset.mode==='cart'){cartClick(b);return}
+  var it=BY[sel.id];
+  if(b.dataset.k){
+    sel.o[b.dataset.k]=b.dataset.v;
+    if(it.price&&b.dataset.k==='size'&&unitPrice(it,sel.o)===undefined)sel.o.style='標準';
+    drawItem();return;
+  }
+  if(b.dataset.a==='inc'){sel.q++;drawItem();return}
+  if(b.dataset.a==='dec'){sel.q=Math.max(1,sel.q-1);drawItem();return}
+  if(b.dataset.a==='add'){
+    var u=unitPrice(it,sel.o);if(u===undefined)return;
+    var key=sel.id+'|'+optText(it,sel.o);
+    var ex=cart.filter(function(l){return l.k===key})[0];
+    if(ex)ex.q+=sel.q;else cart.push({k:key,id:sel.id,o:sel.o,u:u,q:sel.q});
+    save();closeSheet();renderAll();toast('已加入：'+it.name+(optText(it,sel.o)?'（'+optText(it,sel.o)+'）':'')+' ×'+sel.q);
+  }
+});
+sheet.addEventListener('input',function(e){
+  if(e.target.id==='qIn'){var v=parseInt(e.target.value,10);sel.q=isNaN(v)||v<1?1:Math.min(v,9999);
+    var it=BY[sel.id],u=unitPrice(it,sel.o);sheet.querySelector('.sum b').textContent=u===undefined?'—':fmt(u*sel.q)}
+});
+
+/* ===== 清單 ===== */
+var cust={name:'',phone:'',place:'',memo:''};
+try{var c2=localStorage.getItem('fulin_cust_v1');if(c2)cust=JSON.parse(c2)||cust}catch(e){}
+document.getElementById('goCart').addEventListener('click',openCart);
+function openCart(){sheet.dataset.mode='cart';drawCart();openSheet()}
+function drawCart(){
+  var h='<div class="sh-hd"><div class="t"><h2 id="shT">我的選購清單</h2><p>'+cart.length+' 項・可調整數量</p></div><button class="x" type="button" data-a="close" aria-label="關閉">×</button></div><div class="sh-bd">';
+  if(!cart.length)h+='<p class="empty">清單是空的，先去挑選商品吧。</p>';
+  cart.forEach(function(l,i){var it=BY[l.id],ot=optText(it,l.o);
+    h+='<div class="line"><div><div class="n">'+esc(it.name)+'</div><div class="o">'+(ot?esc(ot)+'・':'')+fmt(l.u)+' /'+it.unit+'</div></div><div class="p'+(l.u<0?' neg':'')+'">'+fmt(l.u*l.q)+'</div>'+
+    '<div class="ctl"><button type="button" data-c="dec" data-i="'+i+'" aria-label="減少">−</button><span class="q">'+l.q+' '+it.unit+'</span><button type="button" data-c="inc" data-i="'+i+'" aria-label="增加">+</button><button type="button" class="rm" data-c="rm" data-i="'+i+'">移除</button></div></div>'});
+  if(cart.length){
+    h+='<div class="total"><span>試算合計（未稅）</span><b>'+fmt(total())+'</b></div>'+
+    '<p class="disc">此為線上試算價，實際價格以現場丈量與正式報價單為準。基礎工程（水泥、填土等）依現場報價。</p>'+
+    '<div class="form"><label>姓名<input id="fName" autocomplete="name" value="'+esc(cust.name)+'"></label>'+
+    '<label>電話<input id="fPhone" type="tel" autocomplete="tel" inputmode="tel" value="'+esc(cust.phone)+'"></label>'+
+    '<label>施工地點（縣市鄉鎮）<input id="fPlace" value="'+esc(cust.place)+'"></label>'+
+    '<label>備註<textarea id="fMemo" rows="2">'+esc(cust.memo)+'</textarea></label></div>'+
+    '<div class="acts"><button type="button" class="ln" data-c="line">用 LINE 傳給富林組合屋</button>'+
+    '<button type="button" class="cp" data-c="copy">複製清單文字</button>'+
+    '<button type="button" class="pt" data-c="print">列印／存成 PDF</button>'+
+    '<button type="button" class="cp" data-c="clear" style="color:var(--red)">清空清單</button></div>';
+  }
+  sheet.innerHTML=h+'</div>';
+}
+function readForm(){
+  ['Name','Phone','Place','Memo'].forEach(function(k){var el=document.getElementById('f'+k);if(el)cust[k.toLowerCase()]=el.value.trim()});
+  try{localStorage.setItem('fulin_cust_v1',JSON.stringify(cust))}catch(e){}
+}
+function quoteText(){
+  var t='【富林組合屋 線上選購試算】\n';
+  if(cust.name)t+='姓名：'+cust.name+'\n';
+  if(cust.phone)t+='電話：'+cust.phone+'\n';
+  if(cust.place)t+='施工地點：'+cust.place+'\n';
+  t+='\n';
+  cart.forEach(function(l,i){var it=BY[l.id],ot=optText(it,l.o);
+    t+=(i+1)+'. '+it.name+(ot?'（'+ot+'）':'')+' ×'+l.q+it.unit+'　'+fmt(l.u*l.q)+'\n'});
+  t+='\n試算合計（未稅）：'+fmt(total());
+  if(cust.memo)t+='\n備註：'+cust.memo;
+  t+='\n\n※ 線上試算，實際以現場丈量與正式報價為準';
+  return t;
+}
+function cartClick(b){
+  var c=b.dataset.c,i=+b.dataset.i;
+  if(c==='inc'){cart[i].q++}
+  else if(c==='dec'){cart[i].q=Math.max(1,cart[i].q-1)}
+  else if(c==='rm'){cart.splice(i,1)}
+  else if(c==='clear'){if(!b.dataset.sure){b.dataset.sure='1';b.textContent='再按一次確認清空';return}cart=[]}
+  else if(c==='line'){readForm();window.open('https://line.me/R/oaMessage/'+encodeURIComponent(LINE_ID)+'/?'+encodeURIComponent(quoteText()),'_blank','noopener');return}
+  else if(c==='copy'){readForm();copy(quoteText());return}
+  else if(c==='print'){readForm();buildPrint();window.print();return}
+  else return;
+  readForm();save();drawCart();renderAll();
+  if(!cart.length){setTimeout(closeSheet,300)}
+}
+function copy(t){
+  function ok(){toast('已複製，可貼到 LINE 或簡訊')}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,fallback)}else fallback();
+  function fallback(){var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok()}catch(e){toast('無法自動複製，請手動選取')}document.body.removeChild(ta)}
+}
+function buildPrint(){
+  var d=new Date(),ds=d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate();
+  var h='<h1>富林組合屋　線上選購試算單</h1><div>日期：'+ds+(cust.name?'　姓名：'+esc(cust.name):'')+(cust.phone?'　電話：'+esc(cust.phone):'')+(cust.place?'　施工地點：'+esc(cust.place):'')+'</div>';
+  h+='<table><thead><tr><th>#</th><th>項目</th><th>規格</th><th class="r">單價</th><th class="r">數量</th><th class="r">小計</th></tr></thead><tbody>';
+  cart.forEach(function(l,i){var it=BY[l.id];h+='<tr><td>'+(i+1)+'</td><td>'+esc(it.name)+'</td><td>'+esc(optText(it,l.o))+'</td><td class="r">'+fmt(l.u)+'</td><td class="r">'+l.q+' '+it.unit+'</td><td class="r">'+fmt(l.u*l.q)+'</td></tr>'});
+  h+='</tbody></table><p style="text-align:right;font-size:14pt;font-weight:700">試算合計（未稅）：'+fmt(total())+'</p>';
+  if(cust.memo)h+='<p>備註：'+esc(cust.memo)+'</p>';
+  h+='<p style="font-size:9pt;color:#555">※ 線上試算，實際價格以現場丈量與正式報價單為準。<br>富林組合屋｜LINE '+LINE_ID+'｜0929-010-882 廖先生｜0916-498-832 林先生｜05-598-4663 辦公室展場</p>';
+  document.getElementById('printArea').innerHTML=h;
+}
+var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on')},2200)}
+var _close=closeSheet;closeSheet=function(){sheet.dataset.mode='';_close()};
+
+renderAll();
+</script>
+</body>
+</html>
