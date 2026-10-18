@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>富林組合屋｜鋼構屋・展翼屋・折疊屋・太空艙</title>
+<meta name="description" content="富林組合屋：鋼構組合屋、展翼屋、折疊屋、太空艙與衛浴模組。累積建造突破 10,000 m²，雲林二崙展場，歡迎預約參觀。">
+<meta property="og:title" content="富林組合屋｜組合空間快速到位">
+<meta property="og:description" content="鋼構屋・展翼屋・折疊屋・太空艙，累積建造突破 10,000 m²。">
+<meta property="og:image" content="img/hero.jpg">
+<link rel="icon" href="img/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#156a74;--teal-d:#0e4e56;--lime:#d4e021;--ink:#1d2224;--mute:#5a6468;--bg:#f4f5f2;--card:#fff;--line:#dfe3e0}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+img{max-width:100%;display:block}
+a{color:var(--teal)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:16px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:900;font-size:19px;letter-spacing:1px;flex-shrink:0}
+.brand img{width:40px;height:40px;border-radius:8px}
+.menu{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.menu::-webkit-scrollbar{display:none}
+.menu a{white-space:nowrap;text-decoration:none;color:var(--ink);font-size:15px;font-weight:500;padding:8px 10px;border-radius:8px}
+.menu a:hover{background:var(--bg);color:var(--teal)}
+.menu a.cta{background:var(--teal);color:#fff}
+.menu a.cta:hover{background:var(--teal-d);color:#fff}
+/* hero */
+.hero{position:relative;min-height:min(86vh,760px);display:flex;align-items:flex-end;color:#fff;background:#24322a url(img/hero.jpg) center/cover no-repeat}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,rgba(0,0,0,.62))}
+.hero .wrap{position:relative;padding-bottom:64px;width:100%}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:var(--ink);font-weight:700;font-size:14px;border-radius:30px;padding:4px 14px;margin-bottom:14px}
+.hero h1{margin:0;font-size:clamp(40px,8vw,84px);font-weight:900;line-height:1.1;letter-spacing:4px}
+.hero p.sub{font-size:clamp(18px,2.6vw,26px);font-weight:700;margin:10px 0 26px;letter-spacing:3px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 22px;border-radius:10px;font-weight:700;font-size:16px;text-decoration:none}
+.btn.p{background:var(--lime);color:var(--ink)}
+.btn.s{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.7)}
+.btn.t{background:var(--teal);color:#fff}
+/* sections */
+section{padding:84px 0}
+.eyebrow{font-size:13px;font-weight:700;color:var(--teal);letter-spacing:3px;text-transform:uppercase}
+h2{font-size:clamp(28px,4vw,40px);font-weight:900;margin:4px 0 8px;letter-spacing:2px}
+h2 small{font-size:.5em;font-weight:500;color:var(--mute);margin-left:10px;letter-spacing:1px}
+.lead{color:var(--mute);max-width:760px;margin:0 0 36px;font-size:16px}
+h3{font-size:22px;margin:0 0 6px}
+.white{background:#fff}
+/* product chips */
+.chips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:-48px;position:relative;z-index:2}
+.chip{background:#fff;border-radius:14px;padding:18px 18px 16px;text-decoration:none;color:var(--ink);box-shadow:0 6px 24px rgba(0,0,0,.08);border-top:4px solid var(--teal)}
+.chip b{display:block;font-size:20px}
+.chip span{font-size:13px;color:var(--mute)}
+/* split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.spec{display:flex;flex-direction:column;gap:14px}
+.spec .k{font-size:14px;font-weight:700;color:var(--teal)}
+.spec .v{font-size:28px;font-weight:900;letter-spacing:1px}
+.spec .v small{font-size:14px;color:var(--mute);font-weight:500}
+.rating{display:grid;grid-template-columns:auto auto;gap:4px 14px;font-size:15px;background:var(--bg);border-radius:12px;padding:14px 18px;width:max-content;max-width:100%}
+.white .rating{background:var(--bg)}
+.stars{color:#e8a300;letter-spacing:2px}
+.stars i{color:#c9cdc9;font-style:normal}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{background:var(--teal);color:#fff;font-size:14px;font-weight:500;border-radius:8px;padding:4px 12px}
+.feat{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:40px}
+.feat div{background:#fff;border-radius:12px;padding:16px;border:1px solid var(--line)}
+.feat b{display:block;color:var(--teal);font-size:16px;margin-bottom:4px}
+.feat p{margin:0;font-size:14px;color:var(--mute);line-height:1.6}
+.photo{border-radius:16px;overflow:hidden;background:#fff}
+.photo img{width:100%;height:100%;object-fit:cover}
+/* colors */
+.colors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.colors figure{margin:0;background:#fff;border-radius:12px;padding:12px;text-align:center;border:1px solid var(--line)}
+.colors figcaption{font-weight:700;font-size:15px;margin-top:6px}
+/* model cards */
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.card{background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column}
+.card .im{aspect-ratio:16/10;background:#fff;display:flex;align-items:center;justify-content:center;padding:10px}
+.card .im img{max-height:100%;object-fit:contain}
+.card .im.cover{padding:0}.card .im.cover img{width:100%;height:100%;object-fit:cover}
+.card .bd{padding:16px 18px 18px}
+.card h3{color:var(--teal)}
+dl.dim{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:8px 0 0;font-size:14px}
+dl.dim dt{background:var(--ink);color:#fff;border-radius:20px;padding:0 10px;font-size:12px;height:22px;line-height:22px;align-self:center;text-align:center}
+dl.dim dd{margin:0;font-variant-numeric:tabular-nums}
+.card p{font-size:14px;color:var(--mute);margin:10px 0 0}
+.wide{margin-top:26px}
+.wide img{width:100%;border-radius:16px;background:#fff}
+/* cases */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.filters button{font:inherit;font-size:15px;border:1.5px solid var(--line);background:#fff;border-radius:30px;padding:6px 16px;cursor:pointer;min-height:40px}
+.filters button[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:#fff}
+.cases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.case{background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.case img{width:100%;aspect-ratio:16/9.5;object-fit:cover}
+.case .bd{padding:14px 16px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.case h3{font-size:18px;margin:0}
+.case .lay{font-size:14px;color:var(--mute)}
+.case .ping{font-size:30px;font-weight:900;color:var(--teal);font-style:italic;line-height:1;white-space:nowrap}
+.case .ping small{font-size:13px;font-style:normal;color:var(--mute);margin-left:2px;font-weight:500}
+/* capsule */
+.caps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.caps .card .im{padding:0;aspect-ratio:16/9}
+.caps .card .im img{width:100%;height:100%;object-fit:cover}
+.caps h3{font-size:30px;font-style:italic;font-weight:900}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;counter-reset:s}
+.step{background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.step img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.step .bd{padding:10px 12px 12px}
+.step .n{font-size:12px;font-weight:700;color:var(--teal)}
+.step b{display:block;font-size:17px}
+.step p{margin:2px 0 0;font-size:13px;color:var(--mute);line-height:1.5}
+/* contact */
+.contact{background:var(--teal);color:#fff}
+.contact h2{color:#fff}
+.contact .lead{color:rgba(255,255,255,.85)}
+.phones{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.phones a{display:block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:16px 18px;color:#fff;text-decoration:none}
+.phones a:hover{background:rgba(255,255,255,.18)}
+.phones span{font-size:14px;opacity:.85}
+.phones b{display:block;font-size:24px;letter-spacing:1px;font-variant-numeric:tabular-nums}
+.crow{display:grid;grid-template-columns:auto 1fr;gap:28px;margin-top:28px;align-items:start}
+.qr{background:#fff;border-radius:14px;padding:10px;width:150px}
+.info{display:flex;flex-direction:column;gap:10px;font-size:16px}
+.info a{color:#fff}
+.social{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.social a{background:#fff;color:var(--teal);text-decoration:none;font-weight:700;border-radius:10px;padding:8px 14px;font-size:15px;min-height:44px;display:inline-flex;align-items:center}
+footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px 0;text-align:center}
+.fab{position:fixed;right:16px;bottom:16px;z-index:30;display:none;gap:10px}
+.fab a{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.fab .call{background:var(--teal)}.fab .line{background:#06c755}
+@media (max-width:960px){
+  .split,.grid2{grid-template-columns:1fr}
+  .chips,.grid4,.caps,.phones{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cases{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .feat{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .split .photo{order:-1}
+}
+@media (max-width:600px){
+  .wrap{padding:0 16px}
+  section{padding:60px 0}
+  .menu a:not(.cta){display:none}
+  .chips{margin-top:-36px;gap:10px}
+  .chip{padding:14px}
+  .chip b{font-size:17px}
+  .cases,.colors,.grid4{grid-template-columns:1fr}
+  .colors{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .caps{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .feat{grid-template-columns:1fr}
+  .phones{grid-template-columns:1fr}
+  .crow{grid-template-columns:1fr}
+  .fab{display:flex}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/logo.jpg" alt="">富林組合屋</a>
+    <nav class="menu" aria-label="主選單">
+      <a href="#steel">鋼構屋</a>
+      <a href="#fold">折疊屋</a>
+      <a href="#wing">展翼屋</a>
+      <a href="#capsule">太空艙</a>
+      <a href="#bath">衛浴</a>
+      <a href="#cases">精彩實績</a>
+      <a href="#process">施工流程</a>
+      <a class="cta" href="#contact">聯絡我們</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div class="badge">累積建造突破 10,000 m²　穩固・高效・安心</div>
+      <h1>富林組合屋</h1>
+      <p class="sub">— 組合空間快速到位 —</p>
+      <div class="btns">
+        <a class="btn p" href="tel:0929010882">立即來電 0929-010-882</a>
+        <a class="btn s" href="#cases">看精彩實績</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="chips">
+      <a class="chip" href="#steel"><b>鋼構屋</b><span>Steel Structure</span></a>
+      <a class="chip" href="#wing"><b>展翼屋</b><span>Wing Modular</span></a>
+      <a class="chip" href="#fold"><b>折疊屋</b><span>Folding Modular</span></a>
+      <a class="chip" href="#capsule"><b>太空艙</b><span>Space Capsule</span></a>
+    </div>
+  </div>
+
+  <!-- 鋼構屋 -->
+  <section id="steel">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <div class="eyebrow">Steel Structure Modular House</div>
+          <h2>鋼構屋<small>預製模組化 客製彈性高</small></h2>
+          <p class="lead" style="margin-bottom:24px">鋼構組合屋採用預鑄鋼構骨架與模組化板材快速組裝，施工快、可移動、成本較低。可依需求彈性調整空間、搬遷方便，適合工地辦公室、住家或倉庫。富林是具備完善保固的廠商，用心為每一位客戶打造結構穩固、防水防鏽、經久耐用的鋼構組合屋。</p>
+          <div class="spec">
+            <div><div class="k">組合屋標準版尺寸</div><div class="v">3 × 6 <small>公尺</small></div></div>
+            <div><div class="k">另有加大版供選擇</div><div class="v">3 × 8 / 4 × 6 / 4 × 8 <small>公尺</small></div></div>
+            <div><div class="k">高度三種可選</div><div class="v">2.5 / 3 / 3.3 <small>公尺</small></div></div>
+          </div>
+          <div class="tags"><span class="tag">住家</span><span class="tag">宿舍</span><span class="tag">農舍</span><span class="tag">辦公室</span><span class="tag">營業空間</span></div>
+        </div>
+        <div class="photo"><img src="img/steel-house.jpg" alt="富林鋼構組合屋實景，雙棟搭配露台" loading="lazy"></div>
+      </div>
+
+      <div class="feat">
+        <div><b>加厚主體框架</b><p>頂樑、底樑、角柱、角頭、抗風柱採 2.3–2.5mm 加厚鋼材。</p></div>
+        <div><b>關鍵接合處</b><p>鎖螺絲固定設計，取代傳統焊接，降低焊接鏽蝕風險。</p></div>
+        <div><b>複層牆板</b><p>全金屬包邊結構，內外層鋼板加厚至 0.6mm。</p></div>
+        <div><b>加強底部方管</b><p>2.0mm 加厚鋼材，足以抵抗台灣常見颱風與地震。</p></div>
+        <div><b>全面防鏽</b><p>鍍鋅鋼材加全烤漆抗鏽工藝，內外雙層防鏽處理。</p></div>
+      </div>
+
+      <div class="wide"><img src="img/steel-struct.jpg" alt="單顆鋼構屋立體結構圖：50mm 夾芯板、18mm 水泥纖維板、160×2.3 立柱與底部長梁" loading="lazy"></div>
+
+      <h3 style="margin-top:48px">可選配色方案</h3>
+      <p class="lead" style="margin-bottom:18px">黑框、白框各三種板色，共六款搭配。</p>
+      <div class="colors">
+        <figure><img src="img/c1.jpg" alt="" loading="lazy"><figcaption>黑框木紋</figcaption></figure>
+        <figure><img src="img/c2.jpg" alt="" loading="lazy"><figcaption>黑框白板</figcaption></figure>
+        <figure><img src="img/c3.jpg" alt="" loading="lazy"><figcaption>黑框黑板</figcaption></figure>
+        <figure><img src="img/c4.jpg" alt="" loading="lazy"><figcaption>白框木紋</figcaption></figure>
+        <figure><img src="img/c5.jpg" alt="" loading="lazy"><figcaption>白框白板</figcaption></figure>
+        <figure><img src="img/c6.jpg" alt="" loading="lazy"><figcaption>白框黑板</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 折疊屋 -->
+  <section id="fold" class="white">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <div class="eyebrow">Folding Modular House</div>
+          <h2>折疊屋<small>極速安裝 快速移動</small></h2>
+          <p class="lead" style="margin-bottom:20px">以「極速安裝」為核心設計。專利折疊式鋼構框架在工廠預製完成，現場只需 <b>20 分鐘</b>即可展開投入使用。拆裝簡單、占地小、運輸便利，可作為宿舍、臨時辦公室、倉儲、農地小屋，並可聯排、可堆疊。廣泛用於建築工地、大型營地與救災營地、臨時醫療設施等緊急場合。</p>
+          <dl class="dim">
+            <dt>展開尺寸</dt><dd>L 5800 × W 2470 × H 2450 mm</dd>
+            <dt>折疊尺寸</dt><dd>L 5800 × W 2470 × H 320 mm</dd>
+            <dt>占地面積</dt><dd>14.33 m²</dd>
+          </dl>
+          <div class="rating" style="margin-top:18px">
+            <span>擴展指數</span><span class="stars">★★★<i>★★</i></span>
+            <span>客製指數</span><span class="stars">★<i>★★★★</i></span>
+            <span>牢固指數</span><span class="stars">★★★<i>★★</i></span>
+            <span>移動指數</span><span class="stars">★★★★★</span>
+          </div>
+          <div class="tags"><span class="tag">宿舍</span><span class="tag">農舍</span><span class="tag">辦公室</span><span class="tag">營業空間</span><span class="tag">應急支援</span><span class="tag">移動廚衛</span><span class="tag">存儲倉庫</span></div>
+        </div>
+        <div class="photo"><img src="img/fold-stack.jpg" alt="雙層堆疊折疊屋，附走廊欄杆" loading="lazy"></div>
+      </div>
+      <div class="grid2 wide">
+        <div class="photo"><img src="img/fold-lift.jpg" alt="折疊屋吊掛進場" loading="lazy"></div>
+        <div class="photo"><img src="img/fold-row.jpg" alt="多單元聯排折疊屋" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 展翼屋 -->
+  <section id="wing">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <div class="eyebrow">Wing Modular House</div>
+          <h2>展翼屋<small>預製模組化 客製彈性高</small></h2>
+          <p class="lead" style="margin-bottom:20px">以預製化鋼構技術打造，可快速搭建、移動和擴展；外觀近似展開的翅膀因此得名。單層配置，上層可加設平台，下層可作住家、接待空間或商業用途。工期短、結構輕、成本效益高、可客製化，<b>30 分鐘</b>快速收展開部署。</p>
+          <div class="rating">
+            <span>擴展指數</span><span class="stars">★★<i>★★★</i></span>
+            <span>客製指數</span><span class="stars">★★★★<i>★</i></span>
+            <span>牢固指數</span><span class="stars">★★★★<i>★</i></span>
+            <span>移動指數</span><span class="stars">★★★★<i>★</i></span>
+          </div>
+          <div class="tags"><span class="tag">宿舍</span><span class="tag">農舍</span><span class="tag">辦公室</span><span class="tag">營業空間</span></div>
+        </div>
+        <div class="photo"><img src="img/wing.jpg" alt="木紋展翼屋實景" loading="lazy"></div>
+      </div>
+
+      <div class="grid2 wide">
+        <div class="card"><div class="im"><img src="img/w10.jpg" alt="10呎展翼屋" loading="lazy"></div><div class="bd">
+          <h3>10呎展翼屋</h3>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L2950 × W6440 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L2370 × W6140 × H2240 mm</dd><dt>折疊尺寸</dt><dd>L2950 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>18.5 m²</dd></dl>
+          <p>個人居住／宿舍住屋的實用型小宅，一房一廳一衛。適合員工宿舍、工地住宿、農地休憩屋。</p>
+        </div></div>
+        <div class="card"><div class="im"><img src="img/w20.jpg" alt="20呎展翼屋" loading="lazy"></div><div class="bd">
+          <h3>20呎展翼屋</h3>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L5900 × W6480 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L5460 × W6320 × H2235 mm</dd><dt>折疊尺寸</dt><dd>L5900 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>36.7 m²</dd></dl>
+          <p>小宅機能完整＋空間配置彈性，可規劃一房或多房，整合客廳、廚房與衛浴。</p>
+        </div></div>
+        <div class="card"><div class="im"><img src="img/w30.jpg" alt="30呎展翼屋" loading="lazy"></div><div class="bd">
+          <h3>30呎展翼屋</h3>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L9000 × W6220 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L8400 × W6080 × H2200 mm</dd><dt>折疊尺寸</dt><dd>L9000 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>56 m²</dd></dl>
+          <p>大空間＋多房型規劃，適合家庭住宅、員工宿舍、民宿接待。</p>
+        </div></div>
+        <div class="card"><div class="im"><img src="img/w40.jpg" alt="40呎展翼屋" loading="lazy"></div><div class="bd">
+          <h3>40呎展翼屋</h3>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L11800 × W6220 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L11200 × W6080 × H2200 mm</dd><dt>折疊尺寸</dt><dd>L11800 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>74.8 m²</dd></dl>
+          <p>中大型專案的彈性空間方案：工務辦公、管理中心、營運型空間。</p>
+        </div></div>
+        <div class="card"><div class="im"><img src="img/f720.jpg" alt="F720展翼屋" loading="lazy"></div><div class="bd">
+          <h3>F720 展翼屋</h3>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L5900 × W5000 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L5460 × W4400 × H2310 mm</dd><dt>折疊尺寸</dt><dd>L5900 × W720 × H2480 mm</dd><dt>占地面積</dt><dd>29.5 m²</dd></dl>
+          <p>開放式大空間，展開即成型，適合辦公、接待、工作室、展示空間。</p>
+        </div></div>
+        <div class="card"><div class="im"><img src="img/f750.jpg" alt="F750展翼屋" loading="lazy"></div><div class="bd">
+          <h3>F750 展翼屋</h3>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L5900 × W5030 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L5460 × W4430 × H2310 mm</dd><dt>折疊尺寸</dt><dd>L5900 × W750 × H2480 mm</dd><dt>占地面積</dt><dd>29.7 m²</dd></dl>
+          <p>格局可自由規劃，適合農用作業間、宿舍住屋等多元場景。</p>
+        </div></div>
+      </div>
+
+      <div class="wide"><img src="img/wing-diagram.jpg" alt="展翼屋結構圖：50mm 竹木纖維石墨烯保溫一體板屋頂、斷橋鋁窗、防火玻鎂地板" loading="lazy"></div>
+      <div class="wide"><img src="img/wing-steps.jpg" alt="展翼屋 30 分鐘五步驟展開示意" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- 太空艙 -->
+  <section id="capsule" class="white">
+    <div class="wrap">
+      <div class="eyebrow">Space Capsule House</div>
+      <h2>太空艙<small>140萬頂級裝潢 3小時火速落地</small></h2>
+      <p class="lead">太空艙（Capsule House）又稱蘋果艙，是現代化預製模塊移動住宅。鋁合金或金屬外殼、內裝完善，隔熱與防震性佳，以科技感外觀和快速裝配為特色，適合景觀民宿、豪華露營、商業空間與 VIP 接洽。</p>
+      <div class="photo" style="margin-bottom:22px"><img src="img/capsule.jpg" alt="湖畔太空艙，搭配天幕與戶外餐桌" loading="lazy"></div>
+      <div class="caps">
+        <div class="card"><div class="im"><img src="img/t6.jpg" alt="T6 太空艙" loading="lazy"></div><div class="bd"><h3>T6</h3><dl class="dim"><dt>尺寸</dt><dd>L8500 × W3300 × H3300</dd><dt>建築面積</dt><dd>28.05 m²</dd><dt>容納</dt><dd>4–6 人</dd></dl></div></div>
+        <div class="card"><div class="im"><img src="img/t8.jpg" alt="T8 太空艙" loading="lazy"></div><div class="bd"><h3>T8</h3><dl class="dim"><dt>尺寸</dt><dd>L11500 × W3300 × H3300</dd><dt>建築面積</dt><dd>37.95 m²</dd><dt>容納</dt><dd>4–6 人</dd></dl></div></div>
+        <div class="card"><div class="im"><img src="img/t9.jpg" alt="T9 太空艙" loading="lazy"></div><div class="bd"><h3>T9</h3><dl class="dim"><dt>尺寸</dt><dd>L11500 × W3300 × H3300</dd><dt>建築面積</dt><dd>37.95 m²</dd><dt>容納</dt><dd>4–6 人</dd></dl></div></div>
+        <div class="card"><div class="im"><img src="img/t10.jpg" alt="T10 太空艙" loading="lazy"></div><div class="bd"><h3>T10</h3><dl class="dim"><dt>尺寸</dt><dd>L9600 × W3300 × H3300</dd><dt>建築面積</dt><dd>31.68 m²</dd><dt>容納</dt><dd>4–6 人</dd></dl></div></div>
+      </div>
+      <p class="lead" style="margin:14px 0 0;font-size:14px">各型號最大耗電量 12 kW，室內地面承載力 500 kg/m²。</p>
+    </div>
+  </section>
+
+  <!-- 衛浴 -->
+  <section id="bath">
+    <div class="wrap">
+      <div class="eyebrow">Bathroom</div>
+      <h2>衛浴方案<small>搭配可選衛浴 豐儉由人</small></h2>
+      <p class="lead">客製化衛浴依空間需求彈性規劃，分為室內隔間衛浴與戶外獨立衛浴；也有工廠預製的一體式衛浴模組，安裝快速、防潮防霉、清潔方便。</p>
+      <div class="grid4">
+        <div class="card"><div class="im"><img src="img/bath-out.jpg" alt="戶外貼磁衛浴" loading="lazy"></div><div class="bd"><h3>戶外貼磁衛浴</h3><p style="margin-top:0">1700 × 2600 × 2800 mm</p></div></div>
+        <div class="card"><div class="im cover"><img src="img/bath-in3.jpg" alt="室內貼磁衛浴" loading="lazy"></div><div class="bd"><h3>室內貼磁衛浴</h3><p style="margin-top:0">1500 × 2400 × 2500 mm</p></div></div>
+        <div class="card"><div class="im"><img src="img/bath-jp.jpg" alt="日式一體式衛浴" loading="lazy"></div><div class="bd"><h3>日式衛浴</h3><p style="margin-top:0">220v 抽風式<br>1480 × 2080 × 2250 mm</p></div></div>
+        <div class="card"><div class="im"><img src="img/bath-l.jpg" alt="大衛浴一體式" loading="lazy"></div><div class="bd"><h3>大衛浴 / 小衛浴</h3><p style="margin-top:0">220v 抽風式<br>1200 × 1900 × 2200 mm<br>1100 × 1400 × 2200 mm</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 實績 -->
+  <section id="cases" class="white">
+    <div class="wrap">
+      <div class="eyebrow">Featured Cases</div>
+      <h2>精彩實績</h2>
+      <p class="lead">從 9 坪小屋到 183 坪三層住宅，全台各地完工案例。</p>
+      <div class="filters" role="group" aria-label="依地區篩選">
+        <button type="button" data-f="all" aria-pressed="true">全部</button>
+        <button type="button" data-f="雲林" aria-pressed="false">雲林</button>
+        <button type="button" data-f="嘉義" aria-pressed="false">嘉義</button>
+        <button type="button" data-f="南投" aria-pressed="false">南投</button>
+        <button type="button" data-f="高雄" aria-pressed="false">高雄</button>
+        <button type="button" data-f="其他" aria-pressed="false">其他縣市</button>
+      </div>
+      <div class="cases" id="caseGrid">
+        <article class="case" data-r="雲林"><img src="img/case10-big.jpg" alt="" loading="lazy"><div class="bd"><div><h3>雲林麥寮豪華住宅</h3><div class="lay">10房8廳2廚4衛3倉</div></div><div class="ping">183.8<small>坪</small></div></div></article>
+        <article class="case" data-r="其他"><img src="img/case7-big.jpg" alt="" loading="lazy"><div class="bd"><div><h3>台中雙層小屋</h3><div class="lay">2房2廳1廚2衛</div></div><div class="ping">94<small>坪</small></div></div></article>
+        <article class="case" data-r="嘉義"><img src="img/case8-2.jpg" alt="" loading="lazy"><div class="bd"><div><h3>嘉義水上廠房</h3><div class="lay">開放式空間</div></div><div class="ping">76.8<small>坪</small></div></div></article>
+        <article class="case" data-r="雲林"><img src="img/case7-2.jpg" alt="" loading="lazy"><div class="bd"><div><h3>雲林雙層小屋</h3><div class="lay">3房1廳1廚2衛</div></div><div class="ping">75<small>坪</small></div></div></article>
+        <article class="case" data-r="南投"><img src="img/case11-big.jpg" alt="" loading="lazy"><div class="bd"><div><h3>南投中寮景觀房</h3><div class="lay">3房2廳1廚2衛</div></div><div class="ping">43.2<small>坪</small></div></div></article>
+        <article class="case" data-r="其他"><img src="img/case8-big.jpg" alt="" loading="lazy"><div class="bd"><div><h3>桃園蘆竹辦公空間</h3><div class="lay">5房3廳1廚2衛</div></div><div class="ping">38.4<small>坪</small></div></div></article>
+        <article class="case" data-r="雲林"><img src="img/case11-1.jpg" alt="" loading="lazy"><div class="bd"><div><h3>雲林復古厝屋</h3><div class="lay">4房1廳1廚3衛</div></div><div class="ping">33.9<small>坪</small></div></div></article>
+        <article class="case" data-r="雲林"><img src="img/case9-big.jpg" alt="" loading="lazy"><div class="bd"><div><h3>雲林雙層小屋</h3><div class="lay">4房1廳1廚2衛1倉</div></div><div class="ping">32.6<small>坪</small></div></div></article>
+        <article class="case" data-r="其他"><img src="img/case11-2.jpg" alt="" loading="lazy"><div class="bd"><div><h3>苗栗泰安小木屋</h3><div class="lay">3房1廳1廚2衛</div></div><div class="ping">28.8<small>坪</small></div></div></article>
+        <article class="case" data-r="雲林"><img src="img/case8-1.jpg" alt="" loading="lazy"><div class="bd"><div><h3>雲林日式小屋</h3><div class="lay">2房1廳1廚1衛</div></div><div class="ping">24.2<small>坪</small></div></div></article>
+        <article class="case" data-r="高雄"><img src="img/case10-0.jpg" alt="" loading="lazy"><div class="bd"><div><h3>高雄岡山三合院</h3><div class="lay">2房1廳廚2衛</div></div><div class="ping">24<small>坪</small></div></div></article>
+        <article class="case" data-r="南投"><img src="img/case10-1.jpg" alt="" loading="lazy"><div class="bd"><div><h3>南投山林招待所</h3><div class="lay">3房1廳廚3衛</div></div><div class="ping">21.6<small>坪</small></div></div></article>
+        <article class="case" data-r="雲林"><img src="img/case9-1.jpg" alt="" loading="lazy"><div class="bd"><div><h3>雲林麥寮復古厝屋</h3><div class="lay">1房1廳1廚1衛</div></div><div class="ping">18.15<small>坪</small></div></div></article>
+        <article class="case" data-r="雲林"><img src="img/case10-2.jpg" alt="" loading="lazy"><div class="bd"><div><h3>雲林斗南小屋</h3><div class="lay">2房2廳1廚2衛1倉</div></div><div class="ping">18.1<small>坪</small></div></div></article>
+        <article class="case" data-r="雲林"><img src="img/case9-0.jpg" alt="" loading="lazy"><div class="bd"><div><h3>雲林厝屋</h3><div class="lay">1房1廳1衛</div></div><div class="ping">18<small>坪</small></div></div></article>
+        <article class="case" data-r="其他"><img src="img/case7-1.jpg" alt="" loading="lazy"><div class="bd"><div><h3>彰化田園小屋</h3><div class="lay">1房1廳1廚1衛</div></div><div class="ping">15.1<small>坪</small></div></div></article>
+        <article class="case" data-r="雲林"><img src="img/case9-2.jpg" alt="" loading="lazy"><div class="bd"><div><h3>雲林口湖厝屋庭院</h3><div class="lay">1房1衛</div></div><div class="ping">15<small>坪</small></div></div></article>
+        <article class="case" data-r="高雄"><img src="img/case8-0.jpg" alt="" loading="lazy"><div class="bd"><div><h3>高雄精緻雅居</h3><div class="lay">1房1廳1衛</div></div><div class="ping">14.5<small>坪</small></div></div></article>
+        <article class="case" data-r="其他"><img src="img/case11-0.jpg" alt="" loading="lazy"><div class="bd"><div><h3>台南白河小屋</h3><div class="lay">1房1廳1衛</div></div><div class="ping">10<small>坪</small></div></div></article>
+        <article class="case" data-r="嘉義"><img src="img/case7-0.jpg" alt="" loading="lazy"><div class="bd"><div><h3>嘉義山丘小屋</h3><div class="lay">1房1衛</div></div><div class="ping">9.1<small>坪</small></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 流程 -->
+  <section id="process">
+    <div class="wrap">
+      <div class="eyebrow">12 Steps</div>
+      <h2>12 道工序嚴控 組合屋快人一步</h2>
+      <p class="lead">標準化流程・嚴格品質控管・省時高效・安心入住</p>
+      <div class="steps">
+        <div class="step"><img src="img/step1.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 01</span><b>參觀</b><p>實際了解產品與多種戶型配置</p></div></div>
+        <div class="step"><img src="img/step2.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 02</span><b>規劃／畫圖</b><p>依需求客製設計，確認平面配置與外觀風格</p></div></div>
+        <div class="step"><img src="img/step3.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 03</span><b>場勘／收訂金</b><p>現場勘查、確認場地條件，簽約並收取訂金</p></div></div>
+        <div class="step"><img src="img/step4.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 04</span><b>拆除</b><p>如有舊建物先進行拆除並清運廢棄物</p></div></div>
+        <div class="step"><img src="img/step5.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 05</span><b>整地</b><p>場地整理、放樣定位，確保基礎平整穩固</p></div></div>
+        <div class="step"><img src="img/step6.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 06</span><b>化糞池</b><p>安裝化糞池系統，配置排污管線</p></div></div>
+        <div class="step"><img src="img/step7.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 07</span><b>水泥澆鑄</b><p>澆鑄基礎，確保結構穩固耐用</p></div></div>
+        <div class="step"><img src="img/step8.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 08</span><b>組合屋進場</b><p>運送組合屋至現場，吊裝定位</p></div></div>
+        <div class="step"><img src="img/step9.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 09</span><b>屋頂</b><p>安裝屋頂結構與鋪板，加強防水與隔熱</p></div></div>
+        <div class="step"><img src="img/step10.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 10</span><b>水電</b><p>進行給排水與電力配置，完成基本系統</p></div></div>
+        <div class="step"><img src="img/step11.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 11</span><b>細部收尾</b><p>收邊處理、細節檢查，完成內外裝修</p></div></div>
+        <div class="step"><img src="img/step12.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 12</span><b>完工</b><p>驗收交屋，立即入住開啟新生活</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 聯絡 -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="eyebrow" style="color:var(--lime)">Contact</div>
+      <h2>預約參觀展場</h2>
+      <p class="lead">我們將為您保留專屬的服務時段，採預約制！</p>
+      <div class="phones">
+        <a href="tel:0979259678"><span>廖先生</span><b>0979-259-678</b></a>
+        <a href="tel:0916498832"><span>林先生</span><b>0916-498-832</b></a>
+        <a href="tel:0929010882"><span>廖先生</span><b>0929-010-882</b></a>
+        <a href="tel:055984663"><span>辦公室展場</span><b>05-598-4663</b></a>
+      </div>
+      <div class="crow">
+        <div class="qr"><img src="img/line-qr.jpg" alt="LINE 官方帳號 QR Code，ID @aa168"></div>
+        <div class="info">
+          <div>地址：649 雲林縣二崙鄉楊賢路 113-118　<a href="https://www.google.com/maps/search/?api=1&query=雲林縣二崙鄉楊賢路113" target="_blank" rel="noopener">Google 地圖導航</a></div>
+          <div>LINE：<b>@aa168</b></div>
+          <div class="social">
+            <a href="https://line.me/R/ti/p/@aa168" target="_blank" rel="noopener">加入 LINE</a>
+            <a href="https://www.facebook.com/search/top?q=富林輕鋼輕鋼構組合屋" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://www.youtube.com/@富林組合屋材料有限公司" target="_blank" rel="noopener">YouTube</a>
+            <a href="https://www.tiktok.com/@f00252424pin" target="_blank" rel="noopener">TikTok</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>© 富林組合屋　Fulin Modular Homes</footer>
+
+<div class="fab">
+  <a class="line" href="https://line.me/R/ti/p/@aa168" aria-label="加入 LINE"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-5.9C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg></a>
+  <a class="call" href="tel:0929010882" aria-label="撥打電話"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>
+</div>
+
+<script>
+document.querySelectorAll('.filters button').forEach(function(b){
+  b.addEventListener('click',function(){
+    var f=b.dataset.f;
+    document.querySelectorAll('.filters button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    document.querySelectorAll('#caseGrid .case').forEach(function(c){c.style.display=(f==='all'||c.dataset.r===f)?'':'none'});
+  });
+});
+</script>
+</body>
+</html>
