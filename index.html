@@ -133,6 +133,14 @@ dialog.lb::backdrop{background:rgba(0,0,0,.7)}
 .lb .bx{background:#fff;display:flex;justify-content:center;padding:12px}
 .lb img{max-width:100%;max-height:78vh;width:auto;height:auto;object-fit:contain;image-rendering:auto}
 .lb .note{font-size:12px;color:var(--mute);text-align:center;padding:0 12px 12px}
+.gal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.gi{all:unset;cursor:zoom-in;border-radius:12px;overflow:hidden;display:block;background:#ddd;aspect-ratio:4/3}
+.gi:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .25s}
+.gi:hover img{transform:scale(1.04)}
+.gi.hide{display:none}
+@media (max-width:960px){.gal{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:600px){.gal{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}
 /* capsule */
 .caps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
 .caps .card .im{padding:0;aspect-ratio:16/9}
@@ -206,6 +214,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
     <nav class="menu" aria-label="主選單">
       <a href="#steel">組合屋</a>
       <a href="#cases">精彩實績</a>
+      <a href="#gallery">實拍相簿</a>
       <a href="#bath">衛浴</a>
       <a href="#wing">展翼屋</a>
       <a href="#fold">折疊屋</a>
@@ -468,6 +477,140 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
     </div>
   </section>
 
+  <!-- 相簿 -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="eyebrow">Real Photos</div>
+      <h2>實拍相簿<small>全台完工現場，依類型瀏覽</small></h2>
+      <p class="lead">以下皆為富林組合屋實際完工照片。點分類篩選，點照片放大。</p>
+      <div class="filters gf" role="group" aria-label="依類型篩選">
+        <button type="button" data-g="all" aria-pressed="true">全部 103</button>
+        <button type="button" data-g="黑框木紋" aria-pressed="false">黑框木紋 9</button>
+        <button type="button" data-g="黑框白板" aria-pressed="false">黑框白板 8</button>
+        <button type="button" data-g="黑框灰黑" aria-pressed="false">黑框灰黑 6</button>
+        <button type="button" data-g="白框木紋" aria-pressed="false">白框木紋 6</button>
+        <button type="button" data-g="白框白板" aria-pressed="false">白框白板 8</button>
+        <button type="button" data-g="白框灰黑" aria-pressed="false">白框灰黑 9</button>
+        <button type="button" data-g="二樓・三樓" aria-pressed="false">二樓・三樓 13</button>
+        <button type="button" data-g="陽台加蓋・高架" aria-pressed="false">陽台加蓋・高架 7</button>
+        <button type="button" data-g="室內組合屋" aria-pressed="false">室內組合屋 6</button>
+        <button type="button" data-g="宿舍・民宿" aria-pressed="false">宿舍・民宿 7</button>
+        <button type="button" data-g="店面・車庫・宮廟" aria-pressed="false">店面・車庫・宮廟 6</button>
+        <button type="button" data-g="挑高室內" aria-pressed="false">挑高室內 3</button>
+        <button type="button" data-g="折疊屋" aria-pressed="false">折疊屋 8</button>
+        <button type="button" data-g="展翼屋" aria-pressed="false">展翼屋 1</button>
+        <button type="button" data-g="太空艙" aria-pressed="false">太空艙 1</button>
+        <button type="button" data-g="輕鋼構" aria-pressed="false">輕鋼構 5</button>
+      </div>
+      <div class="gal" id="galGrid">
+        <button type="button" class="gi" data-g="黑框木紋" data-src="img/gal/0.jpg" data-t="黑框木紋" aria-label="放大黑框木紋實拍照片"><img src="img/gal/0t.jpg" alt="黑框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框木紋" data-src="img/gal/1.jpg" data-t="黑框木紋" aria-label="放大黑框木紋實拍照片"><img src="img/gal/1t.jpg" alt="黑框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框木紋" data-src="img/gal/2.jpg" data-t="黑框木紋" aria-label="放大黑框木紋實拍照片"><img src="img/gal/2t.jpg" alt="黑框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框木紋" data-src="img/gal/3.jpg" data-t="黑框木紋" aria-label="放大黑框木紋實拍照片"><img src="img/gal/3t.jpg" alt="黑框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框木紋" data-src="img/gal/4.jpg" data-t="黑框木紋" aria-label="放大黑框木紋實拍照片"><img src="img/gal/4t.jpg" alt="黑框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框木紋" data-src="img/gal/5.jpg" data-t="黑框木紋" aria-label="放大黑框木紋實拍照片"><img src="img/gal/5t.jpg" alt="黑框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框木紋" data-src="img/gal/6.jpg" data-t="黑框木紋" aria-label="放大黑框木紋實拍照片"><img src="img/gal/6t.jpg" alt="黑框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框木紋" data-src="img/gal/7.jpg" data-t="黑框木紋" aria-label="放大黑框木紋實拍照片"><img src="img/gal/7t.jpg" alt="黑框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框木紋" data-src="img/gal/8.jpg" data-t="黑框木紋" aria-label="放大黑框木紋實拍照片"><img src="img/gal/8t.jpg" alt="黑框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框白板" data-src="img/gal/9.jpg" data-t="黑框白板" aria-label="放大黑框白板實拍照片"><img src="img/gal/9t.jpg" alt="黑框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框白板" data-src="img/gal/10.jpg" data-t="黑框白板" aria-label="放大黑框白板實拍照片"><img src="img/gal/10t.jpg" alt="黑框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框白板" data-src="img/gal/11.jpg" data-t="黑框白板" aria-label="放大黑框白板實拍照片"><img src="img/gal/11t.jpg" alt="黑框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框白板" data-src="img/gal/12.jpg" data-t="黑框白板" aria-label="放大黑框白板實拍照片"><img src="img/gal/12t.jpg" alt="黑框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框白板" data-src="img/gal/13.jpg" data-t="黑框白板" aria-label="放大黑框白板實拍照片"><img src="img/gal/13t.jpg" alt="黑框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框白板" data-src="img/gal/14.jpg" data-t="黑框白板" aria-label="放大黑框白板實拍照片"><img src="img/gal/14t.jpg" alt="黑框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框白板" data-src="img/gal/15.jpg" data-t="黑框白板" aria-label="放大黑框白板實拍照片"><img src="img/gal/15t.jpg" alt="黑框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框白板" data-src="img/gal/16.jpg" data-t="黑框白板" aria-label="放大黑框白板實拍照片"><img src="img/gal/16t.jpg" alt="黑框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框灰黑" data-src="img/gal/17.jpg" data-t="黑框灰黑" aria-label="放大黑框灰黑實拍照片"><img src="img/gal/17t.jpg" alt="黑框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框灰黑" data-src="img/gal/18.jpg" data-t="黑框灰黑" aria-label="放大黑框灰黑實拍照片"><img src="img/gal/18t.jpg" alt="黑框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框灰黑" data-src="img/gal/19.jpg" data-t="黑框灰黑" aria-label="放大黑框灰黑實拍照片"><img src="img/gal/19t.jpg" alt="黑框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框灰黑" data-src="img/gal/20.jpg" data-t="黑框灰黑" aria-label="放大黑框灰黑實拍照片"><img src="img/gal/20t.jpg" alt="黑框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框灰黑" data-src="img/gal/21.jpg" data-t="黑框灰黑" aria-label="放大黑框灰黑實拍照片"><img src="img/gal/21t.jpg" alt="黑框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="黑框灰黑" data-src="img/gal/22.jpg" data-t="黑框灰黑" aria-label="放大黑框灰黑實拍照片"><img src="img/gal/22t.jpg" alt="黑框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框木紋" data-src="img/gal/23.jpg" data-t="白框木紋" aria-label="放大白框木紋實拍照片"><img src="img/gal/23t.jpg" alt="白框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框木紋" data-src="img/gal/24.jpg" data-t="白框木紋" aria-label="放大白框木紋實拍照片"><img src="img/gal/24t.jpg" alt="白框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框木紋" data-src="img/gal/25.jpg" data-t="白框木紋" aria-label="放大白框木紋實拍照片"><img src="img/gal/25t.jpg" alt="白框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框木紋" data-src="img/gal/26.jpg" data-t="白框木紋" aria-label="放大白框木紋實拍照片"><img src="img/gal/26t.jpg" alt="白框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框木紋" data-src="img/gal/27.jpg" data-t="白框木紋" aria-label="放大白框木紋實拍照片"><img src="img/gal/27t.jpg" alt="白框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框木紋" data-src="img/gal/28.jpg" data-t="白框木紋" aria-label="放大白框木紋實拍照片"><img src="img/gal/28t.jpg" alt="白框木紋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框白板" data-src="img/gal/29.jpg" data-t="白框白板" aria-label="放大白框白板實拍照片"><img src="img/gal/29t.jpg" alt="白框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框白板" data-src="img/gal/30.jpg" data-t="白框白板" aria-label="放大白框白板實拍照片"><img src="img/gal/30t.jpg" alt="白框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框白板" data-src="img/gal/31.jpg" data-t="白框白板" aria-label="放大白框白板實拍照片"><img src="img/gal/31t.jpg" alt="白框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框白板" data-src="img/gal/32.jpg" data-t="白框白板" aria-label="放大白框白板實拍照片"><img src="img/gal/32t.jpg" alt="白框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框白板" data-src="img/gal/33.jpg" data-t="白框白板" aria-label="放大白框白板實拍照片"><img src="img/gal/33t.jpg" alt="白框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框白板" data-src="img/gal/34.jpg" data-t="白框白板" aria-label="放大白框白板實拍照片"><img src="img/gal/34t.jpg" alt="白框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框白板" data-src="img/gal/35.jpg" data-t="白框白板" aria-label="放大白框白板實拍照片"><img src="img/gal/35t.jpg" alt="白框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框白板" data-src="img/gal/36.jpg" data-t="白框白板" aria-label="放大白框白板實拍照片"><img src="img/gal/36t.jpg" alt="白框白板實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框灰黑" data-src="img/gal/37.jpg" data-t="白框灰黑" aria-label="放大白框灰黑實拍照片"><img src="img/gal/37t.jpg" alt="白框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框灰黑" data-src="img/gal/38.jpg" data-t="白框灰黑" aria-label="放大白框灰黑實拍照片"><img src="img/gal/38t.jpg" alt="白框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框灰黑" data-src="img/gal/39.jpg" data-t="白框灰黑" aria-label="放大白框灰黑實拍照片"><img src="img/gal/39t.jpg" alt="白框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框灰黑" data-src="img/gal/40.jpg" data-t="白框灰黑" aria-label="放大白框灰黑實拍照片"><img src="img/gal/40t.jpg" alt="白框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框灰黑" data-src="img/gal/41.jpg" data-t="白框灰黑" aria-label="放大白框灰黑實拍照片"><img src="img/gal/41t.jpg" alt="白框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框灰黑" data-src="img/gal/42.jpg" data-t="白框灰黑" aria-label="放大白框灰黑實拍照片"><img src="img/gal/42t.jpg" alt="白框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框灰黑" data-src="img/gal/43.jpg" data-t="白框灰黑" aria-label="放大白框灰黑實拍照片"><img src="img/gal/43t.jpg" alt="白框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框灰黑" data-src="img/gal/44.jpg" data-t="白框灰黑" aria-label="放大白框灰黑實拍照片"><img src="img/gal/44t.jpg" alt="白框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="白框灰黑" data-src="img/gal/45.jpg" data-t="白框灰黑" aria-label="放大白框灰黑實拍照片"><img src="img/gal/45t.jpg" alt="白框灰黑實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/46.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/46t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/47.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/47t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/48.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/48t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/49.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/49t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/50.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/50t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/51.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/51t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/52.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/52t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/53.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/53t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/54.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/54t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/55.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/55t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/56.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/56t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/57.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/57t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="二樓・三樓" data-src="img/gal/58.jpg" data-t="二樓・三樓" aria-label="放大二樓・三樓實拍照片"><img src="img/gal/58t.jpg" alt="二樓・三樓實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="陽台加蓋・高架" data-src="img/gal/59.jpg" data-t="陽台加蓋・高架" aria-label="放大陽台加蓋・高架實拍照片"><img src="img/gal/59t.jpg" alt="陽台加蓋・高架實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="陽台加蓋・高架" data-src="img/gal/60.jpg" data-t="陽台加蓋・高架" aria-label="放大陽台加蓋・高架實拍照片"><img src="img/gal/60t.jpg" alt="陽台加蓋・高架實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="陽台加蓋・高架" data-src="img/gal/61.jpg" data-t="陽台加蓋・高架" aria-label="放大陽台加蓋・高架實拍照片"><img src="img/gal/61t.jpg" alt="陽台加蓋・高架實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="陽台加蓋・高架" data-src="img/gal/62.jpg" data-t="陽台加蓋・高架" aria-label="放大陽台加蓋・高架實拍照片"><img src="img/gal/62t.jpg" alt="陽台加蓋・高架實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="陽台加蓋・高架" data-src="img/gal/63.jpg" data-t="陽台加蓋・高架" aria-label="放大陽台加蓋・高架實拍照片"><img src="img/gal/63t.jpg" alt="陽台加蓋・高架實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="陽台加蓋・高架" data-src="img/gal/64.jpg" data-t="陽台加蓋・高架" aria-label="放大陽台加蓋・高架實拍照片"><img src="img/gal/64t.jpg" alt="陽台加蓋・高架實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="陽台加蓋・高架" data-src="img/gal/65.jpg" data-t="陽台加蓋・高架" aria-label="放大陽台加蓋・高架實拍照片"><img src="img/gal/65t.jpg" alt="陽台加蓋・高架實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="室內組合屋" data-src="img/gal/66.jpg" data-t="室內組合屋" aria-label="放大室內組合屋實拍照片"><img src="img/gal/66t.jpg" alt="室內組合屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="室內組合屋" data-src="img/gal/67.jpg" data-t="室內組合屋" aria-label="放大室內組合屋實拍照片"><img src="img/gal/67t.jpg" alt="室內組合屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="室內組合屋" data-src="img/gal/68.jpg" data-t="室內組合屋" aria-label="放大室內組合屋實拍照片"><img src="img/gal/68t.jpg" alt="室內組合屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="室內組合屋" data-src="img/gal/69.jpg" data-t="室內組合屋" aria-label="放大室內組合屋實拍照片"><img src="img/gal/69t.jpg" alt="室內組合屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="室內組合屋" data-src="img/gal/70.jpg" data-t="室內組合屋" aria-label="放大室內組合屋實拍照片"><img src="img/gal/70t.jpg" alt="室內組合屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="室內組合屋" data-src="img/gal/71.jpg" data-t="室內組合屋" aria-label="放大室內組合屋實拍照片"><img src="img/gal/71t.jpg" alt="室內組合屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="宿舍・民宿" data-src="img/gal/72.jpg" data-t="宿舍・民宿" aria-label="放大宿舍・民宿實拍照片"><img src="img/gal/72t.jpg" alt="宿舍・民宿實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="宿舍・民宿" data-src="img/gal/73.jpg" data-t="宿舍・民宿" aria-label="放大宿舍・民宿實拍照片"><img src="img/gal/73t.jpg" alt="宿舍・民宿實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="宿舍・民宿" data-src="img/gal/74.jpg" data-t="宿舍・民宿" aria-label="放大宿舍・民宿實拍照片"><img src="img/gal/74t.jpg" alt="宿舍・民宿實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="宿舍・民宿" data-src="img/gal/75.jpg" data-t="宿舍・民宿" aria-label="放大宿舍・民宿實拍照片"><img src="img/gal/75t.jpg" alt="宿舍・民宿實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="宿舍・民宿" data-src="img/gal/76.jpg" data-t="宿舍・民宿" aria-label="放大宿舍・民宿實拍照片"><img src="img/gal/76t.jpg" alt="宿舍・民宿實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="宿舍・民宿" data-src="img/gal/77.jpg" data-t="宿舍・民宿" aria-label="放大宿舍・民宿實拍照片"><img src="img/gal/77t.jpg" alt="宿舍・民宿實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="宿舍・民宿" data-src="img/gal/78.jpg" data-t="宿舍・民宿" aria-label="放大宿舍・民宿實拍照片"><img src="img/gal/78t.jpg" alt="宿舍・民宿實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="店面・車庫・宮廟" data-src="img/gal/79.jpg" data-t="店面・車庫・宮廟" aria-label="放大店面・車庫・宮廟實拍照片"><img src="img/gal/79t.jpg" alt="店面・車庫・宮廟實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="店面・車庫・宮廟" data-src="img/gal/80.jpg" data-t="店面・車庫・宮廟" aria-label="放大店面・車庫・宮廟實拍照片"><img src="img/gal/80t.jpg" alt="店面・車庫・宮廟實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="店面・車庫・宮廟" data-src="img/gal/81.jpg" data-t="店面・車庫・宮廟" aria-label="放大店面・車庫・宮廟實拍照片"><img src="img/gal/81t.jpg" alt="店面・車庫・宮廟實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="店面・車庫・宮廟" data-src="img/gal/82.jpg" data-t="店面・車庫・宮廟" aria-label="放大店面・車庫・宮廟實拍照片"><img src="img/gal/82t.jpg" alt="店面・車庫・宮廟實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="店面・車庫・宮廟" data-src="img/gal/83.jpg" data-t="店面・車庫・宮廟" aria-label="放大店面・車庫・宮廟實拍照片"><img src="img/gal/83t.jpg" alt="店面・車庫・宮廟實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="店面・車庫・宮廟" data-src="img/gal/84.jpg" data-t="店面・車庫・宮廟" aria-label="放大店面・車庫・宮廟實拍照片"><img src="img/gal/84t.jpg" alt="店面・車庫・宮廟實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="挑高室內" data-src="img/gal/85.jpg" data-t="挑高室內" aria-label="放大挑高室內實拍照片"><img src="img/gal/85t.jpg" alt="挑高室內實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="挑高室內" data-src="img/gal/86.jpg" data-t="挑高室內" aria-label="放大挑高室內實拍照片"><img src="img/gal/86t.jpg" alt="挑高室內實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="挑高室內" data-src="img/gal/87.jpg" data-t="挑高室內" aria-label="放大挑高室內實拍照片"><img src="img/gal/87t.jpg" alt="挑高室內實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="折疊屋" data-src="img/gal/88.jpg" data-t="折疊屋" aria-label="放大折疊屋實拍照片"><img src="img/gal/88t.jpg" alt="折疊屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="折疊屋" data-src="img/gal/89.jpg" data-t="折疊屋" aria-label="放大折疊屋實拍照片"><img src="img/gal/89t.jpg" alt="折疊屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="折疊屋" data-src="img/gal/90.jpg" data-t="折疊屋" aria-label="放大折疊屋實拍照片"><img src="img/gal/90t.jpg" alt="折疊屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="折疊屋" data-src="img/gal/91.jpg" data-t="折疊屋" aria-label="放大折疊屋實拍照片"><img src="img/gal/91t.jpg" alt="折疊屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="折疊屋" data-src="img/gal/92.jpg" data-t="折疊屋" aria-label="放大折疊屋實拍照片"><img src="img/gal/92t.jpg" alt="折疊屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="折疊屋" data-src="img/gal/93.jpg" data-t="折疊屋" aria-label="放大折疊屋實拍照片"><img src="img/gal/93t.jpg" alt="折疊屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="折疊屋" data-src="img/gal/94.jpg" data-t="折疊屋" aria-label="放大折疊屋實拍照片"><img src="img/gal/94t.jpg" alt="折疊屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="折疊屋" data-src="img/gal/95.jpg" data-t="折疊屋" aria-label="放大折疊屋實拍照片"><img src="img/gal/95t.jpg" alt="折疊屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="展翼屋" data-src="img/gal/96.jpg" data-t="展翼屋" aria-label="放大展翼屋實拍照片"><img src="img/gal/96t.jpg" alt="展翼屋實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="太空艙" data-src="img/gal/97.jpg" data-t="太空艙" aria-label="放大太空艙實拍照片"><img src="img/gal/97t.jpg" alt="太空艙實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="輕鋼構" data-src="img/gal/98.jpg" data-t="輕鋼構" aria-label="放大輕鋼構實拍照片"><img src="img/gal/98t.jpg" alt="輕鋼構實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="輕鋼構" data-src="img/gal/99.jpg" data-t="輕鋼構" aria-label="放大輕鋼構實拍照片"><img src="img/gal/99t.jpg" alt="輕鋼構實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="輕鋼構" data-src="img/gal/100.jpg" data-t="輕鋼構" aria-label="放大輕鋼構實拍照片"><img src="img/gal/100t.jpg" alt="輕鋼構實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="輕鋼構" data-src="img/gal/101.jpg" data-t="輕鋼構" aria-label="放大輕鋼構實拍照片"><img src="img/gal/101t.jpg" alt="輕鋼構實拍" loading="lazy"></button>
+        <button type="button" class="gi" data-g="輕鋼構" data-src="img/gal/102.jpg" data-t="輕鋼構" aria-label="放大輕鋼構實拍照片"><img src="img/gal/102t.jpg" alt="輕鋼構實拍" loading="lazy"></button>
+      </div>
+      <div style="text-align:center;margin-top:18px"><button type="button" class="btn t" id="galMore" style="border:0;cursor:pointer">顯示更多</button></div>
+    </div>
+  </section>
+
   <!-- 衛浴 -->
   <section id="bath" class="prod">
     <div class="pbar"><div class="wrap"><span class="pn">產品 02<i>/05</i></span><b>衛浴方案</b><span class="pe">Bathroom</span></div></div>
@@ -649,10 +792,10 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
 </div>
 
 <script>
-document.querySelectorAll('.filters button').forEach(function(b){
+document.querySelectorAll('.filters:not(.gf) button').forEach(function(b){
   b.addEventListener('click',function(){
     var f=b.dataset.f;
-    document.querySelectorAll('.filters button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    document.querySelectorAll('.filters:not(.gf) button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
     document.querySelectorAll('#caseGrid .case').forEach(function(c){c.style.display=(f==='all'||c.dataset.r===f)?'':'none'});
   });
 });
@@ -660,6 +803,18 @@ var lb=document.getElementById('lb');
 document.querySelectorAll('.plan').forEach(function(b){b.addEventListener('click',function(){document.getElementById('lbI').src=b.dataset.src;document.getElementById('lbI').alt=b.dataset.t;document.getElementById('lbT').textContent=b.dataset.t;lb.showModal();});});
 document.getElementById('lbX').addEventListener('click',function(){lb.close()});
 lb.addEventListener('click',function(e){if(e.target===lb)lb.close()});
+(function(){
+  var all=[].slice.call(document.querySelectorAll('#galGrid .gi')),cur='all',lim=12,more=document.getElementById('galMore');
+  function draw(){var shown=0;all.forEach(function(b){var ok=cur==='all'||b.dataset.g===cur;if(ok){shown++;b.classList.toggle('hide',shown>lim)}else b.classList.add('hide')});
+    var tot=all.filter(function(b){return cur==='all'||b.dataset.g===cur}).length;more.style.display=tot>lim?'':'none';}
+  document.querySelectorAll('.gf button').forEach(function(b){b.addEventListener('click',function(){cur=b.dataset.g;lim=12;
+    document.querySelectorAll('.gf button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});draw();});});
+  more.addEventListener('click',function(){lim+=12;draw();});
+  all.forEach(function(b){b.addEventListener('click',function(){var i=document.getElementById('lbI');i.src=b.dataset.src;i.alt=b.dataset.t+'實拍';
+    document.getElementById('lbT').textContent=b.dataset.t+'　實拍';document.querySelector('#lb .note').style.display='none';lb.showModal();});});
+  document.querySelectorAll('.plan').forEach(function(b){b.addEventListener('click',function(){document.querySelector('#lb .note').style.display='';});});
+  draw();
+})();
 </script>
 </body>
 </html>
