@@ -121,11 +121,13 @@ dl.dim dd{margin:0;font-variant-numeric:tabular-nums}
 .case .cfg dl{display:grid;grid-template-columns:auto 1fr;gap:4px 8px;margin:0;font-size:13px;line-height:1.55}
 .case .cfg dt{font-weight:700;color:var(--teal)}
 .case .cfg dd{margin:0;color:var(--ink)}
-dialog.lb{border:0;padding:0;border-radius:14px;max-width:min(96vw,1100px);width:100%;background:#fff}
+dialog.lb{border:0;padding:0;border-radius:14px;max-width:min(96vw,1000px);width:auto;background:#fff}
 dialog.lb::backdrop{background:rgba(0,0,0,.7)}
 .lb .hd{display:flex;justify-content:space-between;align-items:center;padding:10px 12px 10px 18px;font-weight:700;border-bottom:1px solid var(--line)}
 .lb .hd button{font:inherit;font-size:22px;line-height:1;width:44px;height:44px;border:0;background:var(--bg);border-radius:10px;cursor:pointer}
-.lb img{width:100%;max-height:80vh;object-fit:contain;background:#fff}
+.lb .bx{background:#fff;display:flex;justify-content:center;padding:12px}
+.lb img{max-width:100%;max-height:78vh;width:auto;height:auto;object-fit:contain;image-rendering:auto}
+.lb .note{font-size:12px;color:var(--mute);text-align:center;padding:0 12px 12px}
 /* capsule */
 .caps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
 .caps .card .im{padding:0;aspect-ratio:16/9}
@@ -292,7 +294,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case10-big.jpg" alt="雲林麥寮豪華住宅外觀" loading="lazy">
           <div class="bd"><div><h3>雲林麥寮豪華住宅</h3><div class="lay">10房8廳2廚4衛3倉</div></div><div class="ping">183.8<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan10-big.jpg" data-t="雲林麥寮豪華住宅　平面圖" aria-label="放大雲林麥寮豪華住宅平面圖"><img src="img/plan10-big.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan10-big.png" data-t="雲林麥寮豪華住宅　平面圖" aria-label="放大雲林麥寮豪華住宅平面圖"><img src="img/plan10-big.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>白框白板</dd><dt>配置</dt><dd>4×6m×6顆、3×6m×7顆、3×8m×2顆、客製尺寸×7顆、1×13.5m 露台、室內加高3.3米、磁磚衛浴×4座</dd></dl>
           </div>
         </article>
@@ -300,7 +302,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case7-big.jpg" alt="台中雙層小屋外觀" loading="lazy">
           <div class="bd"><div><h3>台中雙層小屋</h3><div class="lay">2房2廳1廚2衛</div></div><div class="ping">94<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan7-big.jpg" data-t="台中雙層小屋　平面圖" aria-label="放大台中雙層小屋平面圖"><img src="img/plan7-big.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan7-big.png" data-t="台中雙層小屋　平面圖" aria-label="放大台中雙層小屋平面圖"><img src="img/plan7-big.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>白框白板</dd><dt>配置</dt><dd>3×8m×2顆、4×8m×3顆、1×8m露台、2×8m露台、磁磚衛浴</dd></dl>
           </div>
         </article>
@@ -308,7 +310,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case8-2.jpg" alt="嘉義水上廠房外觀" loading="lazy">
           <div class="bd"><div><h3>嘉義水上廠房</h3><div class="lay">開放式空間</div></div><div class="ping">76.8<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan8-2.jpg" data-t="嘉義水上廠房　平面圖" aria-label="放大嘉義水上廠房平面圖"><img src="img/plan8-2.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan8-2.png" data-t="嘉義水上廠房　平面圖" aria-label="放大嘉義水上廠房平面圖"><img src="img/plan8-2.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>白框白板</dd><dt>配置</dt><dd>4×8m×8顆、室內加高3.7m、戶外總高4m</dd></dl>
           </div>
         </article>
@@ -316,7 +318,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case7-2.jpg" alt="雲林雙層小屋外觀" loading="lazy">
           <div class="bd"><div><h3>雲林雙層小屋</h3><div class="lay">3房1廳1廚2衛</div></div><div class="ping">75<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan7-2.jpg" data-t="雲林雙層小屋　平面圖" aria-label="放大雲林雙層小屋平面圖"><img src="img/plan7-2.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan7-2.png" data-t="雲林雙層小屋　平面圖" aria-label="放大雲林雙層小屋平面圖"><img src="img/plan7-2.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框黑板</dd><dt>配置</dt><dd>6×6m框架露台、2×8m露台、磁磚衛浴</dd></dl>
           </div>
         </article>
@@ -324,7 +326,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case11-big.jpg" alt="南投中寮景觀房外觀" loading="lazy">
           <div class="bd"><div><h3>南投中寮景觀房</h3><div class="lay">3房2廳1廚2衛</div></div><div class="ping">43.2<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan11-big.jpg" data-t="南投中寮景觀房　平面圖" aria-label="放大南投中寮景觀房平面圖"><img src="img/plan11-big.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan11-big.png" data-t="南投中寮景觀房　平面圖" aria-label="放大南投中寮景觀房平面圖"><img src="img/plan11-big.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框木紋</dd><dt>配置</dt><dd>4×6m×4顆、8×6m 露台</dd></dl>
           </div>
         </article>
@@ -332,7 +334,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case8-big.jpg" alt="桃園蘆竹辦公空間外觀" loading="lazy">
           <div class="bd"><div><h3>桃園蘆竹辦公空間</h3><div class="lay">5房3廳1廚2衛</div></div><div class="ping">38.4<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan8-big.jpg" data-t="桃園蘆竹辦公空間　平面圖" aria-label="放大桃園蘆竹辦公空間平面圖"><img src="img/plan8-big.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan8-big.png" data-t="桃園蘆竹辦公空間　平面圖" aria-label="放大桃園蘆竹辦公空間平面圖"><img src="img/plan8-big.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框白板</dd><dt>配置</dt><dd>4×8m×4顆、室內加高3m、6m落地窗×2組、一體式衛浴</dd></dl>
           </div>
         </article>
@@ -340,7 +342,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case11-1.jpg" alt="雲林復古厝屋外觀" loading="lazy">
           <div class="bd"><div><h3>雲林復古厝屋</h3><div class="lay">4房1廳1廚3衛</div></div><div class="ping">33.9<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan11-1.jpg" data-t="雲林復古厝屋　平面圖" aria-label="放大雲林復古厝屋平面圖"><img src="img/plan11-1.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan11-1.png" data-t="雲林復古厝屋　平面圖" aria-label="放大雲林復古厝屋平面圖"><img src="img/plan11-1.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框木紋</dd><dt>配置</dt><dd>4×8m×2顆、4×6m×1顆、客製2×6m×1顆</dd></dl>
           </div>
         </article>
@@ -348,7 +350,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case9-big.jpg" alt="雲林雙層小屋外觀" loading="lazy">
           <div class="bd"><div><h3>雲林雙層小屋</h3><div class="lay">4房1廳1廚2衛1倉</div></div><div class="ping">32.6<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan9-big.jpg" data-t="雲林雙層小屋　平面圖" aria-label="放大雲林雙層小屋平面圖"><img src="img/plan9-big.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan9-big.png" data-t="雲林雙層小屋　平面圖" aria-label="放大雲林雙層小屋平面圖"><img src="img/plan9-big.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框木紋</dd><dt>配置</dt><dd>4×6m×2顆、3×6m×2顆、2×6m×2顆、客製無障礙衛浴</dd></dl>
           </div>
         </article>
@@ -356,7 +358,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case11-2.jpg" alt="苗栗泰安小木屋外觀" loading="lazy">
           <div class="bd"><div><h3>苗栗泰安小木屋</h3><div class="lay">3房1廳1廚2衛</div></div><div class="ping">28.8<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan11-2.jpg" data-t="苗栗泰安小木屋　平面圖" aria-label="放大苗栗泰安小木屋平面圖"><img src="img/plan11-2.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan11-2.png" data-t="苗栗泰安小木屋　平面圖" aria-label="放大苗栗泰安小木屋平面圖"><img src="img/plan11-2.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框木紋</dd><dt>配置</dt><dd>4×6m×3顆、4×6m框架露台</dd></dl>
           </div>
         </article>
@@ -364,7 +366,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case8-1.jpg" alt="雲林日式小屋外觀" loading="lazy">
           <div class="bd"><div><h3>雲林日式小屋</h3><div class="lay">2房1廳1廚1衛</div></div><div class="ping">24.2<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan8-1.jpg" data-t="雲林日式小屋　平面圖" aria-label="放大雲林日式小屋平面圖"><img src="img/plan8-1.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan8-1.png" data-t="雲林日式小屋　平面圖" aria-label="放大雲林日式小屋平面圖"><img src="img/plan8-1.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框白板</dd><dt>配置</dt><dd>4×8m×2顆、1.7×1.8m客製玄關、2×8m框架露台、一體式衛浴</dd></dl>
           </div>
         </article>
@@ -372,7 +374,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case10-0.jpg" alt="高雄岡山三合院外觀" loading="lazy">
           <div class="bd"><div><h3>高雄岡山三合院</h3><div class="lay">2房1廳廚2衛</div></div><div class="ping">24<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan10-0.jpg" data-t="高雄岡山三合院　平面圖" aria-label="放大高雄岡山三合院平面圖"><img src="img/plan10-0.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan10-0.png" data-t="高雄岡山三合院　平面圖" aria-label="放大高雄岡山三合院平面圖"><img src="img/plan10-0.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框白板</dd><dt>配置</dt><dd>3×5m×1顆、4×6m×2顆</dd></dl>
           </div>
         </article>
@@ -380,7 +382,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case10-1.jpg" alt="南投山林招待所外觀" loading="lazy">
           <div class="bd"><div><h3>南投山林招待所</h3><div class="lay">3房1廳廚3衛</div></div><div class="ping">21.6<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan10-1.jpg" data-t="南投山林招待所　平面圖" aria-label="放大南投山林招待所平面圖"><img src="img/plan10-1.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan10-1.png" data-t="南投山林招待所　平面圖" aria-label="放大南投山林招待所平面圖"><img src="img/plan10-1.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>白框黑板</dd><dt>配置</dt><dd>4×6m×3顆、磁磚衛浴、一體式衛浴</dd></dl>
           </div>
         </article>
@@ -388,7 +390,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case9-1.jpg" alt="雲林麥寮復古厝屋外觀" loading="lazy">
           <div class="bd"><div><h3>雲林麥寮復古厝屋</h3><div class="lay">1房1廳1廚1衛</div></div><div class="ping">18.15<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan9-1.jpg" data-t="雲林麥寮復古厝屋　平面圖" aria-label="放大雲林麥寮復古厝屋平面圖"><img src="img/plan9-1.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan9-1.png" data-t="雲林麥寮復古厝屋　平面圖" aria-label="放大雲林麥寮復古厝屋平面圖"><img src="img/plan9-1.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框黑板</dd><dt>配置</dt><dd>客製4×4m×1顆、3×6m×2顆、2×4m露台</dd></dl>
           </div>
         </article>
@@ -396,7 +398,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case10-2.jpg" alt="雲林斗南小屋外觀" loading="lazy">
           <div class="bd"><div><h3>雲林斗南小屋</h3><div class="lay">2房2廳1廚2衛1倉</div></div><div class="ping">18.1<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan10-2.jpg" data-t="雲林斗南小屋　平面圖" aria-label="放大雲林斗南小屋平面圖"><img src="img/plan10-2.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan10-2.png" data-t="雲林斗南小屋　平面圖" aria-label="放大雲林斗南小屋平面圖"><img src="img/plan10-2.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>白框白板</dd><dt>配置</dt><dd>客製4×7m×1顆、客製2×4m×1顆、4×6m×2顆、磁磚衛浴×2座、2×9m露台</dd></dl>
           </div>
         </article>
@@ -404,7 +406,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case9-0.jpg" alt="雲林厝屋外觀" loading="lazy">
           <div class="bd"><div><h3>雲林厝屋</h3><div class="lay">1房1廳1衛</div></div><div class="ping">18<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan9-0.jpg" data-t="雲林厝屋　平面圖" aria-label="放大雲林厝屋平面圖"><img src="img/plan9-0.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan9-0.png" data-t="雲林厝屋　平面圖" aria-label="放大雲林厝屋平面圖"><img src="img/plan9-0.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框白板</dd><dt>配置</dt><dd>4×6m×2顆、2×6m露台、室內增高3米</dd></dl>
           </div>
         </article>
@@ -412,7 +414,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case7-1.jpg" alt="彰化田園小屋外觀" loading="lazy">
           <div class="bd"><div><h3>彰化田園小屋</h3><div class="lay">1房1廳1廚1衛</div></div><div class="ping">15.1<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan7-1.jpg" data-t="彰化田園小屋　平面圖" aria-label="放大彰化田園小屋平面圖"><img src="img/plan7-1.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan7-1.png" data-t="彰化田園小屋　平面圖" aria-label="放大彰化田園小屋平面圖"><img src="img/plan7-1.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框黑板</dd><dt>配置</dt><dd>4×8m×1顆、3×6m×1顆、一體式衛浴</dd></dl>
           </div>
         </article>
@@ -420,7 +422,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case9-2.jpg" alt="雲林口湖厝屋庭院外觀" loading="lazy">
           <div class="bd"><div><h3>雲林口湖厝屋庭院</h3><div class="lay">1房1衛</div></div><div class="ping">15<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan9-2.jpg" data-t="雲林口湖厝屋庭院　平面圖" aria-label="放大雲林口湖厝屋庭院平面圖"><img src="img/plan9-2.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan9-2.png" data-t="雲林口湖厝屋庭院　平面圖" aria-label="放大雲林口湖厝屋庭院平面圖"><img src="img/plan9-2.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框木紋</dd><dt>配置</dt><dd>4×8m×1顆、2×5m露台、1×8m露台</dd></dl>
           </div>
         </article>
@@ -428,7 +430,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case8-0.jpg" alt="高雄精緻雅居外觀" loading="lazy">
           <div class="bd"><div><h3>高雄精緻雅居</h3><div class="lay">1房1廳1衛</div></div><div class="ping">14.5<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan8-0.jpg" data-t="高雄精緻雅居　平面圖" aria-label="放大高雄精緻雅居平面圖"><img src="img/plan8-0.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan8-0.png" data-t="高雄精緻雅居　平面圖" aria-label="放大高雄精緻雅居平面圖"><img src="img/plan8-0.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框白板</dd><dt>配置</dt><dd>4×8m×1顆、2×8m露台、一體式衛浴</dd></dl>
           </div>
         </article>
@@ -436,7 +438,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case11-0.jpg" alt="台南白河小屋外觀" loading="lazy">
           <div class="bd"><div><h3>台南白河小屋</h3><div class="lay">1房1廳1衛</div></div><div class="ping">10<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan11-0.jpg" data-t="台南白河小屋　平面圖" aria-label="放大台南白河小屋平面圖"><img src="img/plan11-0.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan11-0.png" data-t="台南白河小屋　平面圖" aria-label="放大台南白河小屋平面圖"><img src="img/plan11-0.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框木紋</dd><dt>配置</dt><dd>4×8m×1顆、客製無障礙斜坡露台、戶外衛浴×1座</dd></dl>
           </div>
         </article>
@@ -444,7 +446,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
           <img src="img/case7-0.jpg" alt="嘉義山丘小屋外觀" loading="lazy">
           <div class="bd"><div><h3>嘉義山丘小屋</h3><div class="lay">1房1衛</div></div><div class="ping">9.1<small>坪</small></div></div>
           <div class="cfg">
-            <button type="button" class="plan" data-src="img/plan7-0.jpg" data-t="嘉義山丘小屋　平面圖" aria-label="放大嘉義山丘小屋平面圖"><img src="img/plan7-0.jpg" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
+            <button type="button" class="plan" data-src="img/plan7-0.png" data-t="嘉義山丘小屋　平面圖" aria-label="放大嘉義山丘小屋平面圖"><img src="img/plan7-0.png" alt="" loading="lazy"><span>平面圖　點擊放大</span></button>
             <dl><dt>配色</dt><dd>黑框黑板</dd><dt>配置</dt><dd>3×6m×1顆、2×6m露台、磁磚衛浴</dd></dl>
           </div>
         </article>
@@ -623,7 +625,7 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
   </section>
 </main>
 
-<dialog class="lb" id="lb"><div class="hd"><span id="lbT"></span><button type="button" id="lbX" aria-label="關閉">×</button></div><img id="lbI" alt=""></dialog>
+<dialog class="lb" id="lb"><div class="hd"><span id="lbT"></span><button type="button" id="lbX" aria-label="關閉">×</button></div><div class="bx"><img id="lbI" alt=""></div><p class="note">示意平面圖，實際尺寸與格局以現場丈量及設計圖為準</p></dialog>
 
 <footer>© 富林組合屋　Fulin Modular Homes</footer>
 
