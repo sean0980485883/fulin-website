@@ -154,6 +154,33 @@ dialog.lb::backdrop{background:rgba(0,0,0,.7)}
 .step .n{font-size:12px;font-weight:700;color:var(--teal)}
 .step b{display:block;font-size:17px}
 .step p{margin:2px 0 0;font-size:13px;color:var(--mute);line-height:1.5}
+/* timeline */
+.tl{list-style:none;margin:0 auto;padding:0;max-width:860px;position:relative}
+.tl::before{content:"";position:absolute;left:27px;top:8px;bottom:40px;width:4px;background:linear-gradient(var(--teal),var(--teal));border-radius:2px}
+.tl .ph{position:relative;display:flex;align-items:baseline;gap:12px;margin:28px 0 14px 72px;padding:10px 16px;background:var(--teal);color:#fff;border-radius:12px;border-left:6px solid var(--lime)}
+.tl .ph:first-child{margin-top:0}
+.tl .ph .pl{font-size:13px;color:var(--lime);font-weight:700;letter-spacing:2px}
+.tl .ph b{font-size:20px;letter-spacing:2px}
+.tl .ph .pr{margin-left:auto;font-size:13px;opacity:.8}
+.tl .st{position:relative;padding-left:72px;margin-bottom:14px}
+.tl .dot{position:absolute;left:6px;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:#fff;border:4px solid var(--teal);color:var(--teal);font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;z-index:1;font-variant-numeric:tabular-nums}
+.tl .st.last .dot{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+.tl .sc{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 12px 12px 20px}
+.tl .tx{flex-grow:1}
+.tl .tx b{display:block;font-size:20px;margin-bottom:2px}
+.tl .tx p{margin:0;color:var(--mute);font-size:15px;line-height:1.55}
+.tl .sc img{width:150px;height:100px;object-fit:cover;border-radius:10px;flex-shrink:0}
+@media (max-width:600px){
+  .tl::before{left:19px}
+  .tl .ph{margin-left:52px;padding:8px 12px}
+  .tl .ph b{font-size:17px}
+  .tl .st{padding-left:52px}
+  .tl .dot{left:0;width:40px;height:40px;font-size:15px;border-width:3px}
+  .tl .sc{padding:10px 10px 10px 14px;gap:10px}
+  .tl .tx b{font-size:17px}
+  .tl .tx p{font-size:13px}
+  .tl .sc img{width:96px;height:72px}
+}
 /* contact */
 .contact{background:var(--teal);color:#fff}
 .contact h2{color:#fff}
@@ -736,20 +763,24 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
       <div class="eyebrow">12 Steps</div>
       <h2>12 道工序嚴控 組合屋快人一步</h2>
       <p class="lead">標準化流程・嚴格品質控管・省時高效・安心入住</p>
-      <div class="steps">
-        <div class="step"><img src="img/step1.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 01</span><b>參觀</b><p>實際了解產品與多種戶型配置</p></div></div>
-        <div class="step"><img src="img/step2.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 02</span><b>規劃／畫圖</b><p>依需求客製設計，確認平面配置與外觀風格</p></div></div>
-        <div class="step"><img src="img/step3.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 03</span><b>場勘／收訂金</b><p>現場勘查、確認場地條件，簽約並收取訂金</p></div></div>
-        <div class="step"><img src="img/step4.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 04</span><b>拆除</b><p>如有舊建物先進行拆除並清運廢棄物</p></div></div>
-        <div class="step"><img src="img/step5.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 05</span><b>整地</b><p>場地整理、放樣定位，確保基礎平整穩固</p></div></div>
-        <div class="step"><img src="img/step6.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 06</span><b>化糞池</b><p>安裝化糞池系統，配置排污管線</p></div></div>
-        <div class="step"><img src="img/step7.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 07</span><b>水泥澆鑄</b><p>澆鑄基礎，確保結構穩固耐用</p></div></div>
-        <div class="step"><img src="img/step8.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 08</span><b>組合屋進場</b><p>運送組合屋至現場，吊裝定位</p></div></div>
-        <div class="step"><img src="img/step9.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 09</span><b>屋頂</b><p>安裝屋頂結構與鋪板，加強防水與隔熱</p></div></div>
-        <div class="step"><img src="img/step10.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 10</span><b>水電</b><p>進行給排水與電力配置，完成基本系統</p></div></div>
-        <div class="step"><img src="img/step11.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 11</span><b>細部收尾</b><p>收邊處理、細節檢查，完成內外裝修</p></div></div>
-        <div class="step"><img src="img/step12.jpg" alt="" loading="lazy"><div class="bd"><span class="n">STEP 12</span><b>完工</b><p>驗收交屋，立即入住開啟新生活</p></div></div>
-      </div>
+      <ol class="tl">
+        <li class="ph"><span class="pl">階段一</span><b>規劃簽約</b><span class="pr">STEP 01–03</span></li>
+        <li class="st"><span class="dot">01</span><div class="sc"><div class="tx"><b>參觀</b><p>實際了解產品與多種戶型配置</p></div><img src="img/step1.jpg" alt="參觀" loading="lazy"></div></li>
+        <li class="st"><span class="dot">02</span><div class="sc"><div class="tx"><b>規劃／畫圖</b><p>依需求客製設計，確認平面配置與外觀風格</p></div><img src="img/step2.jpg" alt="規劃／畫圖" loading="lazy"></div></li>
+        <li class="st"><span class="dot">03</span><div class="sc"><div class="tx"><b>場勘／收訂金</b><p>現場勘查、確認場地條件，簽約並收取訂金</p></div><img src="img/step3.jpg" alt="場勘／收訂金" loading="lazy"></div></li>
+        <li class="ph"><span class="pl">階段二</span><b>基礎工程</b><span class="pr">STEP 04–07</span></li>
+        <li class="st"><span class="dot">04</span><div class="sc"><div class="tx"><b>拆除</b><p>如有舊建物先進行拆除並清運廢棄物</p></div><img src="img/step4.jpg" alt="拆除" loading="lazy"></div></li>
+        <li class="st"><span class="dot">05</span><div class="sc"><div class="tx"><b>整地</b><p>場地整理、放樣定位，確保基礎平整穩固</p></div><img src="img/step5.jpg" alt="整地" loading="lazy"></div></li>
+        <li class="st"><span class="dot">06</span><div class="sc"><div class="tx"><b>化糞池</b><p>安裝化糞池系統，配置排污管線</p></div><img src="img/step6.jpg" alt="化糞池" loading="lazy"></div></li>
+        <li class="st"><span class="dot">07</span><div class="sc"><div class="tx"><b>水泥澆鑄</b><p>澆鑄基礎，確保結構穩固耐用</p></div><img src="img/step7.jpg" alt="水泥澆鑄" loading="lazy"></div></li>
+        <li class="ph"><span class="pl">階段三</span><b>進場組裝</b><span class="pr">STEP 08–10</span></li>
+        <li class="st"><span class="dot">08</span><div class="sc"><div class="tx"><b>組合屋進場</b><p>運送組合屋至現場，吊裝定位</p></div><img src="img/step8.jpg" alt="組合屋進場" loading="lazy"></div></li>
+        <li class="st"><span class="dot">09</span><div class="sc"><div class="tx"><b>屋頂</b><p>安裝屋頂結構與鋪板，加強防水與隔熱</p></div><img src="img/step9.jpg" alt="屋頂" loading="lazy"></div></li>
+        <li class="st"><span class="dot">10</span><div class="sc"><div class="tx"><b>水電</b><p>進行給排水與電力配置，完成基本系統</p></div><img src="img/step10.jpg" alt="水電" loading="lazy"></div></li>
+        <li class="ph"><span class="pl">階段四</span><b>完工交屋</b><span class="pr">STEP 11–12</span></li>
+        <li class="st"><span class="dot">11</span><div class="sc"><div class="tx"><b>細部收尾</b><p>收邊處理、細節檢查，完成內外裝修</p></div><img src="img/step11.jpg" alt="細部收尾" loading="lazy"></div></li>
+        <li class="st last"><span class="dot">12</span><div class="sc"><div class="tx"><b>完工交屋</b><p>驗收交屋，立即入住開啟新生活</p></div><img src="img/step12.jpg" alt="完工交屋" loading="lazy"></div></li>
+      </ol>
     </div>
   </section>
 
