@@ -284,6 +284,28 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
 .wpl-tabs button[aria-pressed=true]{background:var(--deep);color:var(--neo);border-color:var(--deep)}
 @media (max-width:960px){.cfg3{grid-template-columns:1fr}}
 @media (max-width:600px){.swg{grid-template-columns:repeat(2,minmax(0,1fr))}.wpl-img img{height:240px}.ch b{font-size:18px}}
+
+/* enlarge colors + features */
+.cfgp .swg{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;flex:1}
+.cfgp .sw img{aspect-ratio:16/10}
+.cfgp .sw figcaption{font-size:15px;padding:8px 10px;gap:8px}
+.cfgp .dots i{width:16px;height:16px}
+.hsv svg{max-height:none}
+.feat{gap:16px;margin-top:28px}
+.feat div{position:relative;padding:22px 20px 22px;border-radius:16px;border:1px solid rgba(21,106,116,.18);background:#fff;overflow:hidden}
+.feat div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--neo))}
+.feat .fi{display:flex;width:52px;height:52px;border-radius:14px;background:var(--deep);color:var(--neo);align-items:center;justify-content:center;margin-bottom:14px;box-shadow:0 0 16px rgba(200,240,49,.25)}
+.feat b{font-size:21px;margin-bottom:8px;letter-spacing:1px}
+.feat p{font-size:16px;line-height:1.7;color:#3d4649}
+@media (max-width:960px){.feat{grid-template-columns:repeat(2,minmax(0,1fr))}.feat div:last-child{grid-column:1/-1}}
+@media (max-width:600px){.feat{grid-template-columns:1fr}.feat div{display:grid;grid-template-columns:52px 1fr;column-gap:14px;padding:16px}.feat .fi{grid-row:1/3;margin:0}.feat b{font-size:19px;margin:2px 0 4px}.feat p{font-size:15px}.cfgp .sw figcaption{font-size:13px}}
+.szg{flex:1;grid-auto-rows:1fr}
+.szc{display:flex;flex-direction:column;justify-content:center}
+.szc svg{max-height:120px}
+.szc b{font-size:22px}
+.szc span{font-size:13px}
+.hsv svg{width:100%;height:100%;max-height:420px}
+.hsv .hl{font-size:16px}
 /* ===== TECH LAYER ===== */
 :root{--neo:#c8f031;--deep:#071a1d;--deep2:#0c2a2f;--glow:0 0 0 1px rgba(200,240,49,.35),0 0 24px rgba(200,240,49,.25);--mono:'Space Grotesk','Noto Sans TC',sans-serif}
 body{background-color:#eef1ee;background-image:linear-gradient(rgba(21,106,116,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(21,106,116,.05) 1px,transparent 1px);background-size:32px 32px}
@@ -475,11 +497,11 @@ footer{background:#04100f;border-top:1px solid rgba(200,240,49,.2)}
       </div>
 
       <div class="feat">
-        <div><b>加厚主體框架</b><p>頂樑、底樑、角柱、角頭、抗風柱採 2.3–2.5mm 加厚鋼材。</p></div>
-        <div><b>關鍵接合處</b><p>鎖螺絲固定設計，取代傳統焊接，降低焊接鏽蝕風險。</p></div>
-        <div><b>複層牆板</b><p>全金屬包邊結構，內外層鋼板加厚至 0.6mm。</p></div>
-        <div><b>加強底部方管</b><p>2.0mm 加厚鋼材，足以抵抗台灣常見颱風與地震。</p></div>
-        <div><b>全面防鏽</b><p>鍍鋅鋼材加全烤漆抗鏽工藝，內外雙層防鏽處理。</p></div>
+        <div><span class="fi" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16"/><path d="M4 9h16M9 4v16"/></svg></span><b>加厚主體框架</b><p>頂樑、底樑、角柱、角頭、抗風柱採 2.3–2.5mm 加厚鋼材。</p></div>
+        <div><span class="fi" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></span><b>關鍵接合處</b><p>鎖螺絲固定設計，取代傳統焊接，降低焊接鏽蝕風險。</p></div>
+        <div><span class="fi" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="6" height="16"/><rect x="9" y="4" width="6" height="16"/><rect x="15" y="4" width="6" height="16"/></svg></span><b>複層牆板</b><p>全金屬包邊結構，內外層鋼板加厚至 0.6mm。</p></div>
+        <div><span class="fi" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="14" width="18" height="6"/><path d="M6 14V8h12v6"/></svg></span><b>加強底部方管</b><p>2.0mm 加厚鋼材，足以抵抗台灣常見颱風與地震。</p></div>
+        <div><span class="fi" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><b>全面防鏽</b><p>鍍鋅鋼材加全烤漆抗鏽工藝，內外雙層防鏽處理。</p></div>
       </div>
 
       <div class="struct">
