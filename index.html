@@ -47,7 +47,7 @@ a{color:var(--teal)}
 section{padding:84px 0}
 .eyebrow{font-size:13px;font-weight:700;color:var(--teal);letter-spacing:3px;text-transform:uppercase}
 h2{font-size:clamp(28px,4vw,40px);font-weight:900;margin:4px 0 8px;letter-spacing:2px}
-h2 small{font-size:.5em;font-weight:500;color:var(--mute);margin-left:10px;letter-spacing:1px}
+h2 small{display:block;font-size:.5em;font-weight:500;color:var(--mute);margin:4px 0 0;letter-spacing:2px}
 .lead{color:var(--mute);max-width:760px;margin:0 0 36px;font-size:16px}
 h3{font-size:22px;margin:0 0 6px}
 .white{background:#fff}
@@ -232,6 +232,58 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
   .fab{display:flex}
 }
 
+
+/* steel config panels */
+.cfg3{display:grid;grid-template-columns:1.15fr 1fr 1.15fr;gap:16px;margin-top:36px}
+.cfgp{background:rgba(255,255,255,.92);border:1px solid rgba(21,106,116,.18);border-radius:16px;padding:16px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.cfgp::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--neo))}
+.ch{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.ch .no{font-family:var(--mono);font-weight:700;font-size:13px;background:var(--deep);color:var(--neo);border-radius:6px;padding:2px 7px}
+.ch b{font-size:20px;letter-spacing:2px}
+.ch .cut{margin-left:auto;font-size:12px;font-weight:700;color:var(--deep);background:rgba(200,240,49,.35);border:1px solid rgba(21,106,116,.25);border-radius:20px;padding:2px 10px;white-space:nowrap}
+.cn{margin:10px 0 0;font-size:13px;color:var(--mute)}
+.szg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.szc{position:relative;border:1px solid var(--line);border-radius:12px;padding:8px 10px 10px;background:#fafbf9;text-align:center}
+.szc.std{border-color:var(--teal);box-shadow:0 0 0 1px rgba(200,240,49,.5)}
+.szc svg{width:100%;height:auto;display:block}
+.szc svg rect{fill:rgba(21,106,116,.12);stroke:var(--teal);stroke-width:2}
+.szc svg text{font-size:8px;fill:var(--mute);font-family:var(--mono)}
+.szc b{display:block;font-family:var(--mono);font-size:18px;margin-top:2px}
+.szc span{font-size:12px;color:var(--mute)}
+.szc i{position:absolute;top:6px;left:6px;font-style:normal;font-size:11px;font-weight:700;background:var(--deep);color:var(--neo);border-radius:6px;padding:0 6px}
+.hsv{flex:1;display:flex;align-items:center;background:#fafbf9;border:1px solid var(--line);border-radius:12px;padding:10px}
+.hsv svg{width:100%;height:auto}
+.hsv .gl{stroke:#9aa5a2;stroke-width:2}
+.hsv .hb{fill:rgba(21,106,116,.10);stroke:var(--teal);stroke-width:2}
+.hsv .hb.std{fill:rgba(200,240,49,.28)}
+.hsv .hl{font-family:var(--mono);font-weight:700;font-size:15px;fill:var(--ink)}
+.hsv .ht{font-size:11px;fill:var(--mute)}
+.hsv .ps{fill:none;stroke:#5a6468;stroke-width:2.5;stroke-linecap:round}
+.swg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.sw{margin:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.sw img{width:100%;aspect-ratio:16/9;object-fit:cover;background:#fff}
+.sw figcaption{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:5px 6px}
+.dots{display:inline-flex}
+.dots i{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.25);display:block}
+.dots i+i{margin-left:-4px}
+.struct{margin-top:28px;background:#fff;border:1px solid rgba(21,106,116,.18);border-radius:16px;padding:16px}
+.struct-img{display:block;aspect-ratio:auto!important;background:#fff!important;cursor:zoom-in}
+.struct-img img{width:100%;height:auto!important;object-fit:contain!important}
+.struct-img:hover img{transform:none!important}
+/* wing plans */
+.wpl{margin-top:14px;border:1px solid rgba(21,106,116,.2);border-radius:12px;padding:10px;background:#fafbf9}
+.wpl-h{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.wpl-h b{font-size:15px;color:var(--teal)}
+.wpl-h span{font-size:12px;color:var(--mute)}
+.wpl-img{all:unset;display:block;cursor:zoom-in;background:#fff;border-radius:8px;border:1px solid var(--line);overflow:hidden}
+.wpl-img:focus-visible{outline:3px solid var(--teal)}
+.wpl-img{width:100%;box-sizing:border-box;text-align:center}
+.wpl-img img{display:block;margin:0 auto;width:auto;max-width:100%;height:260px;object-fit:contain}
+.wpl-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.wpl-tabs button{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;border-radius:20px;padding:4px 10px;min-height:34px;cursor:pointer}
+.wpl-tabs button[aria-pressed=true]{background:var(--deep);color:var(--neo);border-color:var(--deep)}
+@media (max-width:960px){.cfg3{grid-template-columns:1fr}}
+@media (max-width:600px){.swg{grid-template-columns:repeat(2,minmax(0,1fr))}.wpl-img img{height:240px}.ch b{font-size:18px}}
 /* ===== TECH LAYER ===== */
 :root{--neo:#c8f031;--deep:#071a1d;--deep2:#0c2a2f;--glow:0 0 0 1px rgba(200,240,49,.35),0 0 24px rgba(200,240,49,.25);--mono:'Space Grotesk','Noto Sans TC',sans-serif}
 body{background-color:#eef1ee;background-image:linear-gradient(rgba(21,106,116,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(21,106,116,.05) 1px,transparent 1px);background-size:32px 32px}
@@ -399,14 +451,27 @@ footer{background:#04100f;border-top:1px solid rgba(200,240,49,.2)}
         <div>
           <h2>組合屋（鋼構屋）<small>預製模組化 客製彈性高</small></h2>
           <p class="lead" style="margin-bottom:24px">鋼構組合屋採用預鑄鋼構骨架與模組化板材快速組裝，施工快、可移動、成本較低。可依需求彈性調整空間、搬遷方便，適合工地辦公室、住家或倉庫。富林是具備完善保固的廠商，用心為每一位客戶打造結構穩固、防水防鏽、經久耐用的鋼構組合屋。</p>
-          <div class="spec">
-            <div><div class="k">組合屋標準版尺寸</div><div class="v">3 × 6 <small>公尺</small></div></div>
-            <div><div class="k">另有加大版供選擇</div><div class="v">3 × 8 / 4 × 6 / 4 × 8 <small>公尺</small></div></div>
-            <div><div class="k">高度三種可選</div><div class="v">2.5 / 3 / 3.3 <small>公尺</small></div></div>
-          </div>
           <div class="tags"><span class="tag">住家</span><span class="tag">宿舍</span><span class="tag">農舍</span><span class="tag">辦公室</span><span class="tag">營業空間</span></div>
         </div>
         <div class="photo"><img src="img/steel-house.jpg" alt="富林鋼構組合屋實景，雙棟搭配露台" loading="lazy"></div>
+      </div>
+
+      <div class="cfg3">
+        <div class="cfgp">
+          <div class="ch"><span class="no">01</span><b>選尺寸</b><span class="cut">可裁切客製</span></div>
+          <div class="szg"><div class="szc std"><svg viewBox="0 0 110 64" aria-hidden="true"><rect x="19.0" y="14.0" width="72" height="36" rx="2"/><text x="55" y="11.0" text-anchor="middle">6 m</text><text x="16.0" y="34" text-anchor="end">3</text></svg><b>3 × 6 m</b><span>18 m²・約 5.4 坪</span><i>標準</i></div><div class="szc"><svg viewBox="0 0 110 64" aria-hidden="true"><rect x="7.0" y="14.0" width="96" height="36" rx="2"/><text x="55" y="11.0" text-anchor="middle">8 m</text><text x="4.0" y="34" text-anchor="end">3</text></svg><b>3 × 8 m</b><span>24 m²・約 7.3 坪</span></div><div class="szc"><svg viewBox="0 0 110 64" aria-hidden="true"><rect x="19.0" y="8.0" width="72" height="48" rx="2"/><text x="55" y="8" text-anchor="middle">6 m</text><text x="16.0" y="34" text-anchor="end">4</text></svg><b>4 × 6 m</b><span>24 m²・約 7.3 坪</span></div><div class="szc"><svg viewBox="0 0 110 64" aria-hidden="true"><rect x="7.0" y="8.0" width="96" height="48" rx="2"/><text x="55" y="8" text-anchor="middle">8 m</text><text x="4.0" y="34" text-anchor="end">4</text></svg><b>4 × 8 m</b><span>32 m²・約 9.7 坪</span></div></div>
+          <p class="cn">四種標準尺寸，另可依基地裁切成特殊尺寸。</p>
+        </div>
+        <div class="cfgp">
+          <div class="ch"><span class="no">02</span><b>選高度</b><span class="cut">可客製</span></div>
+          <div class="hsv"><svg viewBox="0 0 300 184" aria-hidden="true"><line x1="0" y1="160" x2="300" y2="160" class="gl"/><g class="ps" transform="translate(24 92)"><circle cx="0" cy="0" r="6"/><path d="M0 6v26M-9 14h18M0 32l-8 28M0 32l8 28"/></g><rect x="56" y="60.0" width="62" height="100.0" class="hb std"/><text x="87" y="52.0" text-anchor="middle" class="hl">2.5 m</text><text x="87" y="176" text-anchor="middle" class="ht">標準</text><rect x="138" y="40.0" width="62" height="120.0" class="hb"/><text x="169" y="32.0" text-anchor="middle" class="hl">3.0 m</text><text x="169" y="176" text-anchor="middle" class="ht">加高</text><rect x="220" y="28.0" width="62" height="132.0" class="hb"/><text x="251" y="20.0" text-anchor="middle" class="hl">3.3 m</text><text x="251" y="176" text-anchor="middle" class="ht">加高</text><text x="24" y="178" text-anchor="middle" class="ht">170cm</text></svg></div>
+          <p class="cn">室內淨高 2.5 m 標準；加高 3.0 m／3.3 m，挑高更通透。</p>
+        </div>
+        <div class="cfgp">
+          <div class="ch"><span class="no">03</span><b>選顏色</b><span class="cut">6 款搭配</span></div>
+          <div class="swg"><figure class="sw"><img src="img/c1.jpg" alt="黑框木紋" loading="lazy"><figcaption><span class="dots"><i style="background:#1d2224"></i><i style="background:#8a4a2b"></i></span>黑框木紋</figcaption></figure><figure class="sw"><img src="img/c2.jpg" alt="黑框白板" loading="lazy"><figcaption><span class="dots"><i style="background:#1d2224"></i><i style="background:#f2f2ee"></i></span>黑框白板</figcaption></figure><figure class="sw"><img src="img/c3.jpg" alt="黑框灰黑" loading="lazy"><figcaption><span class="dots"><i style="background:#1d2224"></i><i style="background:#3a3f42"></i></span>黑框灰黑</figcaption></figure><figure class="sw"><img src="img/c4.jpg" alt="白框木紋" loading="lazy"><figcaption><span class="dots"><i style="background:#f5f5f2"></i><i style="background:#8a4a2b"></i></span>白框木紋</figcaption></figure><figure class="sw"><img src="img/c5.jpg" alt="白框白板" loading="lazy"><figcaption><span class="dots"><i style="background:#f5f5f2"></i><i style="background:#f2f2ee"></i></span>白框白板</figcaption></figure><figure class="sw"><img src="img/c6.jpg" alt="白框灰黑" loading="lazy"><figcaption><span class="dots"><i style="background:#f5f5f2"></i><i style="background:#3a3f42"></i></span>白框灰黑</figcaption></figure></div>
+          <p class="cn">黑框、白框 × 木紋、白板、灰黑板。</p>
+        </div>
       </div>
 
       <div class="feat">
@@ -417,17 +482,9 @@ footer{background:#04100f;border-top:1px solid rgba(200,240,49,.2)}
         <div><b>全面防鏽</b><p>鍍鋅鋼材加全烤漆抗鏽工藝，內外雙層防鏽處理。</p></div>
       </div>
 
-      <div class="wide"><img src="img/steel-struct.jpg" alt="單顆鋼構屋立體結構圖：50mm 夾芯板、18mm 水泥纖維板、160×2.3 立柱與底部長梁" loading="lazy"></div>
-
-      <h3 style="margin-top:48px">可選配色方案</h3>
-      <p class="lead" style="margin-bottom:18px">黑框、白框各三種板色，共六款搭配。</p>
-      <div class="colors">
-        <figure><img src="img/c1.jpg" alt="" loading="lazy"><figcaption>黑框木紋</figcaption></figure>
-        <figure><img src="img/c2.jpg" alt="" loading="lazy"><figcaption>黑框白板</figcaption></figure>
-        <figure><img src="img/c3.jpg" alt="" loading="lazy"><figcaption>黑框黑板</figcaption></figure>
-        <figure><img src="img/c4.jpg" alt="" loading="lazy"><figcaption>白框木紋</figcaption></figure>
-        <figure><img src="img/c5.jpg" alt="" loading="lazy"><figcaption>白框白板</figcaption></figure>
-        <figure><img src="img/c6.jpg" alt="" loading="lazy"><figcaption>白框黑板</figcaption></figure>
+      <div class="struct">
+        <div class="ch"><span class="no">//</span><b>單顆鋼構屋立體結構圖</b><span class="cut">點圖放大</span></div>
+        <button type="button" class="gi struct-img" data-src="img/steel-struct.jpg" data-t="單顆鋼構屋立體結構圖" aria-label="放大結構圖"><img src="img/steel-struct.jpg" alt="單顆鋼構屋立體結構圖：50mm 夾芯板內外 0.6mm 鋼板、18mm 水泥纖維板、160×2.3 立柱與底部帶卡槽長梁、80×80 底部檁條" loading="lazy"></button>
       </div>
     </div>
   </section>
@@ -782,32 +839,32 @@ footer{background:#04100f;border-top:1px solid rgba(200,240,49,.2)}
       <div class="grid2 wide">
         <div class="card"><div class="im"><img src="img/w10.jpg" alt="10呎展翼屋" loading="lazy"></div><div class="bd">
           <h3>10呎展翼屋</h3>
-          <dl class="dim"><dt>展開尺寸</dt><dd>L2950 × W6440 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L2370 × W6140 × H2240 mm</dd><dt>折疊尺寸</dt><dd>L2950 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>18.5 m²</dd></dl>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L2950 × W6440 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L2370 × W6140 × H2240 mm</dd><dt>折疊尺寸</dt><dd>L2950 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>18.5 m²</dd></dl><div class="wpl" data-k="w10" data-n="5"><div class="wpl-h"><b>平面圖</b><span>5 種格局・點圖放大</span></div><button type="button" class="wpl-img" data-src="img/wp/w10_0.png" data-t="10呎展翼屋　格局 A" aria-label="放大10呎展翼屋平面圖"><img src="img/wp/w10_0t.png" alt="10呎展翼屋平面圖 格局 A" loading="lazy"></button><div class="wpl-tabs"><button type="button" data-i="0" aria-pressed="true">格局 A</button><button type="button" data-i="1" aria-pressed="false">格局 B</button><button type="button" data-i="2" aria-pressed="false">格局 C</button><button type="button" data-i="3" aria-pressed="false">格局 D</button><button type="button" data-i="4" aria-pressed="false">平頂款</button></div></div>
           <p>個人居住／宿舍住屋的實用型小宅，一房一廳一衛。適合員工宿舍、工地住宿、農地休憩屋。</p>
         </div></div>
         <div class="card"><div class="im"><img src="img/w20.jpg" alt="20呎展翼屋" loading="lazy"></div><div class="bd">
           <h3>20呎展翼屋</h3>
-          <dl class="dim"><dt>展開尺寸</dt><dd>L5900 × W6480 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L5460 × W6320 × H2235 mm</dd><dt>折疊尺寸</dt><dd>L5900 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>36.7 m²</dd></dl>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L5900 × W6480 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L5460 × W6320 × H2235 mm</dd><dt>折疊尺寸</dt><dd>L5900 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>36.7 m²</dd></dl><div class="wpl" data-k="w20" data-n="5"><div class="wpl-h"><b>平面圖</b><span>5 種格局・點圖放大</span></div><button type="button" class="wpl-img" data-src="img/wp/w20_0.png" data-t="20呎展翼屋　標準款" aria-label="放大20呎展翼屋平面圖"><img src="img/wp/w20_0t.png" alt="20呎展翼屋平面圖 標準款" loading="lazy"></button><div class="wpl-tabs"><button type="button" data-i="0" aria-pressed="true">標準款</button><button type="button" data-i="1" aria-pressed="false">一房款</button><button type="button" data-i="2" aria-pressed="false">三房款</button><button type="button" data-i="3" aria-pressed="false">空箱（開放）</button><button type="button" data-i="4" aria-pressed="false">二層款</button></div></div>
           <p>小宅機能完整＋空間配置彈性，可規劃一房或多房，整合客廳、廚房與衛浴。</p>
         </div></div>
         <div class="card"><div class="im"><img src="img/w30.jpg" alt="30呎展翼屋" loading="lazy"></div><div class="bd">
           <h3>30呎展翼屋</h3>
-          <dl class="dim"><dt>展開尺寸</dt><dd>L9000 × W6220 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L8400 × W6080 × H2200 mm</dd><dt>折疊尺寸</dt><dd>L9000 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>56 m²</dd></dl>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L9000 × W6220 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L8400 × W6080 × H2200 mm</dd><dt>折疊尺寸</dt><dd>L9000 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>56 m²</dd></dl><div class="wpl" data-k="w30" data-n="4"><div class="wpl-h"><b>平面圖</b><span>4 種格局・點圖放大</span></div><button type="button" class="wpl-img" data-src="img/wp/w30_0.png" data-t="30呎展翼屋　格局 A" aria-label="放大30呎展翼屋平面圖"><img src="img/wp/w30_0t.png" alt="30呎展翼屋平面圖 格局 A" loading="lazy"></button><div class="wpl-tabs"><button type="button" data-i="0" aria-pressed="true">格局 A</button><button type="button" data-i="1" aria-pressed="false">格局 B</button><button type="button" data-i="2" aria-pressed="false">三房款</button><button type="button" data-i="3" aria-pressed="false">四房款</button></div></div>
           <p>大空間＋多房型規劃，適合家庭住宅、員工宿舍、民宿接待。</p>
         </div></div>
         <div class="card"><div class="im"><img src="img/w40.jpg" alt="40呎展翼屋" loading="lazy"></div><div class="bd">
           <h3>40呎展翼屋</h3>
-          <dl class="dim"><dt>展開尺寸</dt><dd>L11800 × W6220 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L11200 × W6080 × H2200 mm</dd><dt>折疊尺寸</dt><dd>L11800 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>74.8 m²</dd></dl>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L11800 × W6220 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L11200 × W6080 × H2200 mm</dd><dt>折疊尺寸</dt><dd>L11800 × W2200 × H2480 mm</dd><dt>占地面積</dt><dd>74.8 m²</dd></dl><div class="wpl" data-k="w40" data-n="6"><div class="wpl-h"><b>平面圖</b><span>6 種格局・點圖放大</span></div><button type="button" class="wpl-img" data-src="img/wp/w40_0.png" data-t="40呎展翼屋　兩房款" aria-label="放大40呎展翼屋平面圖"><img src="img/wp/w40_0t.png" alt="40呎展翼屋平面圖 兩房款" loading="lazy"></button><div class="wpl-tabs"><button type="button" data-i="0" aria-pressed="true">兩房款</button><button type="button" data-i="1" aria-pressed="false">三房款</button><button type="button" data-i="2" aria-pressed="false">四房款</button><button type="button" data-i="3" aria-pressed="false">三房兩衛</button><button type="button" data-i="4" aria-pressed="false">四房兩衛</button><button type="button" data-i="5" aria-pressed="false">空箱（開放）</button></div></div>
           <p>中大型專案的彈性空間方案：工務辦公、管理中心、營運型空間。</p>
         </div></div>
         <div class="card"><div class="im"><img src="img/f720.jpg" alt="F720展翼屋" loading="lazy"></div><div class="bd">
           <h3>F720 展翼屋</h3>
-          <dl class="dim"><dt>展開尺寸</dt><dd>L5900 × W5000 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L5460 × W4400 × H2310 mm</dd><dt>折疊尺寸</dt><dd>L5900 × W720 × H2480 mm</dd><dt>占地面積</dt><dd>29.5 m²</dd></dl>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L5900 × W5000 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L5460 × W4400 × H2310 mm</dd><dt>折疊尺寸</dt><dd>L5900 × W720 × H2480 mm</dd><dt>占地面積</dt><dd>29.5 m²</dd></dl><div class="wpl" data-k="f720" data-n="1"><div class="wpl-h"><b>平面圖</b><span>1 種格局・點圖放大</span></div><button type="button" class="wpl-img" data-src="img/wp/f720_0.png" data-t="F720展翼屋　空箱（開放）" aria-label="放大F720展翼屋平面圖"><img src="img/wp/f720_0t.png" alt="F720展翼屋平面圖 空箱（開放）" loading="lazy"></button></div>
           <p>開放式大空間，展開即成型，適合辦公、接待、工作室、展示空間。</p>
         </div></div>
         <div class="card"><div class="im"><img src="img/f750.jpg" alt="F750展翼屋" loading="lazy"></div><div class="bd">
           <h3>F750 展翼屋</h3>
-          <dl class="dim"><dt>展開尺寸</dt><dd>L5900 × W5030 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L5460 × W4430 × H2310 mm</dd><dt>折疊尺寸</dt><dd>L5900 × W750 × H2480 mm</dd><dt>占地面積</dt><dd>29.7 m²</dd></dl>
+          <dl class="dim"><dt>展開尺寸</dt><dd>L5900 × W5030 × H2480 mm</dd><dt>室內淨尺寸</dt><dd>L5460 × W4430 × H2310 mm</dd><dt>折疊尺寸</dt><dd>L5900 × W750 × H2480 mm</dd><dt>占地面積</dt><dd>29.7 m²</dd></dl><div class="wpl" data-k="f750" data-n="2"><div class="wpl-h"><b>平面圖</b><span>2 種格局・點圖放大</span></div><button type="button" class="wpl-img" data-src="img/wp/f750_0.png" data-t="F750展翼屋　格局 A" aria-label="放大F750展翼屋平面圖"><img src="img/wp/f750_0t.png" alt="F750展翼屋平面圖 格局 A" loading="lazy"></button><div class="wpl-tabs"><button type="button" data-i="0" aria-pressed="true">格局 A</button><button type="button" data-i="1" aria-pressed="false">格局 B</button></div></div>
           <p>格局可自由規劃，適合農用作業間、宿舍住屋等多元場景。</p>
         </div></div>
       </div>
@@ -952,6 +1009,14 @@ lb.addEventListener('click',function(e){if(e.target===lb)lb.close()});
     document.getElementById('lbT').textContent=b.dataset.t+'　實拍';document.querySelector('#lb .note').style.display='none';lb.showModal();});});
   document.querySelectorAll('.plan').forEach(function(b){b.addEventListener('click',function(){document.querySelector('#lb .note').style.display='';});});
   draw();
+})();
+(function(){
+  var L={"w10": ["格局 A", "格局 B", "格局 C", "格局 D", "平頂款"], "w20": ["標準款", "一房款", "三房款", "空箱（開放）", "二層款"], "w30": ["格局 A", "格局 B", "三房款", "四房款"], "w40": ["兩房款", "三房款", "四房款", "三房兩衛", "四房兩衛", "空箱（開放）"], "f720": ["空箱（開放）"], "f750": ["格局 A", "格局 B"]};
+  document.querySelectorAll('.wpl').forEach(function(w){var k=w.dataset.k,btn=w.querySelector('.wpl-img'),img=btn.querySelector('img'),t=w.closest('.card').querySelector('h3').textContent;
+    w.querySelectorAll('.wpl-tabs button').forEach(function(b){b.addEventListener('click',function(){var i=+b.dataset.i;img.src='img/wp/'+k+'_'+i+'t.png';btn.dataset.src='img/wp/'+k+'_'+i+'.png';btn.dataset.t=t+'　'+L[k][i];img.alt=t+'平面圖 '+L[k][i];
+      w.querySelectorAll('.wpl-tabs button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});});});
+    btn.addEventListener('click',function(){var i2=document.getElementById('lbI');i2.src=btn.dataset.src;i2.alt=btn.dataset.t;document.getElementById('lbT').textContent=btn.dataset.t+'　平面圖';document.querySelector('#lb .note').style.display='';lb.showModal();});});
+  var s=document.querySelector('.struct-img');if(s)s.addEventListener('click',function(){var i2=document.getElementById('lbI');i2.src=s.dataset.src;i2.alt=s.dataset.t;document.getElementById('lbT').textContent=s.dataset.t;document.querySelector('#lb .note').style.display='none';lb.showModal();});
 })();
 </script>
 </body>
