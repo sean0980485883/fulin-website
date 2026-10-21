@@ -11,7 +11,7 @@
 <link rel="icon" href="img/logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{--teal:#156a74;--teal-d:#0e4e56;--lime:#d4e021;--ink:#1d2224;--mute:#5a6468;--bg:#f4f5f2;--card:#fff;--line:#dfe3e0}
 *{box-sizing:border-box}
@@ -231,6 +231,101 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
   .crow{grid-template-columns:1fr}
   .fab{display:flex}
 }
+
+/* ===== TECH LAYER ===== */
+:root{--neo:#c8f031;--deep:#071a1d;--deep2:#0c2a2f;--glow:0 0 0 1px rgba(200,240,49,.35),0 0 24px rgba(200,240,49,.25);--mono:'Space Grotesk','Noto Sans TC',sans-serif}
+body{background-color:#eef1ee;background-image:linear-gradient(rgba(21,106,116,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(21,106,116,.05) 1px,transparent 1px);background-size:32px 32px}
+section.white{background:rgba(255,255,255,.82)}
+/* nav */
+.nav{background:rgba(7,26,29,.82);border-bottom:1px solid rgba(200,240,49,.18);backdrop-filter:blur(12px) saturate(140%)}
+.brand{color:#fff}
+.menu a{color:rgba(255,255,255,.82)}
+.menu a:hover{background:rgba(255,255,255,.08);color:var(--neo)}
+.menu a.cta{background:var(--neo);color:var(--deep);box-shadow:0 0 18px rgba(200,240,49,.35)}
+.menu a.cta:hover{background:#d9ff4d;color:var(--deep)}
+/* hero */
+.hero{min-height:min(92vh,820px);overflow:hidden}
+html,body{overflow-x:clip}
+.hero::before{background:linear-gradient(90deg,rgba(4,16,18,.88) 0%,rgba(4,16,18,.55) 42%,rgba(4,16,18,.05) 75%),linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(4,16,18,.7))}
+.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(200,240,49,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(200,240,49,.10) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.5) 45%,transparent 70%);mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.5) 45%,transparent 70%)}
+.hero .wrap{padding-bottom:88px}
+.badge{background:rgba(200,240,49,.12);color:var(--neo);border:1px solid rgba(200,240,49,.5);font-family:var(--mono);letter-spacing:1px;backdrop-filter:blur(6px)}
+.badge .live{width:8px;height:8px;border-radius:50%;background:var(--neo);box-shadow:0 0 10px var(--neo);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+.hero h1{font-size:clamp(56px,11vw,132px);line-height:1;letter-spacing:6px;margin:6px 0 0;background:linear-gradient(100deg,#ffffff 0%,#ffffff 55%,var(--neo) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 24px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(200,240,49,.18))}
+.hero h1 .h1-en{display:block;font-family:var(--mono);font-size:clamp(13px,1.4vw,17px);letter-spacing:8px;color:var(--neo);-webkit-text-fill-color:var(--neo);margin-bottom:10px;font-weight:700}
+.hero p.sub{display:inline-block;font-size:clamp(20px,2.8vw,30px);letter-spacing:8px;margin:16px 0 30px;padding-left:16px;border-left:4px solid var(--neo);text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.btns{align-items:center;gap:14px}
+.btn.call{position:relative;background:var(--neo);color:var(--deep);min-height:72px;padding:0 28px 0 14px;border-radius:16px;gap:14px;box-shadow:0 10px 30px rgba(200,240,49,.35),0 0 0 1px rgba(255,255,255,.4) inset;transition:transform .15s}
+.btn.call:hover{transform:translateY(-2px)}
+.btn.call::after{content:"";position:absolute;inset:-6px;border-radius:20px;border:2px solid var(--neo);opacity:.7;animation:ring 2s infinite}
+@keyframes ring{0%{transform:scale(.96);opacity:.8}100%{transform:scale(1.12);opacity:0}}
+.btn.call .ic{width:48px;height:48px;border-radius:12px;background:var(--deep);color:var(--neo);display:flex;align-items:center;justify-content:center;animation:shake 2.4s infinite}
+@keyframes shake{0%,84%,100%{transform:rotate(0)}87%{transform:rotate(-14deg)}90%{transform:rotate(12deg)}93%{transform:rotate(-8deg)}96%{transform:rotate(6deg)}}
+.btn.call .tx{display:flex;flex-direction:column;line-height:1.15}
+.btn.call small{font-size:13px;font-weight:700;opacity:.8;letter-spacing:1px}
+.btn.call b{font-family:var(--mono);font-size:30px;letter-spacing:1px}
+.btn.glass{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.45);backdrop-filter:blur(8px);min-height:56px}
+.btn.glass:hover{background:rgba(255,255,255,.22)}
+.btn.s{min-height:56px;border-color:rgba(255,255,255,.35);background:transparent}
+.hud{display:grid;grid-template-columns:repeat(4,max-content);gap:0;margin-top:34px;border:1px solid rgba(200,240,49,.28);border-radius:14px;background:rgba(4,16,18,.55);backdrop-filter:blur(8px);width:max-content;max-width:100%}
+.hud div{padding:12px 22px;border-left:1px solid rgba(200,240,49,.2)}
+.hud div:first-child{border-left:0}
+.hud b{display:block;font-family:var(--mono);font-size:26px;color:var(--neo);line-height:1.1}
+.hud b i{font-style:normal;font-size:.55em;margin-left:2px;opacity:.85}
+.hud span{font-size:12px;color:rgba(255,255,255,.75);letter-spacing:1px}
+/* chips */
+.chips{margin-top:-40px}
+.chip{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-top:0;border:1px solid rgba(21,106,116,.18);position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}
+.chip::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--neo))}
+.chip:hover{transform:translateY(-3px);box-shadow:var(--glow),0 12px 28px rgba(0,0,0,.12)}
+.chip span{font-family:var(--mono);letter-spacing:.5px}
+/* section headings */
+.eyebrow{font-family:var(--mono);letter-spacing:4px;display:inline-flex;align-items:center;gap:8px}
+.eyebrow::before{content:"//";color:var(--neo);background:var(--deep);padding:0 6px;border-radius:4px;letter-spacing:0}
+/* product bars */
+.pbar{background:linear-gradient(100deg,var(--deep) 0%,var(--deep2) 55%,var(--teal) 100%);border-bottom:0;position:relative;overflow:hidden;box-shadow:0 2px 0 var(--neo),0 6px 24px rgba(200,240,49,.15)}
+.pbar::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(200,240,49,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(200,240,49,.08) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
+.pbar .wrap{position:relative}
+.pbar .pn{font-family:var(--mono);color:var(--neo)}
+.pbar .pe{font-family:var(--mono)}
+/* order band */
+.orderband{background:linear-gradient(var(--deep),var(--deep)) padding-box,linear-gradient(100deg,var(--neo),var(--teal),var(--neo)) border-box;border:1.5px solid transparent;box-shadow:0 10px 30px rgba(7,26,29,.25)}
+.orderband .ob-go{background:var(--neo);box-shadow:0 0 18px rgba(200,240,49,.4)}
+/* cards */
+.card,.case,.feat div,.colors figure,.tl .sc{border-color:rgba(21,106,116,.16);transition:box-shadow .2s,transform .2s}
+.card:hover,.case:hover,.tl .sc:hover{box-shadow:var(--glow),0 10px 26px rgba(0,0,0,.08);transform:translateY(-2px)}
+.case .ping,.card h3,.caps h3{font-family:var(--mono)}
+.case .ping{background:linear-gradient(100deg,var(--teal),#2aa6a0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.spec .v{font-family:var(--mono)}
+dl.dim dt{background:var(--deep);color:var(--neo)}
+.tag{background:var(--deep);color:var(--neo);border:1px solid rgba(200,240,49,.3)}
+.filters button[aria-pressed=true]{background:var(--deep);border-color:var(--deep);color:var(--neo);box-shadow:0 0 12px rgba(200,240,49,.25)}
+/* timeline */
+.tl::before{background:linear-gradient(var(--teal),var(--neo))}
+.tl .ph{background:linear-gradient(100deg,var(--deep),var(--deep2));border-left-color:var(--neo)}
+.tl .ph .pl,.tl .ph .pr{font-family:var(--mono)}
+.tl .dot{font-family:var(--mono);box-shadow:0 0 0 4px rgba(200,240,49,.15)}
+.tl .st.last .dot{background:var(--neo);border-color:var(--neo);box-shadow:0 0 18px var(--neo)}
+/* contact & footer */
+.contact{background:var(--deep);background-image:radial-gradient(ellipse at 80% 0%,rgba(21,106,116,.6),transparent 60%),linear-gradient(rgba(200,240,49,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(200,240,49,.06) 1px,transparent 1px);background-size:auto,32px 32px,32px 32px}
+.phones a{border-color:rgba(200,240,49,.25);background:rgba(255,255,255,.04)}
+.phones a:hover{box-shadow:var(--glow)}
+.phones b{font-family:var(--mono);color:var(--neo)}
+footer{background:#04100f;border-top:1px solid rgba(200,240,49,.2)}
+.fab .call{background:var(--neo);color:var(--deep);box-shadow:0 0 20px rgba(200,240,49,.5)}
+@media (max-width:760px){
+  .hud{grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
+  .hud div{padding:10px 14px}
+  .hud div:nth-child(3){border-left:0}
+  .hud div:nth-child(n+3){border-top:1px solid rgba(200,240,49,.2)}
+  .hud b{font-size:22px}
+  .btn.call{width:100%;justify-content:flex-start}
+  .btn.call b{font-size:28px}
+  .hero h1{letter-spacing:3px}
+  .hero .wrap{padding-bottom:64px;padding-top:90px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -254,14 +349,21 @@ footer{background:#0b3a40;color:rgba(255,255,255,.7);font-size:13px;padding:20px
 
 <main id="top">
   <div class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
     <div class="wrap">
-      <div class="badge">累積建造突破 10,000 m²　穩固・高效・安心</div>
-      <h1>富林組合屋</h1>
-      <p class="sub">— 組合空間快速到位 —</p>
+      <div class="badge"><span class="live" aria-hidden="true"></span>累積建造突破 10,000 m²　穩固・高效・安心</div>
+      <h1><span class="h1-en">FULIN MODULAR HOMES</span>富林組合屋</h1>
+      <p class="sub">組合空間・快速到位</p>
       <div class="btns">
-        <a class="btn p" href="tel:0929010882">立即來電 0929-010-882</a>
-        <a class="btn p" href="order.html" style="background:#fff">自助選購試算</a>
+        <a class="btn call" href="tel:0929010882"><span class="ic" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><span class="tx"><small>立即來電・免費諮詢</small><b>0929-010-882</b></span></a>
+        <a class="btn glass" href="order.html">自助選購試算 <span aria-hidden="true">→</span></a>
         <a class="btn s" href="#cases">看精彩實績</a>
+      </div>
+      <div class="hud">
+        <div><b>10,000<i>+</i></b><span>m² 累積建造</span></div>
+        <div><b>12</b><span>道工序嚴控</span></div>
+        <div><b>20<i>min</i></b><span>折疊屋展開</span></div>
+        <div><b>30<i>min</i></b><span>展翼屋部署</span></div>
       </div>
     </div>
   </div>
