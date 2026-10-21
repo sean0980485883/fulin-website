@@ -181,6 +181,16 @@ var LIB=[
   {k:'bath',id:'bl',name:'大衛浴',w:120,h:190,price:55000},
   {k:'bath',id:'bs',name:'小衛浴',w:110,h:140,price:40000},
   {k:'bath',id:'btile',name:'磁磚衛浴',w:150,h:240,vars:[['浴簾',75000],['拉門',85000]]}]},
+ {sec:'水電照明',items:[
+  {k:'elec',id:'lamp',name:'吸頂燈',w:40,h:40,sym:'lamp',vars:[['圓形白光',3500],['圓形自然光',3500],['崁燈',3500]]},
+  {k:'elec',id:'led',name:'LED 燈管',w:120,h:14,sym:'led',vars:[['單管 40W',2500],['雙管',3500]]},
+  {k:'elec',id:'track',name:'軌道燈',w:100,h:14,sym:'track',price:4500},
+  {k:'elec',id:'wclamp',name:'廁所燈',w:30,h:30,sym:'lamp',price:2500},
+  {k:'elec',id:'olamp',name:'戶外筒燈',w:30,h:30,sym:'olamp',price:2800},
+  {k:'elec',id:'sock',name:'插座 110v',w:30,h:18,sym:'sock',vars:[['110v',1500],['220v',2800]],v:'110v'},
+  {k:'elec',id:'sock',name:'插座 220v',w:30,h:18,sym:'sock',vars:[['110v',1500],['220v',2800]],v:'220v'},
+  {k:'elec',id:'panel',name:'配電箱',w:50,h:24,sym:'panel',price:8500},
+  {k:'elec',id:'meter',name:'分電錶',w:30,h:30,sym:'meter',price:2500}]},
  {sec:'家具（擺設參考・不計價）',items:[
   {k:'furn',f:'bed',name:'5尺雙人床',w:152,h:188},
   {k:'furn',f:'ward',name:'6尺衣櫃',w:180,h:60},
@@ -195,8 +205,8 @@ var LIB=[
 var DECKV={deck:{'1×3m':[300,100,20000],'1×4m':[400,100,30000],'1×6m':[600,100,40000],'2×6m':[600,200,64000],'2×8m':[800,200,70000],'3×6m':[600,300,70000],'4×6m':[600,400,90000]},
            fdeck:{'2×6m':[600,200,88000],'3×6m':[600,300,93000],'4×6m':[600,400,97000],'2×8m':[800,200,108000],'3×8m':[800,300,118000],'4×8m':[800,400,138000]}};
 var ROOFS=[['r4','四合一屋頂','單斜',4500],['r4','四合一屋頂','雙斜',5500],['rglaze','琉璃鋼瓦屋頂','',6500],['r3','簡易三合一屋頂','',3500],['rwavep','簡易浪板屋頂','',2500]];
-var NAMES={r4:'四合一屋頂',rglaze:'琉璃鋼瓦屋頂',r3:'簡易三合一屋頂',rwavep:'簡易浪板屋頂',part:'隔間牆',wbasic:'基本窗',wair:'氣密窗 93×110cm',wsec:'防盜氣密窗 93×110cm',wsmall:'廁所小窗',wview:'強化玻璃景觀窗 W188×H110',dbasic:'基本門（外開）',d3in1:'三合一門（有開天）',dscreen:'鋁紗門',ddouble:'雙開門 166×210',dslide:'落地門',bjp:'日式衛浴',bl:'大衛浴',bs:'小衛浴',btile:'磁磚衛浴',deck:'露台',fdeck:'框架露台（含平面天花）',mh:'組合屋（鋼構屋）'};
-var UNITS={r4:'坪',rglaze:'坪',r3:'坪',rwavep:'坪',part:'米',wbasic:'窗',wair:'窗',wsec:'窗',wsmall:'窗',wview:'窗',dbasic:'組',d3in1:'組',dscreen:'組',ddouble:'組',dslide:'組',bjp:'組',bl:'組',bs:'組',btile:'組',deck:'組',fdeck:'組',mh:'顆'};
+var NAMES={lamp:'燈具（明管・含開關）',led:'LED 燈管（明管）',track:'軌道燈（含 2 顆 LED）',wclamp:'廁所燈',olamp:'戶外筒燈（明管）',sock:'插座（明管）',panel:'配電箱 110v/220v',meter:'分電錶',r4:'四合一屋頂',rglaze:'琉璃鋼瓦屋頂',r3:'簡易三合一屋頂',rwavep:'簡易浪板屋頂',part:'隔間牆',wbasic:'基本窗',wair:'氣密窗 93×110cm',wsec:'防盜氣密窗 93×110cm',wsmall:'廁所小窗',wview:'強化玻璃景觀窗 W188×H110',dbasic:'基本門（外開）',d3in1:'三合一門（有開天）',dscreen:'鋁紗門',ddouble:'雙開門 166×210',dslide:'落地門',bjp:'日式衛浴',bl:'大衛浴',bs:'小衛浴',btile:'磁磚衛浴',deck:'露台',fdeck:'框架露台（含平面天花）',mh:'組合屋（鋼構屋）'};
+var UNITS={lamp:'組',led:'組',track:'組',wclamp:'組',olamp:'組',sock:'組',panel:'組',meter:'組',r4:'坪',rglaze:'坪',r3:'坪',rwavep:'坪',part:'米',wbasic:'窗',wair:'窗',wsec:'窗',wsmall:'窗',wview:'窗',dbasic:'組',d3in1:'組',dscreen:'組',ddouble:'組',dslide:'組',bjp:'組',bl:'組',bs:'組',btile:'組',deck:'組',fdeck:'組',mh:'顆'};
 
 /* ========= 狀態 ========= */
 var S={items:[],seq:1},view={tx:0,ty:0,s:0.5},selId=null;
@@ -237,6 +247,15 @@ function shape(it){
     else if(it.f==='table'){for(var i=0;i<3;i++){var x=-hw+w*(i+0.5)/3-20;o+='<rect x="'+x+'" y="'+(-hh-38)+'" width="40" height="34" rx="6" '+st+'/><rect x="'+x+'" y="'+(hh+4)+'" width="40" height="34" rx="6" '+st+'/>';}o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" rx="4" fill="#e9dcc8" stroke="#5a4a3a" stroke-width="2"/>';}
     else if(it.f==='sofa'){o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" rx="10" '+st+'/><rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="22" rx="8" fill="#e5ddd2" stroke="#5a4a3a" stroke-width="1.5"/><rect x="'+(-hw)+'" y="'+(-hh)+'" width="22" height="'+h+'" rx="8" fill="#e5ddd2" stroke="#5a4a3a" stroke-width="1.5"/><rect x="'+(hw-22)+'" y="'+(-hh)+'" width="22" height="'+h+'" rx="8" fill="#e5ddd2" stroke="#5a4a3a" stroke-width="1.5"/>';}
     o+='<g transform="rotate('+(-it.rot)+')"><text x="0" y="'+(it.f==='ward'?5:12)+'" text-anchor="middle" font-size="16" fill="#5a4a3a">'+esc(it.name)+'</text></g>';
+  }else if(it.k==='elec'){
+    var E='stroke="#b8860b" stroke-width="2.5" fill="#fff8db"';
+    if(it.sym==='lamp'){var r=Math.min(hw,hh);o+='<circle r="'+r+'" '+E+'/><path d="M'+(-r*.7)+' '+(-r*.7)+'L'+(r*.7)+' '+(r*.7)+'M'+(r*.7)+' '+(-r*.7)+'L'+(-r*.7)+' '+(r*.7)+'" stroke="#b8860b" stroke-width="2"/>';}
+    else if(it.sym==='olamp'){var r2=Math.min(hw,hh);o+='<circle r="'+r2+'" '+E+'/><circle r="'+(r2*.45)+'" fill="#b8860b"/>';}
+    else if(it.sym==='led'){o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" rx="4" '+E+'/>'+(it.v==='雙管'?'<line x1="'+(-hw+6)+'" y1="0" x2="'+(hw-6)+'" y2="0" stroke="#b8860b" stroke-width="1.5"/>':'');}
+    else if(it.sym==='track'){o+='<line x1="'+(-hw)+'" y1="0" x2="'+hw+'" y2="0" stroke="#1d2224" stroke-width="5"/><circle cx="'+(-hw*.45)+'" r="9" '+E+'/><circle cx="'+(hw*.45)+'" r="9" '+E+'/>';}
+    else if(it.sym==='sock'){var hot=it.v==='220v';o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" rx="3" fill="'+(hot?'#ffe2dc':'#e6f2ff')+'" stroke="'+(hot?'#b3261e':'#1f5fa8')+'" stroke-width="2"/><g transform="rotate('+(-it.rot)+')"><text y="4" text-anchor="middle" font-size="11" font-weight="700" fill="'+(hot?'#b3261e':'#1f5fa8')+'" font-family="Space Grotesk,sans-serif">'+(hot?'220':'110')+'</text></g>';}
+    else if(it.sym==='panel'){o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" rx="3" fill="#1d2224" stroke="#c8f031" stroke-width="2"/><path d="M-4 -8 L-8 2 H0 L-4 10 L8 -3 H0 L4 -8Z" fill="#c8f031" transform="scale(.9)"/>';}
+    else if(it.sym==='meter'){o+='<circle r="'+Math.min(hw,hh)+'" fill="#fff" stroke="#1d2224" stroke-width="2.5"/><g transform="rotate('+(-it.rot)+')"><text y="5" text-anchor="middle" font-size="14" font-weight="700" fill="#1d2224">M</text></g>';}
   }else if(it.k==='wall'){
     o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" fill="#3d4649" stroke="#1d2224" stroke-width="1"/>';
     o+='<g transform="rotate('+(-it.rot)+')"><text x="0" y="'+(it.rot%180?4:-12)+'" dx="'+(it.rot%180?14:0)+'" text-anchor="'+(it.rot%180?'start':'middle')+'" font-size="18" font-weight="700" fill="#156a74" font-family="Space Grotesk,sans-serif">'+(w/100).toFixed(1)+' m</text></g>';
@@ -248,7 +267,7 @@ function shape(it){
   return o;
 }
 function hlRect(it){var w=it.w,h=(it.k==='win'||it.k==='door')?DEPTH:it.h;return '<rect class="hl" x="'+(-w/2-6)+'" y="'+(-h/2-6)+'" width="'+(w+12)+'" height="'+(h+12)+'" rx="4"/>'}
-var order={deck:0,mod:1,bath:2,furn:3,wall:3.5,win:4,door:4};
+var order={deck:0,mod:1,bath:2,furn:3,wall:3.5,win:4,door:4,elec:5};
 var WALL=8,wallMode=false,lastTap={u:0,t:0};
 function render(){
   var arr=S.items.slice().sort(function(a,b){return order[a.k]-order[b.k]});
@@ -266,16 +285,19 @@ function thumb(d){
   var w=d.w,h=d.h||DEPTH,sc=Math.min(90/w,40/h,0.5),o='';
   var it={k:d.k,w:d.w,h:d.h||DEPTH,rot:0,size:d.size||'',style:'標準',name:d.name,f:d.f,id:d.id,v:d.v||'',slide:d.slide};
   if(d.k==='win'||d.k==='door')sc=Math.min(90/w,0.6);
+  if(d.k==='elec'){sc=Math.min(80/w,32/h,1.1);it.sym=d.sym;it.v=d.v||(d.vars?d.vars[0][0]:'')}
   return '<svg viewBox="-50 -22 100 44" aria-hidden="true"><g transform="scale('+sc+')">'+shape(it).replace(/<g transform="rotate[^>]*>.*?<\/g>/g,'')+'</g></svg>';
 }
 var pal=document.getElementById('pal');
-pal.innerHTML='<h3>隔間</h3><button type="button" class="pi wallpi" data-wall="1" style="width:100%;flex-direction:row;justify-content:center;min-height:52px"><svg viewBox="0 0 24 24" style="width:26px;height:26px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V4h16"/><path d="M4 12h9"/></svg><b>畫隔間牆</b><small>拖曳拉線・NT$3,000/米</small></button><button type="button" class="tpl" id="tpl">套用範本：4×8 套房（小衛浴＋床＋衣櫃＋沙發）</button>'+LIB.map(function(s,si){return '<h3>'+s.sec+'</h3><div class="grid">'+s.items.map(function(d,di){
-  var sz=d.k==='mod'||d.k==='bath'||d.k==='furn'||d.k==='deck'?(d.w+'×'+d.h):('寬 '+d.w);
-  return '<button type="button" class="pi" data-s="'+si+'" data-d="'+di+'">'+thumb(d)+'<b>'+esc(d.name)+'</b><small>'+sz+' cm</small></button>'}).join('')+'</div>'}).join('');
+pal.innerHTML='<h3>水電一鍵配置</h3><button type="button" class="tpl" id="autoE" style="margin-top:0">⚡ 一鍵建議配置燈具／插座／配電</button><h3>隔間</h3><button type="button" class="pi wallpi" data-wall="1" style="width:100%;flex-direction:row;justify-content:center;min-height:52px"><svg viewBox="0 0 24 24" style="width:26px;height:26px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V4h16"/><path d="M4 12h9"/></svg><b>畫隔間牆</b><small>拖曳拉線・NT$3,000/米</small></button><button type="button" class="tpl" id="tpl">套用範本：4×8 套房（小衛浴＋床＋衣櫃＋沙發）</button>'+LIB.map(function(s,si){return '<h3>'+s.sec+'</h3><div class="grid">'+s.items.map(function(d,di){
+  var sz=d.k==='elec'?null:(d.k==='mod'||d.k==='bath'||d.k==='furn'||d.k==='deck'?(d.w+'×'+d.h):('寬 '+d.w));
+  var pr=d.k==='elec'?('NT$'+(d.price||(d.vars.filter(function(x){return x[0]===(d.v||d.vars[0][0])})[0][1])).toLocaleString('en-US')):null;
+  return '<button type="button" class="pi" data-s="'+si+'" data-d="'+di+'">'+thumb(d)+'<b>'+esc(d.name)+'</b><small>'+(sz?sz+' cm':pr)+'</small></button>'}).join('')+'</div>'}).join('');
 pal.addEventListener('click',function(e){
   if(e.target.closest('[data-wall]')){setWallMode(!wallMode);return}
   var b=e.target.closest('.pi');if(b){add(LIB[+b.dataset.s].items[+b.dataset.d]);return}
   if(e.target.id==='tpl')template();
+  if(e.target.id==='autoE')autoElec();
 });
 function centerWorld(){var r=document.getElementById('svg').getBoundingClientRect();return {x:(r.width/2-view.tx)/view.s,y:(r.height/2-view.ty)/view.s}}
 function snap(v,g){return Math.round(v/g)*g}
@@ -287,7 +309,8 @@ function add(d,pos){
     if(!pos&&mods.length){var mx=Math.max.apply(null,mods.map(function(m){return box(m).x1}));var ref=mods[mods.length-1];it.cx=mx+it.w/2;it.cy=box(ref).y0+it.h/2;}}
   if(d.id)it.id=d.id; if(d.f)it.f=d.f; if(d.slide)it.slide=1;
   if(d.colors){it.colors=d.colors;it.color=d.colors[0]}
-  if(d.vars){it.vars=d.vars;it.v=d.vars[0][0]} else if(d.v)it.v=d.v;
+  if(d.sym)it.sym=d.sym;
+  if(d.vars){it.vars=d.vars;it.v=d.v||d.vars[0][0]} else if(d.v)it.v=d.v;
   if(d.price!=null)it.price=d.price;
   S.items.push(it);
   if(it.k==='win'||it.k==='door')attach(it,true);
@@ -318,6 +341,20 @@ function attach(it,force){
 function moveAttached(m){var b=box(m);S.items.forEach(function(o){if(o.att&&o.att.m===m.uid){
   if(o.att.side==='wh'){o.cx=b.x0+o.att.off;o.cy=m.cy;return}if(o.att.side==='wv'){o.cy=b.y0+o.att.off;o.cx=m.cx;return}
   if(o.att.side==='t'||o.att.side==='b'){o.cx=b.x0+o.att.off;o.cy=o.att.side==='t'?b.y0:b.y1}else{o.cy=b.y0+o.att.off;o.cx=o.att.side==='l'?b.x0:b.x1}}})}
+
+/* ========= 水電一鍵配置 ========= */
+function libItem(id,v){for(var i=0;i<LIB.length;i++)for(var j=0;j<LIB[i].items.length;j++){var d=LIB[i].items[j];if(d.id===id&&(!v||d.v===v||(!d.v&&d.vars&&d.vars.some(function(x){return x[0]===v}))))return d}return null}
+function autoElec(){var ms=S.items.filter(function(i){return i.k==='mod'});if(!ms.length){toast('請先放組合屋');return}
+  S.items=S.items.filter(function(i){return !i.auto});
+  function put(id,v,x,y,rot){var d=libItem(id,v);var it=add(d,{x:x,y:y});if(v&&it.vars)it.v=v;it.rot=rot||0;it.auto=1;return it}
+  ms.forEach(function(m){var b=box(m),W=b.x1-b.x0,H=b.y1-b.y0,a=W*H/10000,n=Math.max(1,Math.ceil(a/12));
+    var baths=S.items.filter(function(i){return i.k==='bath'}).map(box);
+    function free(x,y){for(var k=0;k<baths.length;k++){var q=baths[k];if(x>q.x0-30&&x<q.x1+30&&y>q.y0-30&&y<q.y1+30){if(W>=H){x=(x-(q.x0+q.x1)/2<0?q.x0-50:q.x1+50);x=Math.min(Math.max(x,b.x0+40),b.x1-40)}else{y=(y-(q.y0+q.y1)/2<0?q.y0-50:q.y1+50);y=Math.min(Math.max(y,b.y0+40),b.y1-40)}}}return [x,y]}
+    for(var i=0;i<n;i++){var pt=W>=H?free(b.x0+W*(i+.5)/n,(b.y0+b.y1)/2):free((b.x0+b.x1)/2,b.y0+H*(i+.5)/n);put('lamp','圓形白光',pt[0],pt[1])}
+    put('sock','110v',b.x0+45,b.y1-22);put('sock','110v',b.x1-45,b.y0+22);put('sock','220v',b.x1-45,b.y1-22);});
+  S.items.filter(function(i){return i.k==='bath'}).forEach(function(bt){put('wclamp',null,bt.cx,bt.cy)});
+  var b0=box(ms[0]);put('panel',null,b0.x0+45,b0.y0+25);
+  selId=null;render();toast('已依房子大小配置：每顆約每 12 m² 一盞燈、110v 插座 2 個、220v 插座 1 個；全案配電箱 1 個。可再拖曳或刪除。');}
 
 /* ========= 屋頂 ========= */
 function roofCalc(){var ms=S.items.filter(function(i){return i.k==='mod'});if(!ms.length)return null;
@@ -371,7 +408,7 @@ svg.addEventListener('pointermove',function(e){
     wl.w=Math.max(wl.w,0);render();return}
   if(drag.pan){view.tx=drag.tx+e.clientX-drag.x;view.ty=drag.ty+e.clientY-drag.y;drag.moved=true;applyView();return}
   var w=toWorld(e),it=drag.it;drag.moved=true;
-  it.cx=snap(w.x-drag.ox,10);it.cy=snap(w.y-drag.oy,10);
+  var gs=it.k==='elec'?5:10;it.cx=snap(w.x-drag.ox,gs);it.cy=snap(w.y-drag.oy,gs);
   if(it.k==='mod'){snapMod(it);moveAttached(it)}
   if(it.k==='wall')moveAttached(it);
   if(it.k==='win'||it.k==='door'){it.att=null;attach(it,false)}
@@ -397,7 +434,7 @@ function renderProps(){
   if(selId===-1&&S.roof){var r=roofCalc();document.getElementById('mtools').classList.remove('on');if(!r){props.innerHTML='<p class="empty">請先放組合屋。</p>';return}
     props.innerHTML='<h2>屋頂（估算）</h2><div class="dim">最長 '+(r.L-1).toFixed(1)+' m、最寬 '+(r.W-1).toFixed(1)+' m，各加 1 m</div><div class="dim" style="color:var(--ink);font-size:15px">'+r.L.toFixed(1)+' × '+r.W.toFixed(1)+' m ＝ '+r.m2.toFixed(1)+' m² ≈ <b>'+r.ping.toFixed(1)+' 坪</b>（以 '+r.q+' 坪計）</div><div class="lb">屋頂種類</div><div class="pills">'+ROOFS.map(function(x,i){return '<button type="button" class="pill" data-a="roof" data-v="'+i+'" aria-pressed="'+(S.roof.i===i)+'">'+x[1]+(x[2]?' '+x[2]:'')+'<small>'+fmt(x[3])+'/坪</small></button>'}).join('')+'</div><div class="lb">小計 '+fmt(ROOFS[S.roof.i][3]*r.q)+'</div><div class="btnrow"><button type="button" class="del" data-a="roofdel">移除屋頂</button></div>';return}
   var it=byId(selId);document.getElementById('mtools').classList.toggle('on',!!it);
-  if(!it){props.innerHTML='<p class="empty">點選畫面上的元件可以修改款式、顏色、旋轉或刪除。<b>對物件點兩下＝旋轉</b>。<br><br><b>畫隔間</b>：按「畫隔間牆」，在圖上按住拖曳拉出牆，會自動貼齊房子牆邊；門也能貼在隔間牆上。<br><br><b>小技巧</b>：組合屋拖近彼此會自動對齊；門窗拖到牆邊會自動貼牆，跟著房子一起移動。</p>';return}
+  if(!it){props.innerHTML='<p class="empty">點選畫面上的元件可以修改款式、顏色、旋轉或刪除。<b>水電</b>可用左側「一鍵建議配置」自動放燈具、插座、配電箱，再自行增減。<b>對物件點兩下＝旋轉</b>。<br><br><b>畫隔間</b>：按「畫隔間牆」，在圖上按住拖曳拉出牆，會自動貼齊房子牆邊；門也能貼在隔間牆上。<br><br><b>小技巧</b>：組合屋拖近彼此會自動對齊；門窗拖到牆邊會自動貼牆，跟著房子一起移動。</p>';return}
   var h='<h2>'+esc(it.name)+'</h2><div class="dim">'+bw(it)+' × '+bh(it)+' cm'+(it.k==='win'||it.k==='door'?(it.att?'・已貼牆':'・未貼牆'):'')+'</div>';
   if(it.k==='mod'){
     h+='<div class="lb">尺寸</div><div class="pills">'+Object.keys(MH).map(function(s){return '<button type="button" class="pill" data-a="size" data-v="'+s+'" aria-pressed="'+(it.size===s)+'">'+s+'</button>'}).join('')+'</div>';
