@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>線上畫圖設計｜富林組合屋</title>
+<meta name="description" content="富林組合屋線上平面圖：拖拉組合屋、門窗、衛浴、家具，畫完自動帶入報價單。">
+<link rel="icon" href="img/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#156a74;--deep:#071a1d;--deep2:#0c2a2f;--neo:#c8f031;--ink:#1d2224;--mute:#5a6468;--bg:#eef1ee;--line:#dfe3e0;--red:#b3261e;--mono:'Space Grotesk','Noto Sans TC',sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden}
+body{font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;color:var(--ink);background:var(--bg);-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+.app{display:grid;grid-template-rows:auto 1fr;height:100dvh}
+.top{display:flex;align-items:center;gap:12px;padding:8px 14px;padding-top:max(8px,env(safe-area-inset-top));background:linear-gradient(100deg,var(--deep),var(--deep2) 60%,var(--teal));color:#fff;border-bottom:2px solid var(--neo)}
+.top a.back{color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;font-weight:900;min-height:44px}
+.top img{width:34px;height:34px;border-radius:8px}
+.top .ttl{line-height:1.25}
+.top .ttl b{display:block;color:var(--neo);letter-spacing:2px}
+.top .ttl span{font-size:12px;opacity:.8}
+.top .acts{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.tb{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:10px;padding:0 12px;min-height:40px;font-size:14px;white-space:nowrap}
+.tb:hover{background:rgba(255,255,255,.18)}
+.tb.go{background:var(--neo);color:var(--deep);border-color:var(--neo);font-weight:900;box-shadow:0 0 16px rgba(200,240,49,.35)}
+.main{display:grid;grid-template-columns:250px 1fr 290px;min-height:0}
+/* palette */
+.pal{background:#fff;border-right:1px solid var(--line);overflow-y:auto;padding:10px 10px 30px}
+.pal h3{font-size:13px;letter-spacing:2px;color:var(--teal);margin:14px 4px 8px;font-family:var(--mono);display:flex;align-items:center;gap:6px}
+.pal h3::before{content:"//";background:var(--deep);color:var(--neo);padding:0 5px;border-radius:4px;font-size:11px}
+.pal .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pi{border:1px solid var(--line);background:#fafbf9;border-radius:10px;padding:8px 6px 6px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:84px}
+.pi:hover{border-color:var(--teal);box-shadow:0 0 0 1px rgba(200,240,49,.4),0 0 14px rgba(200,240,49,.25)}
+.pi svg{width:100%;height:42px}
+.pi b{font-size:13px;line-height:1.25}
+.pi small{font-size:11px;color:var(--mute);font-family:var(--mono)}
+.tpl{width:100%;border:1px dashed var(--teal);background:#eef6f6;border-radius:10px;padding:10px;font-size:14px;font-weight:700;color:var(--teal);margin-top:6px}
+/* canvas */
+.stage{position:relative;min-width:0;min-height:0;background:#f7f8f6;overflow:hidden;touch-action:none}
+#svg{width:100%;height:100%;display:block;cursor:grab;user-select:none}
+#svg.pan{cursor:grabbing}
+.hint{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);text-align:center;color:var(--mute);pointer-events:none;font-size:15px;line-height:1.8}
+.hint b{display:block;font-size:22px;color:var(--ink)}
+.zoom{position:absolute;right:12px;bottom:12px;display:flex;flex-direction:column;gap:6px}
+.zoom button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:20px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.status{position:absolute;left:12px;bottom:12px;background:rgba(7,26,29,.88);color:#fff;border-radius:10px;padding:6px 12px;font-size:13px;font-family:var(--mono);border:1px solid rgba(200,240,49,.3)}
+.status b{color:var(--neo)}
+/* props */
+.side{background:#fff;border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.props{padding:14px;border-bottom:1px solid var(--line)}
+.props h2{font-size:18px;margin:0 0 2px}
+.props .dim{font-family:var(--mono);color:var(--mute);font-size:13px;margin-bottom:10px}
+.props .lb{font-size:13px;font-weight:700;margin:10px 0 6px}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:6px 10px;min-height:40px;font-size:13px;line-height:1.25;text-align:left}
+.pill small{display:block;font-size:11px;color:var(--mute);font-family:var(--mono)}
+.pill[aria-pressed=true]{border-color:var(--teal);background:#eef6f6}
+.pill:disabled{opacity:.35;cursor:not-allowed}
+.btnrow{display:flex;gap:6px;margin-top:12px}
+.btnrow button{flex:1;min-height:42px;border-radius:10px;border:1px solid var(--line);background:#fafbf9;font-size:14px}
+.btnrow .del{color:var(--red)}
+.empty{color:var(--mute);font-size:14px;line-height:1.7}
+.quote{flex:1;overflow-y:auto;padding:12px 14px}
+.quote h3{font-size:14px;margin:0 0 8px;display:flex;justify-content:space-between}
+.ql{display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.ql span{color:var(--mute)}
+.ql b{font-family:var(--mono);white-space:nowrap}
+.qf{font-size:12px;color:var(--mute);margin-top:8px}
+.qtot{padding:12px 14px;border-top:1px solid var(--line);background:#fafbf9}
+.qtot .t{display:flex;justify-content:space-between;align-items:baseline}
+.qtot .t b{font-family:var(--mono);font-size:24px}
+.qtot button{width:100%;margin-top:8px;min-height:50px;border:0;border-radius:12px;background:var(--deep);color:var(--neo);font-size:16px;font-weight:900;box-shadow:0 0 16px rgba(200,240,49,.25)}
+.mobq{display:none!important}
+.mtools{display:none}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--deep);color:#fff;border:1px solid rgba(200,240,49,.4);border-radius:30px;padding:10px 18px;font-size:14px;z-index:90;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+/* svg item styles */
+.it{cursor:move}
+.sel .hl{stroke:var(--neo);stroke-width:6;fill:none;filter:drop-shadow(0 0 6px rgba(200,240,49,.9))}
+@media (max-width:860px){
+  .main{grid-template-columns:1fr;grid-template-rows:1fr auto}
+  .stage{grid-row:1}
+  .pal{grid-row:2;border-right:0;border-top:1px solid var(--line);max-height:34dvh;padding:6px 8px 10px}
+  .pal .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .pi{min-height:70px}
+  .pi svg{height:30px}
+  .pi b{font-size:12px}
+  .side{position:absolute;top:58px;right:8px;left:8px;max-height:46dvh;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:30;display:none}
+  .side.on{display:flex}
+  .top .ttl span{display:none}
+  .tb{min-height:38px;padding:0 9px;font-size:13px}
+  .mobq{display:inline-flex!important}
+  .top{gap:8px;padding:6px 8px}
+  .top a.back{font-size:0;gap:0}
+  .top .ttl b{font-size:14px;letter-spacing:1px;white-space:nowrap}
+  .mobq{font-size:12px}
+  .top .acts{gap:5px}
+  #bClear,#bPng{display:none}
+  .mtools{position:absolute;top:8px;left:50%;transform:translateX(-50%);display:none;gap:6px;background:rgba(7,26,29,.92);padding:6px;border-radius:14px;border:1px solid rgba(200,240,49,.35);z-index:20}
+  .mtools.on{display:flex}
+  .mtools button{white-space:nowrap;min-height:40px;padding:0 12px;border-radius:10px;border:0;background:rgba(255,255,255,.1);color:#fff;font-size:14px}
+  .mtools .del{color:#ff8a80}
+  .status{font-size:11px;padding:4px 8px;right:64px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <a class="back" href="./"><img src="img/logo.jpg" alt="">富林組合屋</a>
+    <div class="ttl"><b>線上畫圖設計</b><span>拖拉擺放・畫完一鍵帶入報價單</span></div>
+    <div class="acts">
+      <button class="tb mobq" id="mobQ" type="button">清單</button>
+      <button class="tb" id="bPng" type="button">下載圖片</button>
+      <button class="tb" id="bClear" type="button">清空</button>
+      <a class="tb" href="order.html" style="display:inline-flex;align-items:center;text-decoration:none">報價單</a>
+      <button class="tb go" id="bGo" type="button">帶入報價單 →</button>
+    </div>
+  </header>
+  <div class="main">
+    <aside class="pal" id="pal" aria-label="元件"></aside>
+    <div class="stage" id="stage">
+      <svg id="svg" xmlns="http://www.w3.org/2000/svg" aria-label="平面圖畫布">
+        <defs>
+          <pattern id="g10" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" fill="none" stroke="#e3e7e3" stroke-width="0.6"/></pattern>
+          <pattern id="g100" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="100" height="100" fill="url(#g10)"/><path d="M100 0H0V100" fill="none" stroke="#c9d3cf" stroke-width="1.4"/></pattern>
+          <pattern id="plank" width="100" height="20" patternUnits="userSpaceOnUse"><rect width="100" height="20" fill="#c79f6e"/><path d="M0 19.5H100" stroke="#a37a4c" stroke-width="1.2"/></pattern>
+        </defs>
+        <g id="world"><rect x="-20000" y="-20000" width="40000" height="40000" fill="url(#g100)" id="bg"/><g id="items"></g></g>
+      </svg>
+      <div class="hint" id="hint"><b>從左側點選「組合屋」開始</b>拖曳移動・R 旋轉・Delete 刪除<br>門窗拖到牆邊會自動貼牆</div>
+      <div class="status" id="status"></div>
+      <div class="mtools" id="mtools"><button type="button" data-a="rot">旋轉</button><button type="button" data-a="dup">複製</button><button type="button" data-a="props">款式</button><button type="button" class="del" data-a="del">刪除</button></div>
+      <div class="zoom"><button type="button" id="zIn" aria-label="放大">＋</button><button type="button" id="zOut" aria-label="縮小">－</button><button type="button" id="zFit" aria-label="全部顯示" style="font-size:13px">全部</button></div>
+    </div>
+    <aside class="side" id="side">
+      <div class="props" id="props"></div>
+      <div class="quote" id="quote"></div>
+      <div class="qtot"><div class="t"><span>圖面試算（未稅）</span><b id="qTot">NT$ 0</b></div><button type="button" id="bGo2">帶入報價單 →</button></div>
+    </aside>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ========= 元件目錄（尺寸單位：公分；價格同報價單） ========= */
+var MH={'3×6m':{'標準':98000,'平面天花':118000,'水泥板':120000,'PU板':198000},'3×8m':{'標準':138000,'平面天花':158000},'4×6m':{'標準':118000,'平面天花':138000,'水泥板':150000,'PU板':208000},'4×8m':{'標準':156000,'平面天花':176000,'水泥板':180000,'PU板':260000}};
+var STYLES=['標準','平面天花','水泥板','PU板'];
+var LIB=[
+ {sec:'組合屋主體',items:[
+  {k:'mod',size:'3×6m',w:600,h:300,name:'組合屋 3×6'},{k:'mod',size:'3×8m',w:800,h:300,name:'組合屋 3×8'},
+  {k:'mod',size:'4×6m',w:600,h:400,name:'組合屋 4×6'},{k:'mod',size:'4×8m',w:800,h:400,name:'組合屋 4×8'}]},
+ {sec:'窗戶',items:[
+  {k:'win',id:'wbasic',name:'基本窗',w:90,price:4500,colors:['黑灰','白']},
+  {k:'win',id:'wair',name:'氣密窗',w:93,price:8000,colors:['黑灰','白']},
+  {k:'win',id:'wsec',name:'防盜氣密窗',w:93,price:12000},
+  {k:'win',id:'wsmall',name:'廁所小窗',w:60,price:6000,colors:['白','黑灰']},
+  {k:'win',id:'wview',name:'景觀窗',w:188,vars:[['可開關',16500],['固定式',13000]]}]},
+ {sec:'門',items:[
+  {k:'door',id:'dbasic',name:'基本門',w:93,price:6500,colors:['黑灰','白']},
+  {k:'door',id:'d3in1',name:'三合一門',w:93,price:18500,colors:['黑灰','白']},
+  {k:'door',id:'dscreen',name:'鋁紗門',w:93,price:8500},
+  {k:'door',id:'ddouble',name:'雙開門',w:166,price:16000},
+  {k:'door',id:'dslide',name:'落地門 2門',w:188,slide:1,v:'2門 寬188',price:32000,colors:['黑','白']},
+  {k:'door',id:'dslide',name:'落地門 4門',w:283,slide:1,v:'4門 寬283',price:46000,colors:['黑','白']},
+  {k:'door',id:'dslide',name:'落地門 6門',w:563,slide:1,v:'6門 寬563',price:73000,colors:['黑','白']}]},
+ {sec:'衛浴',items:[
+  {k:'bath',id:'bjp',name:'日式衛浴',w:148,h:208,price:70000},
+  {k:'bath',id:'bl',name:'大衛浴',w:120,h:190,price:55000},
+  {k:'bath',id:'bs',name:'小衛浴',w:110,h:140,price:40000},
+  {k:'bath',id:'btile',name:'磁磚衛浴',w:150,h:240,vars:[['浴簾',75000],['拉門',85000]]}]},
+ {sec:'家具（擺設參考・不計價）',items:[
+  {k:'furn',f:'bed',name:'5尺雙人床',w:152,h:188},
+  {k:'furn',f:'ward',name:'6尺衣櫃',w:180,h:60},
+  {k:'furn',f:'table',name:'180cm 餐桌',w:180,h:90},
+  {k:'furn',f:'sofa',name:'280cm 沙發',w:280,h:90}]},
+ {sec:'露台',items:[
+  {k:'deck',id:'deck',name:'露台 2×6',w:600,h:200,v:'2×6m',price:64000},
+  {k:'deck',id:'deck',name:'露台 1×6',w:600,h:100,v:'1×6m',price:40000},
+  {k:'deck',id:'deck',name:'露台 2×8',w:800,h:200,v:'2×8m',price:70000},
+  {k:'deck',id:'fdeck',name:'框架露台 2×6',w:600,h:200,v:'2×6m',price:88000,frame:1}]}
+];
+var DECKV={deck:{'1×3m':[300,100,20000],'1×4m':[400,100,30000],'1×6m':[600,100,40000],'2×6m':[600,200,64000],'2×8m':[800,200,70000],'3×6m':[600,300,70000],'4×6m':[600,400,90000]},
+           fdeck:{'2×6m':[600,200,88000],'3×6m':[600,300,93000],'4×6m':[600,400,97000],'2×8m':[800,200,108000],'3×8m':[800,300,118000],'4×8m':[800,400,138000]}};
+var NAMES={wbasic:'基本窗',wair:'氣密窗 93×110cm',wsec:'防盜氣密窗 93×110cm',wsmall:'廁所小窗',wview:'強化玻璃景觀窗 W188×H110',dbasic:'基本門（外開）',d3in1:'三合一門（有開天）',dscreen:'鋁紗門',ddouble:'雙開門 166×210',dslide:'落地門',bjp:'日式衛浴',bl:'大衛浴',bs:'小衛浴',btile:'磁磚衛浴',deck:'露台',fdeck:'框架露台（含平面天花）',mh:'組合屋（鋼構屋）'};
+var UNITS={wbasic:'窗',wair:'窗',wsec:'窗',wsmall:'窗',wview:'窗',dbasic:'組',d3in1:'組',dscreen:'組',ddouble:'組',dslide:'組',bjp:'組',bl:'組',bs:'組',btile:'組',deck:'組',fdeck:'組',mh:'顆'};
+
+/* ========= 狀態 ========= */
+var S={items:[],seq:1},view={tx:0,ty:0,s:0.5},selId=null;
+try{var sv=JSON.parse(localStorage.getItem('fulin_plan_v1')||'null');if(sv&&sv.items){S=sv}}catch(e){}
+function save(){try{localStorage.setItem('fulin_plan_v1',JSON.stringify(S))}catch(e){}}
+function byId(id){for(var i=0;i<S.items.length;i++)if(S.items[i].uid===id)return S.items[i];return null}
+function fmt(n){return 'NT$ '+Math.round(n).toLocaleString('en-US')}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function bw(it){return (it.rot%180)?it.h:it.w} function bh(it){return (it.rot%180)?it.w:it.h}
+function box(it){var w=bw(it),h=bh(it);return {x0:it.cx-w/2,y0:it.cy-h/2,x1:it.cx+w/2,y1:it.cy+h/2}}
+var DEPTH=14;
+
+/* ========= 元件繪製 ========= */
+function shape(it){
+  var w=it.w,h=it.h,hw=w/2,hh=h/2,o='';
+  if(it.k==='mod'){
+    var fill={'標準':'#ffffff','平面天花':'#fbfcfa','水泥板':'#efe9df','PU板':'#e6f0f1'}[it.style]||'#fff';
+    o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" fill="'+fill+'" stroke="#1d2224" stroke-width="10"/>';
+    o+='<rect x="'+(-hw+5)+'" y="'+(-hh+5)+'" width="'+(w-10)+'" height="'+(h-10)+'" fill="none" stroke="#156a74" stroke-width="1" stroke-dasharray="6 6"/>';
+    var lab=it.size.replace('m','').replace('×',' × ')+' m';
+    o+='<g transform="rotate('+(-it.rot)+')"><text x="0" y="-6" text-anchor="middle" font-size="34" font-weight="700" fill="#156a74" font-family="Space Grotesk,sans-serif">'+lab+'</text><text x="0" y="28" text-anchor="middle" font-size="22" fill="#5a6468">'+esc(it.style)+'</text></g>';
+  }else if(it.k==='win'){
+    o+='<rect x="'+(-hw)+'" y="'+(-DEPTH/2)+'" width="'+w+'" height="'+DEPTH+'" fill="#bfe6ff" stroke="#1d2224" stroke-width="2"/><line x1="'+(-hw)+'" y1="0" x2="'+hw+'" y2="0" stroke="#1d2224" stroke-width="1.5"/>';
+  }else if(it.k==='door'){
+    o+='<rect x="'+(-hw)+'" y="'+(-DEPTH/2)+'" width="'+w+'" height="'+DEPTH+'" fill="#ffffff" stroke="#1d2224" stroke-width="2"/>';
+    if(it.slide){o+='<line x1="'+(-hw)+'" y1="-3" x2="'+(hw*0.15)+'" y2="-3" stroke="#156a74" stroke-width="3"/><line x1="'+(-hw*0.15)+'" y1="3" x2="'+hw+'" y2="3" stroke="#156a74" stroke-width="3"/>';}
+    else if(it.id==='ddouble'){o+='<path d="M'+(-hw)+' 7 A'+hw+' '+hw+' 0 0 0 0 '+(7+hw)+'" fill="none" stroke="#156a74" stroke-width="1.5" stroke-dasharray="5 4"/><path d="M'+hw+' 7 A'+hw+' '+hw+' 0 0 1 0 '+(7+hw)+'" fill="none" stroke="#156a74" stroke-width="1.5" stroke-dasharray="5 4"/>';}
+    else{o+='<line x1="'+(-hw)+'" y1="7" x2="'+(-hw)+'" y2="'+(7+w)+'" stroke="#156a74" stroke-width="2.5"/><path d="M'+(-hw)+' '+(7+w)+' A'+w+' '+w+' 0 0 0 '+hw+' 7" fill="none" stroke="#156a74" stroke-width="1.5" stroke-dasharray="5 4"/>';}
+  }else if(it.k==='bath'){
+    o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" fill="#e8f4f7" stroke="#1d2224" stroke-width="3"/>';
+    o+='<rect x="'+(-hw+8)+'" y="'+(-hh+8)+'" width="'+(w*0.45)+'" height="'+(w*0.45)+'" fill="#d3eaf0" stroke="#5a6468" stroke-width="1.5"/>';
+    o+='<ellipse cx="'+(hw-24)+'" cy="'+(hh-30)+'" rx="16" ry="22" fill="#fff" stroke="#5a6468" stroke-width="1.5"/>';
+    o+='<g transform="rotate('+(-it.rot)+')"><text x="0" y="6" text-anchor="middle" font-size="18" font-weight="700" fill="#156a74">'+esc(it.name)+'</text></g>';
+  }else if(it.k==='furn'){
+    var st='fill="#f3efe9" stroke="#5a4a3a" stroke-width="2"';
+    if(it.f==='bed'){o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" rx="6" '+st+'/><rect x="'+(-hw+10)+'" y="'+(-hh+8)+'" width="'+(hw-15)+'" height="30" rx="6" fill="#fff" stroke="#5a4a3a" stroke-width="1.5"/><rect x="5" y="'+(-hh+8)+'" width="'+(hw-15)+'" height="30" rx="6" fill="#fff" stroke="#5a4a3a" stroke-width="1.5"/><line x1="'+(-hw)+'" y1="'+(-hh+55)+'" x2="'+hw+'" y2="'+(-hh+55)+'" stroke="#5a4a3a" stroke-width="1.5"/>';}
+    else if(it.f==='ward'){o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" '+st+'/><line x1="'+(-hw)+'" y1="'+(-hh)+'" x2="'+hw+'" y2="'+hh+'" stroke="#5a4a3a" stroke-width="1"/><line x1="0" y1="'+(-hh)+'" x2="0" y2="'+hh+'" stroke="#5a4a3a" stroke-width="1.5"/>';}
+    else if(it.f==='table'){for(var i=0;i<3;i++){var x=-hw+w*(i+0.5)/3-20;o+='<rect x="'+x+'" y="'+(-hh-38)+'" width="40" height="34" rx="6" '+st+'/><rect x="'+x+'" y="'+(hh+4)+'" width="40" height="34" rx="6" '+st+'/>';}o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" rx="4" fill="#e9dcc8" stroke="#5a4a3a" stroke-width="2"/>';}
+    else if(it.f==='sofa'){o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" rx="10" '+st+'/><rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="22" rx="8" fill="#e5ddd2" stroke="#5a4a3a" stroke-width="1.5"/><rect x="'+(-hw)+'" y="'+(-hh)+'" width="22" height="'+h+'" rx="8" fill="#e5ddd2" stroke="#5a4a3a" stroke-width="1.5"/><rect x="'+(hw-22)+'" y="'+(-hh)+'" width="22" height="'+h+'" rx="8" fill="#e5ddd2" stroke="#5a4a3a" stroke-width="1.5"/>';}
+    o+='<g transform="rotate('+(-it.rot)+')"><text x="0" y="'+(it.f==='ward'?5:12)+'" text-anchor="middle" font-size="16" fill="#5a4a3a">'+esc(it.name)+'</text></g>';
+  }else if(it.k==='deck'){
+    o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" fill="url(#plank)" stroke="#7a5532" stroke-width="3"/>';
+    if(it.id==='fdeck')o+='<rect x="'+(-hw+6)+'" y="'+(-hh+6)+'" width="'+(w-12)+'" height="'+(h-12)+'" fill="none" stroke="#1d2224" stroke-width="2" stroke-dasharray="14 8"/>';
+    o+='<g transform="rotate('+(-it.rot)+')"><text x="0" y="8" text-anchor="middle" font-size="22" font-weight="700" fill="#3a2614">'+esc((it.id==='fdeck'?'框架露台 ':'露台 ')+it.v)+'</text></g>';
+  }
+  return o;
+}
+function hlRect(it){var w=it.w,h=(it.k==='win'||it.k==='door')?DEPTH:it.h;return '<rect class="hl" x="'+(-w/2-6)+'" y="'+(-h/2-6)+'" width="'+(w+12)+'" height="'+(h+12)+'" rx="4"/>'}
+var order={deck:0,mod:1,bath:2,furn:3,win:4,door:4};
+function render(){
+  var arr=S.items.slice().sort(function(a,b){return order[a.k]-order[b.k]});
+  document.getElementById('items').innerHTML=arr.map(function(it){
+    return '<g class="it'+(it.uid===selId?' sel':'')+'" data-u="'+it.uid+'" transform="translate('+it.cx+' '+it.cy+') rotate('+it.rot+')">'+shape(it)+(it.uid===selId?hlRect(it):'')+'</g>'}).join('');
+  document.getElementById('hint').style.display=S.items.length?'none':'';
+  renderProps();renderQuote();save();
+}
+function applyView(){document.getElementById('world').setAttribute('transform','translate('+view.tx+' '+view.ty+') scale('+view.s+')');
+  var m=S.items.filter(function(i){return i.k==='mod'});var a=m.reduce(function(s,i){return s+i.w*i.h/10000},0);
+  document.getElementById('status').innerHTML='組合屋 <b>'+m.length+'</b> 顆・室內 <b>'+a.toFixed(1)+'</b> m²（約 <b>'+(a/3.3058).toFixed(1)+'</b> 坪）・縮放 '+Math.round(view.s*200)+'%';}
+
+/* ========= 元件面板 ========= */
+function thumb(d){
+  var w=d.w,h=d.h||DEPTH,sc=Math.min(90/w,40/h,0.5),o='';
+  var it={k:d.k,w:d.w,h:d.h||DEPTH,rot:0,size:d.size||'',style:'標準',name:d.name,f:d.f,id:d.id,v:d.v||'',slide:d.slide};
+  if(d.k==='win'||d.k==='door')sc=Math.min(90/w,0.6);
+  return '<svg viewBox="-50 -22 100 44" aria-hidden="true"><g transform="scale('+sc+')">'+shape(it).replace(/<g transform="rotate[^>]*>.*?<\/g>/g,'')+'</g></svg>';
+}
+var pal=document.getElementById('pal');
+pal.innerHTML='<button type="button" class="tpl" id="tpl">套用範本：4×8 套房（小衛浴＋床＋衣櫃＋沙發）</button>'+LIB.map(function(s,si){return '<h3>'+s.sec+'</h3><div class="grid">'+s.items.map(function(d,di){
+  var sz=d.k==='mod'||d.k==='bath'||d.k==='furn'||d.k==='deck'?(d.w+'×'+d.h):('寬 '+d.w);
+  return '<button type="button" class="pi" data-s="'+si+'" data-d="'+di+'">'+thumb(d)+'<b>'+esc(d.name)+'</b><small>'+sz+' cm</small></button>'}).join('')+'</div>'}).join('');
+pal.addEventListener('click',function(e){
+  var b=e.target.closest('.pi');if(b){add(LIB[+b.dataset.s].items[+b.dataset.d]);return}
+  if(e.target.id==='tpl')template();
+});
+function centerWorld(){var r=document.getElementById('svg').getBoundingClientRect();return {x:(r.width/2-view.tx)/view.s,y:(r.height/2-view.ty)/view.s}}
+function snap(v,g){return Math.round(v/g)*g}
+function add(d,pos){
+  var c=pos||centerWorld();
+  var it={uid:S.seq++,k:d.k,w:d.w,h:d.h||DEPTH,rot:0,cx:snap(c.x,10),cy:snap(c.y,10),name:d.name};
+  if(d.k==='mod'){it.size=d.size;it.style='標準';
+    var mods=S.items.filter(function(i){return i.k==='mod'});
+    if(!pos&&mods.length){var mx=Math.max.apply(null,mods.map(function(m){return box(m).x1}));var ref=mods[mods.length-1];it.cx=mx+it.w/2;it.cy=box(ref).y0+it.h/2;}}
+  if(d.id)it.id=d.id; if(d.f)it.f=d.f; if(d.slide)it.slide=1;
+  if(d.colors){it.colors=d.colors;it.color=d.colors[0]}
+  if(d.vars){it.vars=d.vars;it.v=d.vars[0][0]} else if(d.v)it.v=d.v;
+  if(d.price!=null)it.price=d.price;
+  S.items.push(it);
+  if(it.k==='win'||it.k==='door')attach(it,true);
+  selId=it.uid;render();
+  if(!pos)ensureVisible(it);
+  return it;
+}
+function ensureVisible(it){var r=document.getElementById('svg').getBoundingClientRect();var x=it.cx*view.s+view.tx,y=it.cy*view.s+view.ty;if(x<40||y<40||x>r.width-40||y>r.height-40){view.tx=r.width/2-it.cx*view.s;view.ty=r.height/2-it.cy*view.s;applyView()}}
+
+/* ========= 門窗貼牆 ========= */
+function attach(it,force){
+  var best=null,bd=force?1e9:70;
+  S.items.forEach(function(m){if(m.k!=='mod')return;var b=box(m);
+    [['t',b.y0],['b',b.y1]].forEach(function(s){if(it.cx>=b.x0-20&&it.cx<=b.x1+20){var d=Math.abs(it.cy-s[1]);if(d<bd&&b.x1-b.x0>=it.w){bd=d;best={m:m,side:s[0],b:b}}}});
+    [['l',b.x0],['r',b.x1]].forEach(function(s){if(it.cy>=b.y0-20&&it.cy<=b.y1+20){var d=Math.abs(it.cx-s[1]);if(d<bd&&b.y1-b.y0>=it.w){bd=d;best={m:m,side:s[0],b:b}}}});
+  });
+  if(!best){it.att=null;return}
+  var b=best.b,hw=it.w/2;
+  if(best.side==='t'||best.side==='b'){it.cy=best.side==='t'?b.y0:b.y1;it.cx=Math.min(Math.max(snap(it.cx,5),b.x0+hw),b.x1-hw);it.rot=best.side==='t'?0:180;it.att={m:best.m.uid,side:best.side,off:it.cx-b.x0}}
+  else{it.cx=best.side==='l'?b.x0:b.x1;it.cy=Math.min(Math.max(snap(it.cy,5),b.y0+hw),b.y1-hw);it.rot=best.side==='l'?270:90;it.att={m:best.m.uid,side:best.side,off:it.cy-b.y0}}
+}
+function moveAttached(m){var b=box(m);S.items.forEach(function(o){if(o.att&&o.att.m===m.uid){
+  if(o.att.side==='t'||o.att.side==='b'){o.cx=b.x0+o.att.off;o.cy=o.att.side==='t'?b.y0:b.y1}else{o.cy=b.y0+o.att.off;o.cx=o.att.side==='l'?b.x0:b.x1}}})}
+
+/* ========= 組合屋對齊 ========= */
+function snapMod(it){
+  var b=box(it),th=30,dx=null,dy=null;
+  S.items.forEach(function(o){if(o===it||o.k!=='mod')return;var c=box(o);
+    [[b.x0,c.x1],[b.x1,c.x0],[b.x0,c.x0],[b.x1,c.x1]].forEach(function(p){var d=p[1]-p[0];if(Math.abs(d)<th&&(dx===null||Math.abs(d)<Math.abs(dx)))dx=d});
+    [[b.y0,c.y1],[b.y1,c.y0],[b.y0,c.y0],[b.y1,c.y1]].forEach(function(p){var d=p[1]-p[0];if(Math.abs(d)<th&&(dy===null||Math.abs(d)<Math.abs(dy)))dy=d});
+  });
+  if(dx!==null)it.cx+=dx;if(dy!==null)it.cy+=dy;
+}
+
+/* ========= 互動：拖曳 / 平移 / 縮放 ========= */
+var svg=document.getElementById('svg'),ptrs={},drag=null,pinch=null;
+function toWorld(e){var r=svg.getBoundingClientRect();return {x:(e.clientX-r.left-view.tx)/view.s,y:(e.clientY-r.top-view.ty)/view.s}}
+svg.addEventListener('pointerdown',function(e){
+  svg.setPointerCapture(e.pointerId);ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+  if(Object.keys(ptrs).length===2){var p=Object.values(ptrs);pinch={d:Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y),s:view.s,tx:view.tx,ty:view.ty,mx:(p[0].x+p[1].x)/2,my:(p[0].y+p[1].y)/2};drag=null;return}
+  var g=e.target.closest('.it');
+  if(g){var it=byId(+g.dataset.u);selId=it.uid;var w=toWorld(e);drag={it:it,ox:w.x-it.cx,oy:w.y-it.cy,moved:false};render();}
+  else{drag={pan:true,x:e.clientX,y:e.clientY,tx:view.tx,ty:view.ty,moved:false};svg.classList.add('pan')}
+});
+svg.addEventListener('pointermove',function(e){
+  if(ptrs[e.pointerId])ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+  if(pinch&&Object.keys(ptrs).length===2){var p=Object.values(ptrs);var d=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);var r=svg.getBoundingClientRect();
+    var ns=Math.min(3,Math.max(0.08,pinch.s*d/pinch.d));var wx=(pinch.mx-r.left-pinch.tx)/pinch.s,wy=(pinch.my-r.top-pinch.ty)/pinch.s;view.s=ns;view.tx=pinch.mx-r.left-wx*ns;view.ty=pinch.my-r.top-wy*ns;applyView();return}
+  if(!drag)return;
+  if(drag.pan){view.tx=drag.tx+e.clientX-drag.x;view.ty=drag.ty+e.clientY-drag.y;drag.moved=true;applyView();return}
+  var w=toWorld(e),it=drag.it;drag.moved=true;
+  it.cx=snap(w.x-drag.ox,10);it.cy=snap(w.y-drag.oy,10);
+  if(it.k==='mod'){snapMod(it);moveAttached(it)}
+  if(it.k==='win'||it.k==='door'){it.att=null;attach(it,false)}
+  var g=svg.querySelector('.it[data-u="'+it.uid+'"]');if(g)g.setAttribute('transform','translate('+it.cx+' '+it.cy+') rotate('+it.rot+')');
+  if(it.k==='mod')S.items.forEach(function(o){if(o.att&&o.att.m===it.uid){var og=svg.querySelector('.it[data-u="'+o.uid+'"]');if(og)og.setAttribute('transform','translate('+o.cx+' '+o.cy+') rotate('+o.rot+')')}});
+});
+function endPtr(e){delete ptrs[e.pointerId];if(Object.keys(ptrs).length<2)pinch=null;
+  if(drag){if(drag.pan){svg.classList.remove('pan');if(!drag.moved&&selId!==null){selId=null;render()}}else{render()}drag=null}}
+svg.addEventListener('pointerup',endPtr);svg.addEventListener('pointercancel',endPtr);
+svg.addEventListener('wheel',function(e){e.preventDefault();var r=svg.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;var wx=(mx-view.tx)/view.s,wy=(my-view.ty)/view.s;
+  view.s=Math.min(3,Math.max(0.08,view.s*(e.deltaY<0?1.12:1/1.12)));view.tx=mx-wx*view.s;view.ty=my-wy*view.s;applyView()},{passive:false});
+function zoomBy(f){var r=svg.getBoundingClientRect(),mx=r.width/2,my=r.height/2,wx=(mx-view.tx)/view.s,wy=(my-view.ty)/view.s;view.s=Math.min(3,Math.max(0.08,view.s*f));view.tx=mx-wx*view.s;view.ty=my-wy*view.s;applyView()}
+document.getElementById('zIn').onclick=function(){zoomBy(1.25)};document.getElementById('zOut').onclick=function(){zoomBy(0.8)};
+function bounds(){if(!S.items.length)return null;var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;S.items.forEach(function(i){var b=box(i);x0=Math.min(x0,b.x0);y0=Math.min(y0,b.y0-(i.k==='door'?i.w:0));x1=Math.max(x1,b.x1);y1=Math.max(y1,b.y1+(i.k==='door'?i.w:0))});return {x0:x0,y0:y0,x1:x1,y1:y1}}
+function fit(){var b=bounds(),r=svg.getBoundingClientRect();if(!b){view.s=0.5;view.tx=r.width/2;view.ty=r.height/2;applyView();return}
+  var pad=80;view.s=Math.min(2,Math.max(0.08,Math.min((r.width-pad*2)/(b.x1-b.x0),(r.height-pad*2)/(b.y1-b.y0))));view.tx=r.width/2-(b.x0+b.x1)/2*view.s;view.ty=r.height/2-(b.y0+b.y1)/2*view.s;applyView()}
+document.getElementById('zFit').onclick=fit;
+
+/* ========= 屬性面板 ========= */
+var props=document.getElementById('props');
+function renderProps(){
+  var it=byId(selId);document.getElementById('mtools').classList.toggle('on',!!it);
+  if(!it){props.innerHTML='<p class="empty">點選畫面上的元件可以修改款式、顏色、旋轉或刪除。<br><br><b>小技巧</b>：組合屋拖近彼此會自動對齊；門窗拖到牆邊會自動貼牆，跟著房子一起移動。</p>';return}
+  var h='<h2>'+esc(it.name)+'</h2><div class="dim">'+bw(it)+' × '+bh(it)+' cm'+(it.k==='win'||it.k==='door'?(it.att?'・已貼牆':'・未貼牆'):'')+'</div>';
+  if(it.k==='mod'){
+    h+='<div class="lb">尺寸</div><div class="pills">'+Object.keys(MH).map(function(s){return '<button type="button" class="pill" data-a="size" data-v="'+s+'" aria-pressed="'+(it.size===s)+'">'+s+'</button>'}).join('')+'</div>';
+    h+='<div class="lb">款式</div><div class="pills">'+STYLES.map(function(s){var p=MH[it.size][s];return '<button type="button" class="pill" data-a="style" data-v="'+s+'" aria-pressed="'+(it.style===s)+'"'+(p?'':' disabled')+'>'+s+'<small>'+(p?fmt(p):'此尺寸無')+'</small></button>'}).join('')+'</div>';
+  }
+  if(it.vars)h+='<div class="lb">規格</div><div class="pills">'+it.vars.map(function(v){return '<button type="button" class="pill" data-a="v" data-v="'+esc(v[0])+'" aria-pressed="'+(it.v===v[0])+'">'+esc(v[0])+'<small>'+fmt(v[1])+'</small></button>'}).join('')+'</div>';
+  if(it.k==='deck'){var D=DECKV[it.id];h+='<div class="lb">尺寸</div><div class="pills">'+Object.keys(D).map(function(s){return '<button type="button" class="pill" data-a="dsize" data-v="'+s+'" aria-pressed="'+(it.v===s)+'">'+s+'<small>'+fmt(D[s][2])+'</small></button>'}).join('')+'</div>';}
+  if(it.colors)h+='<div class="lb">顏色</div><div class="pills">'+it.colors.map(function(c){return '<button type="button" class="pill" data-a="color" data-v="'+c+'" aria-pressed="'+(it.color===c)+'">'+c+'</button>'}).join('')+'</div>';
+  var p=priceOf(it);h+='<div class="lb">'+(it.k==='furn'?'家具為擺設參考，不計價':'單價 '+fmt(p))+'</div>';
+  h+='<div class="btnrow"><button type="button" data-a="rot">旋轉 90°</button><button type="button" data-a="dup">複製</button><button type="button" class="del" data-a="del">刪除</button></div>';
+  props.innerHTML=h;
+}
+props.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var it=byId(selId);if(!it)return;var a=b.dataset.a;
+  if(a==='size'){var oc=box(it);it.size=b.dataset.v;var d=LIB[0].items.filter(function(x){return x.size===it.size})[0];it.w=d.w;it.h=d.h;it.name=d.name;if(!MH[it.size][it.style])it.style='標準';it.cx=oc.x0+bw(it)/2;it.cy=oc.y0+bh(it)/2;reattachAll(it)}
+  else if(a==='style')it.style=b.dataset.v;
+  else if(a==='v')it.v=b.dataset.v;
+  else if(a==='dsize'){var D=DECKV[it.id][b.dataset.v];it.v=b.dataset.v;it.w=D[0];it.h=D[1];it.price=D[2];it.name=(it.id==='fdeck'?'框架露台 ':'露台 ')+it.v.replace('m','')}
+  else if(a==='color')it.color=b.dataset.v;
+  else if(a==='rot')rotate(it);
+  else if(a==='dup')dup(it);
+  else if(a==='del'){del(it);return}
+  render();});
+function reattachAll(m){S.items.forEach(function(o){if(o.att&&o.att.m===m.uid){o.att=null;attach(o,false)}})}
+function rotate(it){if(it.k==='win'||it.k==='door'){it.rot=(it.rot+180)%360;return}it.rot=(it.rot+90)%360;if(it.k==='mod'){snapMod(it);reattachAll(it)}}
+function dup(it){var c=JSON.parse(JSON.stringify(it));c.uid=S.seq++;c.cx+=(it.k==='mod'?bw(it):60);c.att=null;S.items.push(c);if(c.k==='win'||c.k==='door')attach(c,false);if(c.k==='mod')snapMod(c);selId=c.uid}
+function del(it){S.items=S.items.filter(function(o){return o!==it&&!(o.att&&o.att.m===it.uid&&it.k==='mod')});selId=null;render()}
+document.addEventListener('keydown',function(e){if(/INPUT|TEXTAREA/.test(e.target.tagName))return;var it=byId(selId);if(!it)return;
+  if(e.key==='r'||e.key==='R'){rotate(it);render()}
+  else if(e.key==='Delete'||e.key==='Backspace'){e.preventDefault();del(it)}
+  else if(e.key.indexOf('Arrow')===0){e.preventDefault();var s=e.shiftKey?50:10;if(e.key==='ArrowLeft')it.cx-=s;if(e.key==='ArrowRight')it.cx+=s;if(e.key==='ArrowUp')it.cy-=s;if(e.key==='ArrowDown')it.cy+=s;if(it.k==='mod')moveAttached(it);if(it.k==='win'||it.k==='door'){it.att=null;attach(it,false)}render()}
+  else if(e.key==='Escape'){selId=null;render()}
+  else if((e.metaKey||e.ctrlKey)&&e.key==='d'){e.preventDefault();dup(it);render()}});
+
+/* ========= 計價 ========= */
+function priceOf(it){if(it.k==='mod')return MH[it.size][it.style]||0;if(it.k==='furn')return 0;if(it.vars){var v=it.vars.filter(function(x){return x[0]===it.v})[0];return v?v[1]:0}return it.price||0}
+function lineOf(it){
+  if(it.k==='furn')return null;
+  if(it.k==='mod')return {id:'mh',o:{size:it.size,style:it.style},t:it.size+'・'+it.style};
+  if(it.k==='deck')return {id:it.id,o:{v:it.v},t:it.v};
+  var o={},t=[];
+  if(it.v){o.v=it.v;t.push(it.v)}
+  if(it.color){o.c=it.color;t.push(it.color)}
+  return {id:it.id,o:o,t:t.join('・')};
+}
+function quoteLines(){var map={},list=[];S.items.forEach(function(it){var l=lineOf(it);if(!l)return;var k=l.id+'|'+l.t;if(!map[k]){map[k]={k:k,id:l.id,o:l.o,t:l.t,u:priceOf(it),q:0};list.push(map[k])}map[k].q++});return list}
+function renderQuote(){
+  var L=quoteLines(),tot=L.reduce(function(s,l){return s+l.u*l.q},0),furn=S.items.filter(function(i){return i.k==='furn'});
+  var h='<h3><span>圖面清單</span><span style="color:var(--mute);font-weight:400">'+L.length+' 項</span></h3>';
+  if(!L.length)h+='<p class="empty">畫面上還沒有可計價的元件。</p>';
+  L.forEach(function(l){h+='<div class="ql"><div>'+esc(NAMES[l.id])+(l.t?'<br><span>'+esc(l.t)+'</span>':'')+'</div><b>'+l.q+UNITS[l.id]+'　'+fmt(l.u*l.q)+'</b></div>'});
+  if(furn.length)h+='<p class="qf">家具 '+furn.length+' 件為擺設參考，不列入報價。</p>';
+  h+='<p class="qf">組合屋標配基本門窗；施工、運費、水電等請到報價單加選。</p>';
+  document.getElementById('quote').innerHTML=h;document.getElementById('qTot').textContent=fmt(tot);
+}
+function toOrder(){
+  var L=quoteLines();if(!L.length){toast('畫面上還沒有可計價的元件');return}
+  var cart=[];try{cart=JSON.parse(localStorage.getItem('fulin_cart_v1')||'[]')||[]}catch(e){}
+  cart=cart.filter(function(l){return !l.plan});
+  L.forEach(function(l){cart.push({k:l.k,id:l.id,o:l.o,u:l.u,q:l.q,plan:1})});
+  try{localStorage.setItem('fulin_cart_v1',JSON.stringify(cart))}catch(e){}
+  location.href='order.html#fromplan';
+}
+document.getElementById('bGo').onclick=toOrder;document.getElementById('bGo2').onclick=toOrder;
+
+/* ========= 範本 / 清空 / 下載 ========= */
+function template(){
+  if(S.items.length&&!confirm('套用範本會清除目前畫面，確定嗎？'))return;
+  S.items=[];var c={x:0,y:0};
+  var m=add(LIB[0].items[3],{x:0,y:0});
+  add(LIB[3].items[2],{x:-400+55+10,y:-200+70+10});
+  add(LIB[4].items[0],{x:250,y:-200+94+20});
+  add(LIB[4].items[1],{x:250,y:200-30-10});
+  add(LIB[4].items[3],{x:-60,y:200-45-30});
+  var d=add(LIB[2].items[0],{x:-100,y:200});
+  add(LIB[1].items[1],{x:150,y:200});add(LIB[1].items[1],{x:150,y:-200});add(LIB[1].items[3],{x:-330,y:-200});
+  add(LIB[5].items[0],{x:0,y:300});
+  selId=null;render();fit();
+}
+document.getElementById('bClear').onclick=function(){if(!S.items.length)return;if(confirm('確定清空整張圖？')){S.items=[];selId=null;render()}};
+document.getElementById('bPng').onclick=function(){
+  var b=bounds();if(!b){toast('畫面是空的');return}var pad=80,W=b.x1-b.x0+pad*2,H=b.y1-b.y0+pad*2,sc=Math.min(2400/W,2400/H,1.5);
+  var sel=selId;selId=null;render();
+  var inner=document.getElementById('items').innerHTML;selId=sel;render();
+  var defs=svg.querySelector('defs').outerHTML;
+  var s='<svg xmlns="http://www.w3.org/2000/svg" width="'+Math.round(W*sc)+'" height="'+Math.round(H*sc)+'" viewBox="'+(b.x0-pad)+' '+(b.y0-pad)+' '+W+' '+H+'">'+defs+'<rect x="'+(b.x0-pad)+'" y="'+(b.y0-pad)+'" width="'+W+'" height="'+H+'" fill="#fff"/><rect x="'+(b.x0-pad)+'" y="'+(b.y0-pad)+'" width="'+W+'" height="'+H+'" fill="url(#g100)"/>'+inner+'<text x="'+(b.x0-pad+20)+'" y="'+(b.y1+pad-20)+'" font-size="24" fill="#156a74" font-family="sans-serif">富林組合屋 線上平面圖・格線每格 1m・示意圖，實際以現場丈量為準</text></svg>';
+  var img=new Image();img.onload=function(){var cv=document.createElement('canvas');cv.width=Math.round(W*sc);cv.height=Math.round(H*sc);var cx=cv.getContext('2d');cx.drawImage(img,0,0);
+    cv.toBlob(function(bl){var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download='富林組合屋平面圖.png';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)},'image/png')};
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);
+};
+var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on')},2200)}
+document.getElementById('mtools').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var it=byId(selId);if(!it)return;var a=b.dataset.a;
+  if(a==='props'){document.getElementById('side').classList.add('on');return}if(a==='rot')rotate(it);else if(a==='dup')dup(it);else if(a==='del'){del(it);return}render()});
+document.getElementById('mobQ').onclick=function(){document.getElementById('side').classList.toggle('on')};
+
+/* ========= 啟動 ========= */
+window.addEventListener('resize',applyView);
+render();
+setTimeout(function(){if(S.items.length)fit();else{var r=svg.getBoundingClientRect();view.tx=r.width/2;view.ty=r.height/2;applyView()}},30);
+</script>
+</body>
+</html>

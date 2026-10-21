@@ -150,6 +150,11 @@ img{display:block;max-width:100%}
 .rail button[aria-current=true]{border-left-color:#c8f031}
 .bar .go{background:#071a1d;color:#c8f031;box-shadow:0 0 16px rgba(200,240,49,.3)}
 .add{background:#c8f031}
+.planlink{display:flex;align-items:center;gap:10px;margin:14px 10px 0;padding:12px;border-radius:12px;background:linear-gradient(100deg,#071a1d,#0c2a2f);color:#c8f031;text-decoration:none;font-weight:900;font-size:16px;box-shadow:0 0 0 1px rgba(200,240,49,.35),0 0 16px rgba(200,240,49,.2)}
+.planlink .ic{width:30px;height:30px;border-radius:8px;background:#c8f031;color:#071a1d;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.planlink small{display:block;font-size:11px;font-weight:500;color:rgba(255,255,255,.75)}
+@media (max-width:760px){.planlink{margin:0 0 0 6px;padding:6px 10px;font-size:13px;flex-shrink:0;border-radius:10px}.planlink small{display:none}.planlink .ic{width:24px;height:24px}}
+.line .pl{display:inline-block;font-size:11px;background:#071a1d;color:#c8f031;border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:middle}
 </style>
 </head>
 <body>
@@ -344,7 +349,7 @@ function total(){return cart.reduce(function(s,l){return s+l.u*l.q},0)}
 var rail=document.getElementById('rail'),content=document.getElementById('content');
 function renderRail(){
   rail.innerHTML=CATS.map(function(c){var n=qtyIn(c.id);
-    return '<button type="button" data-c="'+c.id+'" aria-current="'+(c.id===cur)+'"><span class="ic">'+I[c.ic].replace('<svg','<svg width="20" height="20"')+'</span>'+c.name+(n?'<span class="cnt">'+n+'</span>':'')+'</button>'}).join('');
+    return '<button type="button" data-c="'+c.id+'" aria-current="'+(c.id===cur)+'"><span class="ic">'+I[c.ic].replace('<svg','<svg width="20" height="20"')+'</span>'+c.name+(n?'<span class="cnt">'+n+'</span>':'')+'</button>'}).join('')+'<a class="planlink" href="plan.html"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h4L20 8l-4-4L3 17z"/><path d="M14 6l4 4"/></svg></span><span>畫圖設計<small>畫完自動帶入</small></span></a>';
 }
 function renderGrid(){
   var c=CATS.filter(function(x){return x.id===cur})[0];
@@ -444,7 +449,7 @@ function drawCart(){
   var h='<div class="sh-hd"><div class="t"><h2 id="shT">我的選購清單</h2><p>'+cart.length+' 項・可調整數量</p></div><button class="x" type="button" data-a="close" aria-label="關閉">×</button></div><div class="sh-bd">';
   if(!cart.length)h+='<p class="empty">清單是空的，先去挑選商品吧。</p>';
   cart.forEach(function(l,i){var it=BY[l.id],ot=optText(it,l.o);
-    h+='<div class="line"><div><div class="n">'+esc(it.name)+'</div><div class="o">'+(ot?esc(ot)+'・':'')+fmt(l.u)+' /'+it.unit+'</div></div><div class="p'+(l.u<0?' neg':'')+'">'+fmt(l.u*l.q)+'</div>'+
+    h+='<div class="line"><div><div class="n">'+esc(it.name)+(l.plan?'<span class="pl">圖面</span>':'')+'</div><div class="o">'+(ot?esc(ot)+'・':'')+fmt(l.u)+' /'+it.unit+'</div></div><div class="p'+(l.u<0?' neg':'')+'">'+fmt(l.u*l.q)+'</div>'+
     '<div class="ctl"><button type="button" data-c="dec" data-i="'+i+'" aria-label="減少">−</button><span class="q">'+l.q+' '+it.unit+'</span><button type="button" data-c="inc" data-i="'+i+'" aria-label="增加">+</button><button type="button" class="rm" data-c="rm" data-i="'+i+'">移除</button></div></div>'});
   if(cart.length){
     h+='<div class="total"><span>試算合計（未稅）</span><b>'+fmt(total())+'</b></div>'+
@@ -509,6 +514,7 @@ var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;
 var _close=closeSheet;closeSheet=function(){sheet.dataset.mode='';_close()};
 
 renderAll();
+if(location.hash==='#fromplan'){history.replaceState(null,'',location.pathname);if(cart.length){openCart();toast('已從圖面帶入 '+cart.filter(function(l){return l.plan}).length+' 項')}}
 </script>
 </body>
 </html>
