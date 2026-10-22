@@ -80,6 +80,30 @@ button{font:inherit;color:inherit;cursor:pointer}
 .wallbtn.on,.wallpi.on{background:var(--neo);color:var(--deep);border-color:var(--neo);box-shadow:0 0 18px rgba(200,240,49,.6)}
 .wallpi{gap:8px}
 #svg.drawing{cursor:crosshair}
+.tright{position:absolute;right:12px;top:12px;display:flex;gap:8px;z-index:10;flex-wrap:wrap;justify-content:flex-end}
+.fsw{display:flex;background:var(--deep);border:1px solid rgba(200,240,49,.4);border-radius:12px;padding:3px;gap:3px}
+.fsw button{border:0;background:transparent;color:#fff;min-width:46px;min-height:38px;border-radius:9px;font-family:var(--mono);font-weight:700;font-size:15px}
+.fsw button[aria-pressed=true]{background:var(--neo);color:var(--deep)}
+.tbtn{display:flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:12px;border:1px solid rgba(200,240,49,.4);background:var(--deep);color:#fff;font-size:15px;font-weight:700}
+.tbtn i{width:16px;height:16px;border-radius:50%;border:2px solid #fff;display:block}
+.tbtn.go3d{background:var(--neo);color:var(--deep);border-color:var(--neo);box-shadow:0 0 16px rgba(200,240,49,.4)}
+.cpop{position:absolute;right:12px;top:64px;z-index:15;background:#fff;border-radius:14px;border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.18);padding:12px;width:min(360px,calc(100% - 24px))}
+.cpt{font-weight:700;margin-bottom:8px}
+.cpg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.cpg button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:0;overflow:hidden;text-align:left}
+.cpg button[aria-pressed=true]{border-color:var(--teal);box-shadow:0 0 0 2px rgba(200,240,49,.6)}
+.cpg img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.cpg span{display:block;font-size:12px;font-weight:700;padding:4px 6px}
+.v3{position:fixed;inset:0;z-index:100;background:#0b1416;display:flex;flex-direction:column}
+.v3[hidden]{display:none}
+.v3h{display:flex;align-items:center;gap:12px;padding:10px 14px;padding-top:max(10px,env(safe-area-inset-top));color:#fff;border-bottom:1px solid rgba(200,240,49,.3)}
+.v3h b{color:var(--neo);font-size:18px;letter-spacing:2px}
+.v3h span{font-size:13px;opacity:.8}
+.v3h button{margin-left:auto;width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;font-size:22px}
+.v3c{flex:1;position:relative;min-height:0;touch-action:none}
+.v3c canvas{display:block;width:100%;height:100%}
+.v3load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff}
+.v3f{color:rgba(255,255,255,.7);font-size:12px;text-align:center;padding:8px;padding-bottom:max(8px,env(safe-area-inset-bottom))}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--deep);color:#fff;border:1px solid rgba(200,240,49,.4);border-radius:30px;padding:10px 18px;font-size:14px;z-index:90;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.on{opacity:1}
 /* svg item styles */
@@ -104,9 +128,14 @@ button{font:inherit;color:inherit;cursor:pointer}
   .mobq{font-size:12px}
   .wallbtn{top:auto;bottom:44px;left:8px;min-height:40px;font-size:14px}
   .roofbtn{left:132px}
+  .tright{right:8px;top:8px;gap:6px}
+  .tbtn{min-height:40px;padding:0 10px;font-size:14px}
+  .tbtn span{display:none}
+  .fsw button{min-width:40px;min-height:34px}
+  .cpop{top:56px;right:8px}
   .top .acts{gap:5px}
   #bClear,#bPng{display:none}
-  .mtools{position:absolute;top:8px;left:50%;transform:translateX(-50%);display:none;gap:6px;background:rgba(7,26,29,.92);padding:6px;border-radius:14px;border:1px solid rgba(200,240,49,.35);z-index:20}
+  .mtools{position:absolute;top:58px;left:50%;transform:translateX(-50%);display:none;gap:6px;background:rgba(7,26,29,.92);padding:6px;border-radius:14px;border:1px solid rgba(200,240,49,.35);z-index:20}
   .mtools.on{display:flex}
   .mtools button{white-space:nowrap;min-height:40px;padding:0 12px;border-radius:10px;border:0;background:rgba(255,255,255,.1);color:#fff;font-size:14px}
   .mtools .del{color:#ff8a80}
@@ -139,6 +168,8 @@ button{font:inherit;color:inherit;cursor:pointer}
         <g id="world"><rect x="-20000" y="-20000" width="40000" height="40000" fill="url(#g100)" id="bg"/><g id="items"></g></g>
       </svg>
       <div class="hint" id="hint"><b>從左側點選「組合屋」開始</b>拖曳移動・<b style="display:inline;font-size:15px">雙擊旋轉</b>・Delete 刪除<br>門窗拖到牆邊會自動貼牆・「畫隔間牆」拉線畫牆</div>
+      <div class="tright"><div class="fsw" id="floorSw" role="group" aria-label="樓層"><button type="button" data-f="1" aria-pressed="true">1F</button><button type="button" data-f="2" aria-pressed="false">2F</button></div><button type="button" class="tbtn" id="colorBtn"><i></i><span>配色</span></button><button type="button" class="tbtn go3d" id="b3d"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>3D</button></div>
+      <div class="cpop" id="cpop" hidden><div class="cpt">選擇配色（6 款）</div><div class="cpg" id="cpg"></div></div>
       <button type="button" class="wallbtn roofbtn" id="roofBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M2 12 12 4l10 8"/><path d="M5 10v9h14v-9"/></svg>屋頂</button>
       <button type="button" class="wallbtn" id="wallBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V4h16"/><path d="M4 12h9"/></svg>畫隔間牆</button>
       <div class="status" id="status"></div>
@@ -153,6 +184,7 @@ button{font:inherit;color:inherit;cursor:pointer}
   </div>
 </div>
 <div class="toast" id="toast" role="status"></div>
+<div class="v3" id="v3" hidden><div class="v3h"><b>3D 示意</b><span id="v3c"></span><button type="button" id="v3dl" style="margin-left:auto;width:auto;padding:0 12px;font-size:14px">下載 3D 圖</button><button type="button" id="v3x" aria-label="關閉" style="margin-left:0">×</button></div><div class="v3c" id="v3wrap"><div class="v3load" id="v3load">3D 載入中…</div></div><div class="v3f">拖曳旋轉・滾輪／雙指縮放・右鍵／雙指拖曳平移　|　示意圖，實際以施工為準</div></div>
 
 <script>
 /* ========= 元件目錄（尺寸單位：公分；價格同報價單） ========= */
@@ -191,6 +223,10 @@ var LIB=[
   {k:'elec',id:'sock',name:'插座 220v',w:30,h:18,sym:'sock',vars:[['110v',1500],['220v',2800]],v:'220v'},
   {k:'elec',id:'panel',name:'配電箱',w:50,h:24,sym:'panel',price:8500},
   {k:'elec',id:'meter',name:'分電錶',w:30,h:30,sym:'meter',price:2500}]},
+ {sec:'樓梯（蓋二樓用）',items:[
+  {k:'stair',id:'istair',name:'室內樓梯 直上',w:90,h:300,v:'直上',vars:[['U形／L形',98000],['直上',50000]]},
+  {k:'stair',id:'istair',name:'室內樓梯 U形',w:180,h:240,v:'U形／L形',vars:[['U形／L形',98000],['直上',50000]]},
+  {k:'stair',id:'ostair',name:'戶外樓梯',w:100,h:320,price:32000}]},
  {sec:'家具（擺設參考・不計價）',items:[
   {k:'furn',f:'bed',name:'5尺雙人床',w:152,h:188},
   {k:'furn',f:'ward',name:'6尺衣櫃',w:180,h:60},
@@ -205,12 +241,15 @@ var LIB=[
 var DECKV={deck:{'1×3m':[300,100,20000],'1×4m':[400,100,30000],'1×6m':[600,100,40000],'2×6m':[600,200,64000],'2×8m':[800,200,70000],'3×6m':[600,300,70000],'4×6m':[600,400,90000]},
            fdeck:{'2×6m':[600,200,88000],'3×6m':[600,300,93000],'4×6m':[600,400,97000],'2×8m':[800,200,108000],'3×8m':[800,300,118000],'4×8m':[800,400,138000]}};
 var ROOFS=[['r4','四合一屋頂','單斜',4500],['r4','四合一屋頂','雙斜',5500],['rglaze','琉璃鋼瓦屋頂','',6500],['r3','簡易三合一屋頂','',3500],['rwavep','簡易浪板屋頂','',2500]];
-var NAMES={lamp:'燈具（明管・含開關）',led:'LED 燈管（明管）',track:'軌道燈（含 2 顆 LED）',wclamp:'廁所燈',olamp:'戶外筒燈（明管）',sock:'插座（明管）',panel:'配電箱 110v/220v',meter:'分電錶',r4:'四合一屋頂',rglaze:'琉璃鋼瓦屋頂',r3:'簡易三合一屋頂',rwavep:'簡易浪板屋頂',part:'隔間牆',wbasic:'基本窗',wair:'氣密窗 93×110cm',wsec:'防盜氣密窗 93×110cm',wsmall:'廁所小窗',wview:'強化玻璃景觀窗 W188×H110',dbasic:'基本門（外開）',d3in1:'三合一門（有開天）',dscreen:'鋁紗門',ddouble:'雙開門 166×210',dslide:'落地門',bjp:'日式衛浴',bl:'大衛浴',bs:'小衛浴',btile:'磁磚衛浴',deck:'露台',fdeck:'框架露台（含平面天花）',mh:'組合屋（鋼構屋）'};
-var UNITS={lamp:'組',led:'組',track:'組',wclamp:'組',olamp:'組',sock:'組',panel:'組',meter:'組',r4:'坪',rglaze:'坪',r3:'坪',rwavep:'坪',part:'米',wbasic:'窗',wair:'窗',wsec:'窗',wsmall:'窗',wview:'窗',dbasic:'組',d3in1:'組',dscreen:'組',ddouble:'組',dslide:'組',bjp:'組',bl:'組',bs:'組',btile:'組',deck:'組',fdeck:'組',mh:'顆'};
+var COLORS=[['黑框木紋','#1d2224','wood','c1'],['黑框白板','#1d2224','white','c2'],['黑框灰黑','#1d2224','gray','c3'],['白框木紋','#f4f5f2','wood','c4'],['白框白板','#f4f5f2','white','c5'],['白框灰黑','#f4f5f2','gray','c6']];
+var BOARD2D={wood:'#e7cfb2',white:'#fbfbf8',gray:'#cdd3d4'};
+var NAMES={f2:'二樓組裝費',ostair:'戶外樓梯',istair:'室內樓梯（鐵梯）',lamp:'燈具（明管・含開關）',led:'LED 燈管（明管）',track:'軌道燈（含 2 顆 LED）',wclamp:'廁所燈',olamp:'戶外筒燈（明管）',sock:'插座（明管）',panel:'配電箱 110v/220v',meter:'分電錶',r4:'四合一屋頂',rglaze:'琉璃鋼瓦屋頂',r3:'簡易三合一屋頂',rwavep:'簡易浪板屋頂',part:'隔間牆',wbasic:'基本窗',wair:'氣密窗 93×110cm',wsec:'防盜氣密窗 93×110cm',wsmall:'廁所小窗',wview:'強化玻璃景觀窗 W188×H110',dbasic:'基本門（外開）',d3in1:'三合一門（有開天）',dscreen:'鋁紗門',ddouble:'雙開門 166×210',dslide:'落地門',bjp:'日式衛浴',bl:'大衛浴',bs:'小衛浴',btile:'磁磚衛浴',deck:'露台',fdeck:'框架露台（含平面天花）',mh:'組合屋（鋼構屋）'};
+var UNITS={f2:'顆',ostair:'組',istair:'組',lamp:'組',led:'組',track:'組',wclamp:'組',olamp:'組',sock:'組',panel:'組',meter:'組',r4:'坪',rglaze:'坪',r3:'坪',rwavep:'坪',part:'米',wbasic:'窗',wair:'窗',wsec:'窗',wsmall:'窗',wview:'窗',dbasic:'組',d3in1:'組',dscreen:'組',ddouble:'組',dslide:'組',bjp:'組',bl:'組',bs:'組',btile:'組',deck:'組',fdeck:'組',mh:'顆'};
 
 /* ========= 狀態 ========= */
-var S={items:[],seq:1},view={tx:0,ty:0,s:0.5},selId=null;
+var S={items:[],seq:1,color:0,floor:1},view={tx:0,ty:0,s:0.5},selId=null;
 try{var sv=JSON.parse(localStorage.getItem('fulin_plan_v1')||'null');if(sv&&sv.items){S=sv}}catch(e){}
+S.color=S.color||0;S.floor=S.floor||1;S.items.forEach(function(i){i.floor=i.floor||1});
 function save(){try{localStorage.setItem('fulin_plan_v1',JSON.stringify(S))}catch(e){}}
 function byId(id){for(var i=0;i<S.items.length;i++)if(S.items[i].uid===id)return S.items[i];return null}
 function fmt(n){return 'NT$ '+Math.round(n).toLocaleString('en-US')}
@@ -223,8 +262,9 @@ var DEPTH=14;
 function shape(it){
   var w=it.w,h=it.h,hw=w/2,hh=h/2,o='';
   if(it.k==='mod'){
-    var fill={'標準':'#ffffff','平面天花':'#fbfcfa','水泥板':'#efe9df','PU板':'#e6f0f1'}[it.style]||'#fff';
+    var C=COLORS[S.color||0],fill=BOARD2D[C[2]];
     o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" fill="'+fill+'" stroke="#1d2224" stroke-width="10"/>';
+    if(C[1]!=='#1d2224')o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" fill="none" stroke="'+C[1]+'" stroke-width="6"/>';
     o+='<rect x="'+(-hw+5)+'" y="'+(-hh+5)+'" width="'+(w-10)+'" height="'+(h-10)+'" fill="none" stroke="#156a74" stroke-width="1" stroke-dasharray="6 6"/>';
     var lab=it.size.replace('m','').replace('×',' × ')+' m';
     o+='<g transform="rotate('+(-it.rot)+')"><text x="0" y="-6" text-anchor="middle" font-size="34" font-weight="700" fill="#156a74" font-family="Space Grotesk,sans-serif">'+lab+'</text><text x="0" y="28" text-anchor="middle" font-size="22" fill="#5a6468">'+esc(it.style)+'</text></g>';
@@ -256,6 +296,11 @@ function shape(it){
     else if(it.sym==='sock'){var hot=it.v==='220v';o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" rx="3" fill="'+(hot?'#ffe2dc':'#e6f2ff')+'" stroke="'+(hot?'#b3261e':'#1f5fa8')+'" stroke-width="2"/><g transform="rotate('+(-it.rot)+')"><text y="4" text-anchor="middle" font-size="11" font-weight="700" fill="'+(hot?'#b3261e':'#1f5fa8')+'" font-family="Space Grotesk,sans-serif">'+(hot?'220':'110')+'</text></g>';}
     else if(it.sym==='panel'){o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" rx="3" fill="#1d2224" stroke="#c8f031" stroke-width="2"/><path d="M-4 -8 L-8 2 H0 L-4 10 L8 -3 H0 L4 -8Z" fill="#c8f031" transform="scale(.9)"/>';}
     else if(it.sym==='meter'){o+='<circle r="'+Math.min(hw,hh)+'" fill="#fff" stroke="#1d2224" stroke-width="2.5"/><g transform="rotate('+(-it.rot)+')"><text y="5" text-anchor="middle" font-size="14" font-weight="700" fill="#1d2224">M</text></g>';}
+  }else if(it.k==='stair'){
+    o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" fill="#eef1ee" stroke="#1d2224" stroke-width="3"/>';
+    var u=it.v==='U形／L形';if(u){o+='<line x1="0" y1="'+(-hh)+'" x2="0" y2="'+(hh-60)+'" stroke="#1d2224" stroke-width="3"/>';for(var s=-hh+25;s<hh-60;s+=25){o+='<line x1="'+(-hw)+'" y1="'+s+'" x2="0" y2="'+s+'" stroke="#5a6468" stroke-width="1.5"/><line x1="0" y1="'+s+'" x2="'+hw+'" y2="'+s+'" stroke="#5a6468" stroke-width="1.5"/>'}}
+    else{for(var s2=-hh+25;s2<hh;s2+=25)o+='<line x1="'+(-hw)+'" y1="'+s2+'" x2="'+hw+'" y2="'+s2+'" stroke="#5a6468" stroke-width="1.5"/>';o+='<path d="M0 '+(hh-20)+' V'+(-hh+30)+' M-12 '+(-hh+46)+' L0 '+(-hh+30)+' L12 '+(-hh+46)+'" stroke="#156a74" stroke-width="3" fill="none"/>'}
+    o+='<g transform="rotate('+(-it.rot)+')"><text y="5" text-anchor="middle" font-size="16" font-weight="700" fill="#156a74" stroke="#fff" stroke-width="4" paint-order="stroke">'+esc(it.name.replace('室內樓梯 ','樓梯 '))+'</text></g>';
   }else if(it.k==='wall'){
     o+='<rect x="'+(-hw)+'" y="'+(-hh)+'" width="'+w+'" height="'+h+'" fill="#3d4649" stroke="#1d2224" stroke-width="1"/>';
     o+='<g transform="rotate('+(-it.rot)+')"><text x="0" y="'+(it.rot%180?4:-12)+'" dx="'+(it.rot%180?14:0)+'" text-anchor="'+(it.rot%180?'start':'middle')+'" font-size="18" font-weight="700" fill="#156a74" font-family="Space Grotesk,sans-serif">'+(w/100).toFixed(1)+' m</text></g>';
@@ -267,18 +312,21 @@ function shape(it){
   return o;
 }
 function hlRect(it){var w=it.w,h=(it.k==='win'||it.k==='door')?DEPTH:it.h;return '<rect class="hl" x="'+(-w/2-6)+'" y="'+(-h/2-6)+'" width="'+(w+12)+'" height="'+(h+12)+'" rx="4"/>'}
-var order={deck:0,mod:1,bath:2,furn:3,wall:3.5,win:4,door:4,elec:5};
+var order={deck:0,mod:1,bath:2,stair:2.5,furn:3,wall:3.5,win:4,door:4,elec:5};
 var WALL=8,wallMode=false,lastTap={u:0,t:0};
 function render(){
   var arr=S.items.slice().sort(function(a,b){return order[a.k]-order[b.k]});
-  document.getElementById('items').innerHTML=roofSvg()+arr.map(function(it){
+  var other=arr.filter(function(i){return i.floor!==S.floor});arr=arr.filter(function(i){return i.floor===S.floor});
+  var ghost=other.length?'<g class="ghost" pointer-events="none" opacity="'+(S.floor===2?0.28:0.16)+'">'+other.filter(function(i){return S.floor===2?true:i.k==='mod'}).map(function(it){return '<g transform="translate('+it.cx+' '+it.cy+') rotate('+it.rot+')">'+shape(it)+'</g>'}).join('')+'</g>':'';
+  document.getElementById('items').innerHTML=ghost+roofSvg()+arr.map(function(it){
     return '<g class="it'+(it.uid===selId?' sel':'')+'" data-u="'+it.uid+'" transform="translate('+it.cx+' '+it.cy+') rotate('+it.rot+')">'+shape(it)+(it.uid===selId?hlRect(it):'')+'</g>'}).join('');
   document.getElementById('hint').style.display=S.items.length?'none':'';document.getElementById('roofBtn').classList.toggle('on',!!S.roof);
+  document.querySelectorAll('#floorSw button').forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.f===S.floor?'true':'false')});document.getElementById('colorBtn').querySelector('i').style.background=COLORS[S.color][1];document.getElementById('colorBtn').querySelector('span').textContent=COLORS[S.color][0];applyView();
   renderProps();renderQuote();save();
 }
 function applyView(){document.getElementById('world').setAttribute('transform','translate('+view.tx+' '+view.ty+') scale('+view.s+')');
-  var m=S.items.filter(function(i){return i.k==='mod'});var a=m.reduce(function(s,i){return s+i.w*i.h/10000},0);
-  document.getElementById('status').innerHTML='組合屋 <b>'+m.length+'</b> 顆・室內 <b>'+a.toFixed(1)+'</b> m²（約 <b>'+(a/3.3058).toFixed(1)+'</b> 坪）・縮放 '+Math.round(view.s*200)+'%';}
+  var m=S.items.filter(function(i){return i.k==='mod'});var a=m.reduce(function(s,i){return s+i.w*i.h/10000},0);var m2=m.filter(function(i){return i.floor===2}).length;
+  document.getElementById('status').innerHTML='<b>'+S.floor+'F</b> 編輯中・組合屋 <b>'+m.length+'</b> 顆'+(m2?'（2F '+m2+' 顆）':'')+'・室內 <b>'+a.toFixed(1)+'</b> m²（約 <b>'+(a/3.3058).toFixed(1)+'</b> 坪）・縮放 '+Math.round(view.s*200)+'%';}
 
 /* ========= 元件面板 ========= */
 function thumb(d){
@@ -303,9 +351,11 @@ function centerWorld(){var r=document.getElementById('svg').getBoundingClientRec
 function snap(v,g){return Math.round(v/g)*g}
 function add(d,pos){
   var c=pos||centerWorld();
-  var it={uid:S.seq++,k:d.k,w:d.w,h:d.h||DEPTH,rot:0,cx:snap(c.x,10),cy:snap(c.y,10),name:d.name};
+  var it={uid:S.seq++,k:d.k,w:d.w,h:d.h||DEPTH,rot:0,cx:snap(c.x,10),cy:snap(c.y,10),name:d.name,floor:S.floor};
   if(d.k==='mod'){it.size=d.size;it.style='標準';
-    var mods=S.items.filter(function(i){return i.k==='mod'});
+    var mods=S.items.filter(function(i){return i.k==='mod'&&i.floor===S.floor});
+    var low=S.items.filter(function(i){return i.k==='mod'&&i.floor===1});
+    if(!pos&&!mods.length&&S.floor===2&&low.length){var lb=box(low[0]);it.cx=lb.x0+it.w/2;it.cy=lb.y0+it.h/2;}
     if(!pos&&mods.length){var mx=Math.max.apply(null,mods.map(function(m){return box(m).x1}));var ref=mods[mods.length-1];it.cx=mx+it.w/2;it.cy=box(ref).y0+it.h/2;}}
   if(d.id)it.id=d.id; if(d.f)it.f=d.f; if(d.slide)it.slide=1;
   if(d.colors){it.colors=d.colors;it.color=d.colors[0]}
@@ -323,11 +373,11 @@ function ensureVisible(it){var r=document.getElementById('svg').getBoundingClien
 /* ========= 門窗貼牆 ========= */
 function attach(it,force){
   var best=null,bd=force?1e9:70;
-  S.items.forEach(function(m){if(m.k!=='wall')return;var b=box(m);
+  S.items.forEach(function(m){if(m.k!=='wall'||m.floor!==it.floor)return;var b=box(m);
     if(m.rot%180===0){if(it.cx>=b.x0-10&&it.cx<=b.x1+10&&m.w>=it.w){var d=Math.abs(it.cy-m.cy);if(d<bd){bd=d;best={m:m,side:'wh',b:b}}}}
     else{if(it.cy>=b.y0-10&&it.cy<=b.y1+10&&m.w>=it.w){var d2=Math.abs(it.cx-m.cx);if(d2<bd){bd=d2;best={m:m,side:'wv',b:b}}}}
   });
-  S.items.forEach(function(m){if(m.k!=='mod')return;var b=box(m);
+  S.items.forEach(function(m){if(m.k!=='mod'||m.floor!==it.floor)return;var b=box(m);
     [['t',b.y0],['b',b.y1]].forEach(function(s){if(it.cx>=b.x0-20&&it.cx<=b.x1+20){var d=Math.abs(it.cy-s[1]);if(d<bd&&b.x1-b.x0>=it.w){bd=d;best={m:m,side:s[0],b:b}}}});
     [['l',b.x0],['r',b.x1]].forEach(function(s){if(it.cy>=b.y0-20&&it.cy<=b.y1+20){var d=Math.abs(it.cx-s[1]);if(d<bd&&b.y1-b.y0>=it.w){bd=d;best={m:m,side:s[0],b:b}}}});
   });
@@ -367,7 +417,7 @@ function toggleRoof(){if(!S.items.some(function(i){return i.k==='mod'})){toast('
 
 /* ========= 隔間牆 ========= */
 function snapPt(p){var x=snap(p.x,10),y=snap(p.y,10),th=25,bx=null,by=null;
-  S.items.forEach(function(o){if(o.k!=='mod'&&o.k!=='wall')return;var b=box(o);
+  S.items.forEach(function(o){if((o.k!=='mod'&&o.k!=='wall')||o.floor!==S.floor)return;var b=box(o);
     var xs=o.k==='mod'?[b.x0+5,b.x1-5]:[o.rot%180?o.cx:b.x0,o.rot%180?o.cx:b.x1],ys=o.k==='mod'?[b.y0+5,b.y1-5]:[o.rot%180?b.y0:o.cy,o.rot%180?b.y1:o.cy];
     xs.forEach(function(v){var d=Math.abs(v-p.x);if(d<th&&(bx===null||d<Math.abs(bx-p.x)))bx=v});
     ys.forEach(function(v){var d=Math.abs(v-p.y);if(d<th&&(by===null||d<Math.abs(by-p.y)))by=v});});
@@ -391,7 +441,7 @@ function toWorld(e){var r=svg.getBoundingClientRect();return {x:(e.clientX-r.lef
 svg.addEventListener('pointerdown',function(e){
   svg.setPointerCapture(e.pointerId);ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
   if(Object.keys(ptrs).length===2){var p=Object.values(ptrs);pinch={d:Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y),s:view.s,tx:view.tx,ty:view.ty,mx:(p[0].x+p[1].x)/2,my:(p[0].y+p[1].y)/2};drag=null;return}
-  if(wallMode){var sp=snapPt(toWorld(e));var wl={uid:S.seq++,k:'wall',name:'隔間牆',w:0,h:WALL,rot:0,cx:sp.x,cy:sp.y};S.items.push(wl);drag={wall:wl,sx:sp.x,sy:sp.y};return}
+  if(wallMode){var sp=snapPt(toWorld(e));var wl={uid:S.seq++,k:'wall',name:'隔間牆',w:0,h:WALL,rot:0,cx:sp.x,cy:sp.y,floor:S.floor};S.items.push(wl);drag={wall:wl,sx:sp.x,sy:sp.y};return}
   var g=e.target.closest('.it');
   if(g){var it=byId(+g.dataset.u),now=Date.now();
     if(lastTap.u===it.uid&&now-lastTap.t<380){lastTap={u:0,t:0};selId=it.uid;rotate(it);render();drag=null;return}
@@ -485,6 +535,7 @@ function lineOf(it){
 }
 function quoteLines(){var map={},list=[];S.items.forEach(function(it){var l=lineOf(it);if(!l)return;var k=l.id+'|'+l.t;if(!map[k]){map[k]={k:k,id:l.id,o:l.o,t:l.t,u:priceOf(it),q:0};list.push(map[k])}map[k].q++});
   var wl=S.items.filter(function(i){return i.k==='wall'}).reduce(function(s,i){return s+i.w},0);
+  var n2=S.items.filter(function(i){return i.k==='mod'&&i.floor===2}).length;if(n2)list.push({k:'f2|',id:'f2',o:{},t:'二樓組合屋 '+n2+' 顆',u:20000,q:n2});
   var rc=S.roof&&roofCalc();if(rc){var R0=ROOFS[S.roof.i];list.push({k:R0[0]+'|'+R0[2],id:R0[0],o:R0[2]?{v:R0[2]}:{},t:(R0[2]?R0[2]+'・':'')+rc.L.toFixed(1)+'×'+rc.W.toFixed(1)+'m ≈ '+rc.ping.toFixed(1)+' 坪',u:R0[3],q:rc.q})}
   if(wl>0)list.push({k:'part|',id:'part',o:{},t:'總長 '+(wl/100).toFixed(1)+' m，以 '+Math.ceil(wl/100)+' 米計',u:3000,q:Math.ceil(wl/100)});
   return list}
@@ -494,6 +545,7 @@ function renderQuote(){
   if(!L.length)h+='<p class="empty">畫面上還沒有可計價的元件。</p>';
   L.forEach(function(l){h+='<div class="ql"><div>'+esc(NAMES[l.id])+(l.t?'<br><span>'+esc(l.t)+'</span>':'')+'</div><b>'+l.q+UNITS[l.id]+'　'+fmt(l.u*l.q)+'</b></div>'});
   if(furn.length)h+='<p class="qf">家具 '+furn.length+' 件為擺設參考，不列入報價。</p>';
+  h+='<p class="qf">配色：<b>'+COLORS[S.color][0]+'</b>（配色不影響價格，帶入報價單時會寫進備註）</p>';
   h+='<p class="qf">組合屋標配基本門窗；施工、運費、水電等請到報價單加選。</p>';
   document.getElementById('quote').innerHTML=h;document.getElementById('qTot').textContent=fmt(tot);
 }
@@ -503,22 +555,24 @@ function toOrder(){
   cart=cart.filter(function(l){return !l.plan});
   L.forEach(function(l){cart.push({k:l.k,id:l.id,o:l.o,u:l.u,q:l.q,plan:1})});
   try{localStorage.setItem('fulin_cart_v1',JSON.stringify(cart))}catch(e){}
+  try{var cu=JSON.parse(localStorage.getItem('fulin_cust_v1')||'{}')||{};var mm=(cu.memo||'').replace(/圖面配色：[^，\n]*[，]?/g,'').trim();cu.memo='圖面配色：'+COLORS[S.color][0]+(S.items.some(function(i){return i.floor===2})?'，含二樓':'')+(mm?'，'+mm:'');cu.name=cu.name||'';cu.phone=cu.phone||'';cu.place=cu.place||'';localStorage.setItem('fulin_cust_v1',JSON.stringify(cu))}catch(e){}
   location.href='order.html#fromplan';
 }
 document.getElementById('bGo').onclick=toOrder;document.getElementById('bGo2').onclick=toOrder;
 
 /* ========= 範本 / 清空 / 下載 ========= */
+function N(n){for(var a=0;a<LIB.length;a++)for(var b=0;b<LIB[a].items.length;b++)if(LIB[a].items[b].name===n)return LIB[a].items[b];return null}
 function template(){
   if(S.items.length&&!confirm('套用範本會清除目前畫面，確定嗎？'))return;
-  S.items=[];var c={x:0,y:0};
-  var m=add(LIB[0].items[3],{x:0,y:0});
-  add(LIB[3].items[2],{x:-400+55+10,y:-200+70+10});
-  add(LIB[4].items[0],{x:250,y:-200+94+20});
-  add(LIB[4].items[1],{x:250,y:200-30-10});
-  add(LIB[4].items[3],{x:-60,y:200-45-30});
-  var d=add(LIB[2].items[0],{x:-100,y:200});
-  add(LIB[1].items[1],{x:150,y:200});add(LIB[1].items[1],{x:150,y:-200});add(LIB[1].items[3],{x:-330,y:-200});
-  add(LIB[5].items[0],{x:0,y:300});
+  S.items=[];S.floor=1;var c={x:0,y:0};
+  var m=add(N('組合屋 4×8'),{x:0,y:0});
+  add(N('小衛浴'),{x:-400+55+10,y:-200+70+10});
+  add(N('5尺雙人床'),{x:250,y:-200+94+20});
+  add(N('6尺衣櫃'),{x:250,y:200-30-10});
+  add(N('280cm 沙發'),{x:-60,y:200-45-30});
+  var d=add(N('基本門'),{x:-100,y:200});
+  add(N('氣密窗'),{x:150,y:200});add(N('氣密窗'),{x:150,y:-200});add(N('廁所小窗'),{x:-330,y:-200});
+  add(N('露台 2×6'),{x:0,y:300});
   selId=null;render();fit();
 }
 document.getElementById('bClear').onclick=function(){if(!S.items.length)return;if(confirm('確定清空整張圖？')){S.items=[];S.roof=null;selId=null;render()}};
@@ -536,6 +590,21 @@ var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;
 document.getElementById('mtools').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var it=byId(selId);if(!it)return;var a=b.dataset.a;
   if(a==='props'){document.getElementById('side').classList.add('on');return}if(a==='rot')rotate(it);else if(a==='dup')dup(it);else if(a==='del'){del(it);return}render()});
 document.getElementById('roofBtn').onclick=toggleRoof;
+document.getElementById('floorSw').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.floor=+b.dataset.f;selId=null;render();
+  if(S.floor===2)toast(S.items.some(function(i){return i.floor===2})?'切換到 2F':'切換到 2F：淡色是 1F 位置，點組合屋會自動疊在 1F 上方；記得加樓梯');else toast('切換到 1F')});
+var cpg=document.getElementById('cpg'),cpop=document.getElementById('cpop');
+function drawCp(){cpg.innerHTML=COLORS.map(function(c,i){return '<button type="button" data-i="'+i+'" aria-pressed="'+(S.color===i)+'"><img src="img/'+c[3]+'.jpg" alt=""><span>'+c[0]+'</span></button>'}).join('')}
+document.getElementById('colorBtn').onclick=function(){drawCp();cpop.hidden=!cpop.hidden};
+cpg.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.color=+b.dataset.i;drawCp();render();cpop.hidden=true;toast('配色：'+COLORS[S.color][0])});
+document.getElementById('b3d').onclick=open3d;
+document.getElementById('v3x').onclick=close3d;
+document.getElementById('v3dl').onclick=function(){if(!V3)return;var u=V3.snapshot();if(!u)return;var a=document.createElement('a');a.href=u;a.download='富林組合屋3D示意.png';document.body.appendChild(a);a.click();a.remove()};
+var V3=null;
+function open3d(){if(!S.items.some(function(i){return i.k==='mod'})){toast('請先放組合屋');return}
+  document.getElementById('v3').hidden=false;document.getElementById('v3c').textContent=COLORS[S.color][0]+(S.items.some(function(i){return i.floor===2})?'・兩層':'');
+  import('./js/plan3d.js').then(function(m){V3=m;document.getElementById('v3load').style.display='none';m.show(document.getElementById('v3wrap'),S,{COLORS:COLORS,roofCalc:roofCalc,box:box})}).catch(function(err){document.getElementById('v3load').textContent='3D 無法載入，請改用較新的瀏覽器';console.error(err)})}
+function close3d(){document.getElementById('v3').hidden=true;if(V3)V3.hide()}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!document.getElementById('v3').hidden)close3d()});
 document.getElementById('wallBtn').onclick=function(){setWallMode(!wallMode)};
 document.getElementById('mobQ').onclick=function(){document.getElementById('side').classList.toggle('on')};
 
