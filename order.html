@@ -513,13 +513,76 @@ function cartClick(b){
   readForm();save();drawCart();renderAll();
   if(!cart.length){setTimeout(closeSheet,300)}
 }
+/* 網站品項 → 試算表「品相列表」的完整名稱（要一字不差，翻譯才帶得出來） */
+var SN={
+ mh:function(o){var s=o.size.replace('×','m*'),st=o.style;return '組合屋'+s+(st==='標準'?'':'-'+st)},
+ fdeck:function(o){return '露台-框架露台'+o.v.replace('×','*').replace('m','')+'含平面天花'},
+ wing:{'10呎':'折疊展翼-展翼屋10尺(不含運、安裝)','20呎':'折疊展翼-展翼屋20尺(不含運、安裝)','開放式展翼屋':'折疊展翼-開放式展翼屋','平頂 20呎':'折疊展翼-平頂展翼屋20尺(不含運、安裝)','平頂 30呎':'折疊展翼-平頂展翼屋30尺(不含運、安裝)','平頂 40呎':'折疊展翼-平頂展翼屋40尺(不含運、安裝)'},
+ fold:'折疊展翼-摺疊屋(不含運)',
+ bjp:'衛浴-日式衛浴(220v)1.48*2.08*2.25',bl:'衛浴-大衛浴(220v)1.2*1.9*2.2',bs:'衛浴-小衛浴(220v)1.1*1.4*2.2 ',
+ btile:{'浴簾':'衛浴-磁磚衛浴(1.5*2.4）-浴簾','拉門':'衛浴-磁磚衛浴(1.5*2.4）-拉門'},
+ bout:{'浴簾':'衛浴-戶外衛浴1.7m*2.6m*2.8m-浴廉','拉門':'衛浴-戶外衛浴1.7m*2.6m*2.8m-拉門'},
+ bnanya:{'戶外廁所':'衛浴-戶外廁所-南亞(不含電燈','戶外淋浴':'衛浴-戶外淋浴-南亞(不含電燈'},
+ heater:'衛浴-即熱式熱水器',vanity:'衛浴-浴櫃含鏡子',urinal:'衛浴-小便斗',grab:'衛浴-無障礙扶手',
+ wbasic:function(o){return '門窗-基本窗-'+o.c},
+ wair:function(o){return '門窗-氣密窗(93cm*110cm)-'+o.c},
+ wsec:'門窗-防盜氣密窗(93cm*110cm)',wgrill:'門窗-防盜框(93cm*110cm)',
+ wsmall:function(o){return '門窗-廁所小窗-'+o.c},
+ wview:{'可開關':'門窗-強化雙開玻璃W188*H110cm景觀窗','固定式':'門窗-強化固定玻璃W188*H110cm景觀窗'},
+ wawn:'門窗-窗戶遮雨棚',wblind:'門窗-捲簾/窗簾',
+ dbasic:function(o){return '門窗-基本門(外開-'+o.c},
+ dscreen:'門窗-鋁紗門',
+ d3in1:function(o){return '門窗-三合一門（有開天）-'+o.c},
+ ddouble:'門窗-雙開門166*210',
+ dslide:function(o){var v=o.v,c=o.c;
+   if(v==='2門 寬188')return c==='白'?'門窗-落地門(2門)188*247.5-白（開天':'門窗-落地門(2門)188*247.5-黑（開天）';
+   if(v==='4門 寬283')return '門窗-落地門(4門)283*247.5-'+c+'（開天）';
+   if(v==='6門 寬563')return '門窗-落地門(6門)563*247.5（開天）';
+   return '門窗-落地窗6米*247.5'},
+ nodoor:'扣基本門',nowin:'扣基本窗',
+ deck:function(o){return '露台-露台'+o.v.replace('×','m*')},
+ ramp:'露台-無障礙斜坡1.5m*3m-適用高度36cm',
+ step:function(o){return '配件-階梯-'+o.v},
+ ostair:'配件-戶外樓梯',
+ istair:{'U形／L形':'配件-室內樓梯-U形/L形','直上':'配件-室內樓梯-直上'},
+ wstair:{'U形／L形':'配件-木板室內樓梯-U形/L形','直上':'配件-木板室內樓梯-直上'},
+ r4s:{'3×6m':'屋頂-簡易四合一屋頂-3*6','4×6m':'屋頂-簡易四合一屋頂-4*6'},
+ rwave:'屋頂-簡易清板屋頂-3*6',
+ r4:{'單斜':'屋頂-四合一屋頂-單斜','雙斜':'屋頂-四合一屋頂-雙斜'},
+ rglaze:'屋頂-琉璃鋼瓦',r3:'屋頂-簡易三合一屋頂',rwavep:'屋頂-簡易清板屋頂',rcanopy:'屋頂-1m*3m遮雨棚',
+ rgutter:'屋頂-不鏽鋼雨水槽',rtrim:'屋頂-屋頂封邊',
+ panel:'水電-配電箱(110v/220v)',meter:'水電-分電錶',
+ lamp:{'圓形白光':'水電-燈具-明管（圓形白光 含開關*1)','圓形自然光':'水電-燈具-明管（圓形自然光 含開關*1)','崁燈':'水電-燈具-明管（坎燈 含開關*1)'},
+ led:{'單管 40W':'水電-LED燈40W-明管(含開關*1)','雙管':'水電-雙管LED燈-明管(含開關*1)'},
+ track:'水電-軌道燈(含2個LED燈)-明管',olamp:'水電-戶外筒燈-明管',wclamp:'水電-廁所燈',
+ sock:{'110v':'水電-插座-110v-明管','220v':'水電-插座-220v-明管'},
+ conceal:'水電-暗管處理',ground:'水電-接地線打銅針 往下打100cm',
+ ext:{'4.99m 內':'水電-外接電（499cm內','5–20m':'水電-外接電（5米-20米','20m 以上':'水電-外接電（20米以上'},
+ tank5:'水電-5噸水塔',tank1:'水電-不鏽鋼水塔-1噸(含配件）',tankacc:'水電-水塔配件',pump:'水電-加壓馬達0.5hp',hpipe:'水電-不鏽鋼熱水管',
+ pipe:{'給水管':'水電-給水管','排水管':'水電-排水管','污水管':'水電-污水管'},
+ ac:'冷氣',
+ sink:{'流理台桌（含水槽）':'廚房用不鏽鋼平台水槽桌','平台桌':'廚房用不鏽鋼平台桌'},
+ spc:{'自黏式':'地面-SPC自黏超耐磨地板（不選色）','卡扣式':'地面-SPC卡扣地板'},
+ panelw:{'平面':'配件-裝潢版(平面）','竹木纖維':'配件-裝潢版(竹木纖維)','企口板':'配件-裝潢版(企口板)','麒麟板':'配件-裝潢版(麒麟版)','麒麟板（需骨架）':'配件-裝潢版(麒麟版)需骨架'},
+ part:'配件-隔間',
+ raise:{'室內 H300（室外 330）':'室內加高Ｈ300。-室外330','室內 H330（室外 360）':'室內加高Ｈ330。-室外360'},
+ link:{'單門連通':'配件-單門連通套件（已扣除牆面費用）','雙牆連通':'配件-雙櫃連通套件（已扣除牆面費用）'},
+ septic:'地面-化糞池',level:'地面-整地需先告知地下水管位置',
+ raiseg:{'一般':'地面-地面升高','4×8 專用':'地面-地面升高(4*8專用）'},
+ base:'地面-水泥基座40*40',anchor:'地面-地面固定-化學錨栓',screw:'地面-地螺絲',bull:'地面-地牛/地錨',
+ skirt:'地面-組合屋底下封邊',tile:'地面-鋪設磁磚',hbeam:'配件-H鋼150*200',
+ assm:'人力-組合屋組裝費用',dism:'人力-組合屋拆開費用',f2:'人力-2F組裝費',f3:'人力-3F組裝費',
+ shipw:{'10呎':'人力-10呎展翼屋運費安裝','20呎':'人力-20呎展翼屋運費安裝'},
+ shipf:'人力-折疊屋運費安裝',stay:'人力-外縣市住宿補助',diy:'自行組裝'
+};
+function sheetName(id,o){var m=SN[id];o=o||{};try{if(typeof m==='function')return m(o);if(typeof m==='object')return m[o.v]||null;return m||null}catch(e){return null}}
 function setStaff(k,n){STAFF=k;STAFFN=k?(n||''):'';try{if(k){localStorage.setItem('fulin_staff_v1',k);localStorage.setItem('fulin_staffn_v1',STAFFN)}else{localStorage.removeItem('fulin_staff_v1');localStorage.removeItem('fulin_staffn_v1')}}catch(e){}}
 function postSheet(o){return fetch(SHEET_API,{method:'POST',body:JSON.stringify(o)}).then(function(r){return r.json()})}
 function sendSheet(b){
   if(!STAFF)return;
   if(!cust.name){toast('請先填寫客戶姓名');var f=document.getElementById('fName');if(f)f.focus();return}
   if(b.dataset.busy)return;b.dataset.busy='1';var t0=b.textContent;b.textContent='送出中…';
-  var lines=cart.map(function(l){var it=BY[l.id];return {name:it.name,spec:optText(it,l.o),q:l.q,unit:it.unit,u:l.u,note:l.plan?'圖面':''}});
+  var lines=cart.map(function(l){var it=BY[l.id],sn=sheetName(l.id,l.o);return {name:sn||it.name,spec:sn?'':optText(it,l.o),q:l.q,unit:it.unit,u:l.u,note:l.plan?'圖面':''}});
   if(reserve()>0)lines.push({name:'細節調整預留（小計兩成）',spec:'',q:1,unit:'式',u:reserve(),note:'多退少補'});
   postSheet({key:STAFF,name:cust.name,phone:cust.phone,place:cust.place,memo:cust.memo,lines:lines}).then(function(j){
     delete b.dataset.busy;
