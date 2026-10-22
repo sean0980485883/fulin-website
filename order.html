@@ -115,6 +115,11 @@ img{display:block;max-width:100%}
 .acts .ln{background:#06c755;color:#fff}
 .acts .cp{background:var(--bg);color:var(--ink);border:1.5px solid var(--line)}
 .acts .pt{background:#fff;color:var(--teal);border:1.5px solid var(--teal)}
+.stf{position:fixed;inset:0;z-index:99;background:rgba(7,26,29,.7);display:grid;place-items:center;padding:16px}
+.stf form{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:360px;display:grid;gap:10px}
+.stf h3{margin:0;font-size:20px}.stf p{margin:0;color:var(--mute);font-size:14px}
+.stf input{min-height:48px;border:1.5px solid var(--line);border-radius:10px;padding:0 12px;font-size:17px}
+.stf button{min-height:48px;border:0;border-radius:10px;font-size:16px;font-weight:900;background:#071a1d;color:#c8f031}.stf .c{background:var(--bg);color:var(--ink)}
 .acts button.sh2{background:#071a1d;color:#c8f031;border:0;box-shadow:0 0 14px rgba(200,240,49,.25)}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:30px;padding:10px 18px;font-size:15px;z-index:80;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.on{opacity:1}
@@ -186,7 +191,9 @@ img{display:block;max-width:100%}
 /* ===== 商品資料：價格取自富林組合屋款式追加報價單 ===== */
 var LINE_ID='@aa168';
 /* Google 試算表報價單（Apps Script 網頁應用程式網址） */
-var SHEET_API='';var SHEET_KEY='fulin2026';
+var SHEET_API='https://script.google.com/macros/s/AKfycbw2Sh0nH89k6IWBpKfXp6RYoiWM_Mx8A0j982NBZBO0LvZy61xh5v9jtU6RL2kAGCKi/exec';
+/* 業務模式：網址加 ?staff 輸入通關碼後才會出現「送到報價單」；通關碼只存在試算表的程式裡 */
+var STAFF='';try{STAFF=localStorage.getItem('fulin_staff_v1')||''}catch(e){}
 var I={
  house:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>',
  bath:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M6 12V5a2 2 0 0 1 4 0"/><path d="M7 20l-1 2M17 20l1 2"/></svg>',
@@ -467,9 +474,10 @@ function drawCart(){
     '<label>備註<textarea id="fMemo" rows="2">'+esc(cust.memo)+'</textarea></label></div>'+
     '<div class="acts"><button type="button" class="ln" data-c="line">用 LINE 傳給富林組合屋</button>'+
     '<button type="button" class="cp" data-c="copy">複製清單文字</button>'+
-    '<button type="button" class="sh2" data-c="sheet">送出報價單給富林</button>'+
+    (STAFF?'<button type="button" class="sh2" data-c="sheet">送到報價單（業務專用）</button>':'')+
     '<button type="button" class="pt" data-c="print">列印／存成 PDF</button>'+
-    '<button type="button" class="cp" data-c="clear" style="color:var(--red)">清空清單</button></div>';
+    '<button type="button" class="cp" data-c="clear" style="color:var(--red)">清空清單</button></div>'+
+    (STAFF?'<p class="disc" style="text-align:center">業務模式・<a href="#" data-c="logout" style="color:inherit">登出此裝置</a></p>':'');
   }
   sheet.innerHTML=h+'</div>';
 }
@@ -500,20 +508,34 @@ function cartClick(b){
   else if(c==='copy'){readForm();copy(quoteText());return}
   else if(c==='print'){readForm();buildPrint();window.print();return}
   else if(c==='sheet'){readForm();sendSheet(b);return}
+  else if(c==='logout'){setStaff('');drawCart();toast('已登出業務模式');return}
   else return;
   readForm();save();drawCart();renderAll();
   if(!cart.length){setTimeout(closeSheet,300)}
 }
+function setStaff(k){STAFF=k;try{k?localStorage.setItem('fulin_staff_v1',k):localStorage.removeItem('fulin_staff_v1')}catch(e){}}
+function postSheet(o){return fetch(SHEET_API,{method:'POST',body:JSON.stringify(o)}).then(function(r){return r.json()})}
 function sendSheet(b){
-  if(!cust.name||!cust.phone){toast('請先填寫姓名和電話');var f=document.getElementById(cust.name?'fPhone':'fName');if(f)f.focus();return}
-  if(!SHEET_API){toast('報價單連線尚未設定，請先用 LINE 傳送');return}
+  if(!STAFF)return;
+  if(!cust.name){toast('請先填寫客戶姓名');var f=document.getElementById('fName');if(f)f.focus();return}
   if(b.dataset.busy)return;b.dataset.busy='1';var t0=b.textContent;b.textContent='送出中…';
   var lines=cart.map(function(l){var it=BY[l.id];return {name:it.name,spec:optText(it,l.o),q:l.q,unit:it.unit,u:l.u,note:l.plan?'圖面':''}});
   if(reserve()>0)lines.push({name:'細節調整預留（小計兩成）',spec:'',q:1,unit:'式',u:reserve(),note:'多退少補'});
-  var body=JSON.stringify({key:SHEET_KEY,name:cust.name,phone:cust.phone,place:cust.place,memo:cust.memo,lines:lines});
-  function done(ok){delete b.dataset.busy;b.textContent=ok?'已送出 ✓':t0;toast(ok?'已送出！富林會盡快與您聯絡':'送出失敗，請改用 LINE 傳送')}
-  fetch(SHEET_API,{method:'POST',body:body}).then(function(r){return r.json()}).then(function(j){done(!!j.ok)})
-  .catch(function(){done(navigator.onLine!==false)});
+  postSheet({key:STAFF,name:cust.name,phone:cust.phone,place:cust.place,memo:cust.memo,lines:lines}).then(function(j){
+    delete b.dataset.busy;
+    if(j.ok){b.textContent='已建立 ✓';toast('已建立報價單分頁：'+j.sheet)}
+    else if(j.err==='key'){setStaff('');drawCart();toast('通關碼錯誤，請重新登入')}
+    else{b.textContent=t0;toast('送出失敗：'+(j.err||''))}
+  },function(){delete b.dataset.busy;b.textContent=t0;toast('連線有問題，請到試算表確認是否已建立')});
+}
+function staffLogin(){
+  var d=document.createElement('div');d.className='stf';
+  d.innerHTML='<form><h3>業務登入</h3><p>輸入通關碼後，這台裝置的選購清單會出現「送到報價單」。</p><input type="password" autocomplete="current-password" placeholder="通關碼" required><button type="submit">登入</button><button type="button" class="c">取消</button></form>';
+  document.body.appendChild(d);var f=d.querySelector('form'),inp=f.querySelector('input');inp.focus();
+  function close(){d.remove();history.replaceState(null,'',location.pathname)}
+  f.querySelector('.c').onclick=close;
+  f.onsubmit=function(e){e.preventDefault();var k=inp.value.trim();if(!k)return;
+    postSheet({action:'ping',key:k}).then(function(j){if(j.ok){setStaff(k);close();toast('已進入業務模式')}else{inp.value='';inp.placeholder='通關碼錯誤，再試一次'}},function(){toast('連線失敗，請稍後再試')})};
 }
 function copy(t){
   function ok(){toast('已複製，可貼到 LINE 或簡訊')}
@@ -534,6 +556,7 @@ var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;
 var _close=closeSheet;closeSheet=function(){sheet.dataset.mode='';_close()};
 
 renderAll();
+if(/[?&#]staff\b/.test(location.search+location.hash)&&!STAFF)staffLogin();
 if(location.hash==='#fromplan'){history.replaceState(null,'',location.pathname);if(cart.length){openCart();toast('已從圖面帶入 '+cart.filter(function(l){return l.plan}).length+' 項')}}
 </script>
 </body>
