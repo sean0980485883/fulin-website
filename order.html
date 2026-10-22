@@ -115,6 +115,7 @@ img{display:block;max-width:100%}
 .acts .ln{background:#06c755;color:#fff}
 .acts .cp{background:var(--bg);color:var(--ink);border:1.5px solid var(--line)}
 .acts .pt{background:#fff;color:var(--teal);border:1.5px solid var(--teal)}
+.acts button.sh2{background:#071a1d;color:#c8f031;border:0;box-shadow:0 0 14px rgba(200,240,49,.25)}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:30px;padding:10px 18px;font-size:15px;z-index:80;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.on{opacity:1}
 /* print */
@@ -184,6 +185,8 @@ img{display:block;max-width:100%}
 <script>
 /* ===== 商品資料：價格取自富林組合屋款式追加報價單 ===== */
 var LINE_ID='@aa168';
+/* Google 試算表報價單（Apps Script 網頁應用程式網址） */
+var SHEET_API='';var SHEET_KEY='fulin2026';
 var I={
  house:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>',
  bath:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M6 12V5a2 2 0 0 1 4 0"/><path d="M7 20l-1 2M17 20l1 2"/></svg>',
@@ -464,6 +467,7 @@ function drawCart(){
     '<label>備註<textarea id="fMemo" rows="2">'+esc(cust.memo)+'</textarea></label></div>'+
     '<div class="acts"><button type="button" class="ln" data-c="line">用 LINE 傳給富林組合屋</button>'+
     '<button type="button" class="cp" data-c="copy">複製清單文字</button>'+
+    '<button type="button" class="sh2" data-c="sheet">送出報價單給富林</button>'+
     '<button type="button" class="pt" data-c="print">列印／存成 PDF</button>'+
     '<button type="button" class="cp" data-c="clear" style="color:var(--red)">清空清單</button></div>';
   }
@@ -495,9 +499,21 @@ function cartClick(b){
   else if(c==='line'){readForm();window.open('https://line.me/R/oaMessage/'+encodeURIComponent(LINE_ID)+'/?'+encodeURIComponent(quoteText()),'_blank','noopener');return}
   else if(c==='copy'){readForm();copy(quoteText());return}
   else if(c==='print'){readForm();buildPrint();window.print();return}
+  else if(c==='sheet'){readForm();sendSheet(b);return}
   else return;
   readForm();save();drawCart();renderAll();
   if(!cart.length){setTimeout(closeSheet,300)}
+}
+function sendSheet(b){
+  if(!cust.name||!cust.phone){toast('請先填寫姓名和電話');var f=document.getElementById(cust.name?'fPhone':'fName');if(f)f.focus();return}
+  if(!SHEET_API){toast('報價單連線尚未設定，請先用 LINE 傳送');return}
+  if(b.dataset.busy)return;b.dataset.busy='1';var t0=b.textContent;b.textContent='送出中…';
+  var lines=cart.map(function(l){var it=BY[l.id];return {name:it.name,spec:optText(it,l.o),q:l.q,unit:it.unit,u:l.u,note:l.plan?'圖面':''}});
+  if(reserve()>0)lines.push({name:'細節調整預留（小計兩成）',spec:'',q:1,unit:'式',u:reserve(),note:'多退少補'});
+  var body=JSON.stringify({key:SHEET_KEY,name:cust.name,phone:cust.phone,place:cust.place,memo:cust.memo,lines:lines});
+  function done(ok){delete b.dataset.busy;b.textContent=ok?'已送出 ✓':t0;toast(ok?'已送出！富林會盡快與您聯絡':'送出失敗，請改用 LINE 傳送')}
+  fetch(SHEET_API,{method:'POST',body:body}).then(function(r){return r.json()}).then(function(j){done(!!j.ok)})
+  .catch(function(){done(navigator.onLine!==false)});
 }
 function copy(t){
   function ok(){toast('已複製，可貼到 LINE 或簡訊')}
