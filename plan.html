@@ -557,7 +557,7 @@ function toOrder(){
   cart=cart.filter(function(l){return !l.plan});
   L.forEach(function(l){cart.push({k:l.k,id:l.id,o:l.o,u:l.u,q:l.q,plan:1})});
   try{localStorage.setItem('fulin_cart_v1',JSON.stringify(cart))}catch(e){}
-  try{var cu=JSON.parse(localStorage.getItem('fulin_cust_v1')||'{}')||{};var mm=(cu.memo||'').replace(/圖面配色：[^，\n]*[，]?/g,'').trim();cu.memo='圖面配色：'+COLORS[S.color][0]+(S.items.some(function(i){return i.floor===2})?'，含二樓':'')+(mm?'，'+mm:'');cu.name=cu.name||'';cu.phone=cu.phone||'';cu.place=cu.place||'';localStorage.setItem('fulin_cust_v1',JSON.stringify(cu))}catch(e){}
+  try{var cu=JSON.parse(localStorage.getItem('fulin_cust_v1')||'{}')||{};var mm=(cu.memo||'').replace(/圖面配色：[^，\n]*[，]?/g,'').replace(/(^|，)含二樓(?=，|$)/g,'').replace(/^，+|，+$/g,'').trim();cu.memo='圖面配色：'+COLORS[S.color][0]+(S.items.some(function(i){return i.floor===2})?'，含二樓':'')+(mm?'，'+mm:'');cu.name=cu.name||'';cu.phone=cu.phone||'';cu.place=cu.place||'';localStorage.setItem('fulin_cust_v1',JSON.stringify(cu))}catch(e){}
   location.href='order.html#fromplan';
 }
 document.getElementById('bGo').onclick=toOrder;document.getElementById('bGo2').onclick=toOrder;
