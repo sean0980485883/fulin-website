@@ -71,7 +71,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .qf{font-size:12px;color:var(--mute);margin-top:8px}
 .qtot{padding:12px 14px;border-top:1px solid var(--line);background:#fafbf9}
 .qtot .t{display:flex;justify-content:space-between;align-items:baseline}
-.qtot .t b{font-family:var(--mono);font-size:24px}
+.qtot .t b{font-family:var(--mono);font-size:24px;white-space:nowrap}
+.qtot .t small{display:block;font-size:11px;color:var(--mute)}
 .qtot button{width:100%;margin-top:8px;min-height:50px;border:0;border-radius:12px;background:var(--deep);color:var(--neo);font-size:16px;font-weight:900;box-shadow:0 0 16px rgba(200,240,49,.25)}
 .mobq{display:none!important}
 .mtools{display:none}
@@ -179,7 +180,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     <aside class="side" id="side">
       <div class="props" id="props"></div>
       <div class="quote" id="quote"></div>
-      <div class="qtot"><div class="t"><span>圖面試算（未稅）</span><b id="qTot">NT$ 0</b></div><button type="button" id="bGo2">帶入報價單 →</button></div>
+      <div class="qtot"><div class="t"><span>預估總額<small>含兩成細節預留</small></span><b id="qTot">NT$ 0</b></div><button type="button" id="bGo2">帶入報價單 →</button></div>
     </aside>
   </div>
 </div>
@@ -547,7 +548,8 @@ function renderQuote(){
   if(furn.length)h+='<p class="qf">家具 '+furn.length+' 件為擺設參考，不列入報價。</p>';
   h+='<p class="qf">配色：<b>'+COLORS[S.color][0]+'</b>（配色不影響價格，帶入報價單時會寫進備註）</p>';
   h+='<p class="qf">組合屋標配基本門窗；施工、運費、水電等請到報價單加選。</p>';
-  document.getElementById('quote').innerHTML=h;document.getElementById('qTot').textContent=fmt(tot);
+  var rs=tot>0?Math.round(tot*0.2):0;if(L.length)h+='<div class="ql"><div>商品小計</div><b>'+fmt(tot)+'</b></div><div class="ql"><div>細節調整預留<br><span>小計兩成，現場確認後多退少補</span></div><b>+ '+fmt(rs)+'</b></div>';
+  document.getElementById('quote').innerHTML=h;document.getElementById('qTot').textContent=fmt(tot+rs);
 }
 function toOrder(){
   var L=quoteLines();if(!L.length){toast('畫面上還沒有可計價的元件');return}

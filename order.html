@@ -105,6 +105,7 @@ img{display:block;max-width:100%}
 .empty{text-align:center;color:var(--mute);padding:40px 0}
 .total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 6px}
 .total b{font-size:28px;font-variant-numeric:tabular-nums}
+.rs{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;font-size:14px;color:var(--mute)}.rs b{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600}.rs:first-of-type{border-top:1px solid var(--line,#ddd);margin-top:10px;padding-top:12px}.rsn{margin-top:4px}
 .disc{font-size:12px;color:var(--mute);margin:0 0 14px}
 .form{display:grid;gap:10px;margin:8px 0 6px}
 .form label{font-size:14px;font-weight:700;display:grid;gap:4px}
@@ -171,7 +172,7 @@ img{display:block;max-width:100%}
 
 <div class="bar">
   <div class="bag" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><i id="bagN">0</i></div>
-  <div class="tot"><span>試算合計（未稅）</span><b id="barTot">NT$ 0</b></div>
+  <div class="tot"><span>預估總額（含兩成預留）</span><b id="barTot">NT$ 0</b></div>
   <button class="go" id="goCart" type="button" disabled>查看清單</button>
 </div>
 
@@ -343,7 +344,9 @@ function optText(it,o){
   return t.join('・');
 }
 function qtyIn(cat){return cart.filter(function(l){return BY[l.id].cat===cat}).length}
-function total(){return cart.reduce(function(s,l){return s+l.u*l.q},0)}
+function subtotal(){return cart.reduce(function(s,l){return s+l.u*l.q},0)}
+var RES_RATE=0.2;function reserve(){var s=subtotal();return s>0?Math.round(s*RES_RATE):0}
+function total(){return subtotal()+reserve()}
 
 /* ===== 畫面 ===== */
 var rail=document.getElementById('rail'),content=document.getElementById('content');
@@ -452,7 +455,8 @@ function drawCart(){
     h+='<div class="line"><div><div class="n">'+esc(it.name)+(l.plan?'<span class="pl">圖面</span>':'')+'</div><div class="o">'+(ot?esc(ot)+'・':'')+fmt(l.u)+' /'+it.unit+'</div></div><div class="p'+(l.u<0?' neg':'')+'">'+fmt(l.u*l.q)+'</div>'+
     '<div class="ctl"><button type="button" data-c="dec" data-i="'+i+'" aria-label="減少">−</button><span class="q">'+l.q+' '+it.unit+'</span><button type="button" data-c="inc" data-i="'+i+'" aria-label="增加">+</button><button type="button" class="rm" data-c="rm" data-i="'+i+'">移除</button></div></div>'});
   if(cart.length){
-    h+='<div class="total"><span>試算合計（未稅）</span><b>'+fmt(total())+'</b></div>'+
+    h+='<div class="rs"><span>商品小計</span><b>'+fmt(subtotal())+'</b></div><div class="rs"><span>細節調整預留（小計兩成）</span><b>+ '+fmt(reserve())+'</b></div><div class="total"><span>預估總額（未稅）</span><b>'+fmt(total())+'</b></div>'+
+    '<p class="disc rsn">為什麼多兩成？線上點選時不一定能選到最合適的品項或規格，先預留兩成作為細節調整空間，現場丈量確認後多退少補，正式報價常會更低。</p>'+
     '<p class="disc">此為線上試算價，實際價格以現場丈量與正式報價單為準。基礎工程（水泥、填土等）依現場報價。</p>'+
     '<div class="form"><label>姓名<input id="fName" autocomplete="name" value="'+esc(cust.name)+'"></label>'+
     '<label>電話<input id="fPhone" type="tel" autocomplete="tel" inputmode="tel" value="'+esc(cust.phone)+'"></label>'+
@@ -477,7 +481,7 @@ function quoteText(){
   t+='\n';
   cart.forEach(function(l,i){var it=BY[l.id],ot=optText(it,l.o);
     t+=(i+1)+'. '+it.name+(ot?'（'+ot+'）':'')+' ×'+l.q+it.unit+'　'+fmt(l.u*l.q)+'\n'});
-  t+='\n試算合計（未稅）：'+fmt(total());
+  t+='\n商品小計：'+fmt(subtotal())+'\n細節調整預留（兩成）：'+fmt(reserve())+'\n預估總額（未稅）：'+fmt(total());
   if(cust.memo)t+='\n備註：'+cust.memo;
   t+='\n\n※ 線上試算，實際以現場丈量與正式報價為準';
   return t;
@@ -505,7 +509,7 @@ function buildPrint(){
   var h='<h1>富林組合屋　線上選購試算單</h1><div>日期：'+ds+(cust.name?'　姓名：'+esc(cust.name):'')+(cust.phone?'　電話：'+esc(cust.phone):'')+(cust.place?'　施工地點：'+esc(cust.place):'')+'</div>';
   h+='<table><thead><tr><th>#</th><th>項目</th><th>規格</th><th class="r">單價</th><th class="r">數量</th><th class="r">小計</th></tr></thead><tbody>';
   cart.forEach(function(l,i){var it=BY[l.id];h+='<tr><td>'+(i+1)+'</td><td>'+esc(it.name)+'</td><td>'+esc(optText(it,l.o))+'</td><td class="r">'+fmt(l.u)+'</td><td class="r">'+l.q+' '+it.unit+'</td><td class="r">'+fmt(l.u*l.q)+'</td></tr>'});
-  h+='</tbody></table><p style="text-align:right;font-size:14pt;font-weight:700">試算合計（未稅）：'+fmt(total())+'</p>';
+  h+='</tbody></table><p style="text-align:right;margin:8px 0 2px">商品小計：'+fmt(subtotal())+'</p><p style="text-align:right;margin:2px 0">細節調整預留（小計兩成）：'+fmt(reserve())+'</p><p style="text-align:right;font-size:14pt;font-weight:700">預估總額（未稅）：'+fmt(total())+'</p><p style="font-size:9pt;color:#555">※ 兩成預留為細節調整空間，現場丈量確認品項後多退少補。</p>';
   if(cust.memo)h+='<p>備註：'+esc(cust.memo)+'</p>';
   h+='<p style="font-size:9pt;color:#555">※ 線上試算，實際價格以現場丈量與正式報價單為準。<br>富林組合屋｜LINE '+LINE_ID+'｜0929-010-882 廖先生｜0916-498-832 林先生｜05-598-4663 辦公室展場</p>';
   document.getElementById('printArea').innerHTML=h;
