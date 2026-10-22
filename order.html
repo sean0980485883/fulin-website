@@ -193,7 +193,7 @@ var LINE_ID='@aa168';
 /* Google 試算表報價單（Apps Script 網頁應用程式網址） */
 var SHEET_API='https://script.google.com/macros/s/AKfycbw2Sh0nH89k6IWBpKfXp6RYoiWM_Mx8A0j982NBZBO0LvZy61xh5v9jtU6RL2kAGCKi/exec';
 /* 業務模式：網址加 ?staff 輸入通關碼後才會出現「送到報價單」；通關碼只存在試算表的程式裡 */
-var STAFF='';try{STAFF=localStorage.getItem('fulin_staff_v1')||''}catch(e){}
+var STAFF='',STAFFN='';try{STAFF=localStorage.getItem('fulin_staff_v1')||'';STAFFN=localStorage.getItem('fulin_staffn_v1')||''}catch(e){}
 var I={
  house:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>',
  bath:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M6 12V5a2 2 0 0 1 4 0"/><path d="M7 20l-1 2M17 20l1 2"/></svg>',
@@ -477,7 +477,7 @@ function drawCart(){
     (STAFF?'<button type="button" class="sh2" data-c="sheet">送到報價單（業務專用）</button>':'')+
     '<button type="button" class="pt" data-c="print">列印／存成 PDF</button>'+
     '<button type="button" class="cp" data-c="clear" style="color:var(--red)">清空清單</button></div>'+
-    (STAFF?'<p class="disc" style="text-align:center">業務模式・<a href="#" data-c="logout" style="color:inherit">登出此裝置</a></p>':'');
+    (STAFF?'<p class="disc" style="text-align:center">業務模式'+(STAFFN?'（'+esc(STAFFN)+'）':'')+'・<a href="#" data-c="logout" style="color:inherit">登出此裝置</a></p>':'');
   }
   sheet.innerHTML=h+'</div>';
 }
@@ -513,7 +513,7 @@ function cartClick(b){
   readForm();save();drawCart();renderAll();
   if(!cart.length){setTimeout(closeSheet,300)}
 }
-function setStaff(k){STAFF=k;try{k?localStorage.setItem('fulin_staff_v1',k):localStorage.removeItem('fulin_staff_v1')}catch(e){}}
+function setStaff(k,n){STAFF=k;STAFFN=k?(n||''):'';try{if(k){localStorage.setItem('fulin_staff_v1',k);localStorage.setItem('fulin_staffn_v1',STAFFN)}else{localStorage.removeItem('fulin_staff_v1');localStorage.removeItem('fulin_staffn_v1')}}catch(e){}}
 function postSheet(o){return fetch(SHEET_API,{method:'POST',body:JSON.stringify(o)}).then(function(r){return r.json()})}
 function sendSheet(b){
   if(!STAFF)return;
@@ -530,12 +530,12 @@ function sendSheet(b){
 }
 function staffLogin(){
   var d=document.createElement('div');d.className='stf';
-  d.innerHTML='<form><h3>業務登入</h3><p>輸入通關碼後，這台裝置的選購清單會出現「送到報價單」。</p><input type="password" autocomplete="current-password" placeholder="通關碼" required><button type="submit">登入</button><button type="button" class="c">取消</button></form>';
+  d.innerHTML='<form><h3>業務登入</h3><p>輸入自己的業務密碼，送出的報價單會標上你的名字。</p><input type="password" autocomplete="current-password" placeholder="通關碼" required><button type="submit">登入</button><button type="button" class="c">取消</button></form>';
   document.body.appendChild(d);var f=d.querySelector('form'),inp=f.querySelector('input');inp.focus();
   function close(){d.remove();history.replaceState(null,'',location.pathname)}
   f.querySelector('.c').onclick=close;
   f.onsubmit=function(e){e.preventDefault();var k=inp.value.trim();if(!k)return;
-    postSheet({action:'ping',key:k}).then(function(j){if(j.ok){setStaff(k);close();toast('已進入業務模式')}else{inp.value='';inp.placeholder='通關碼錯誤，再試一次'}},function(){toast('連線失敗，請稍後再試')})};
+    postSheet({action:'ping',key:k}).then(function(j){if(j.ok){setStaff(k,j.staff);close();toast('已登入：'+(j.staff||'業務'))}else{inp.value='';inp.placeholder=j.err&&j.err!=='key'?j.err:'通關碼錯誤，再試一次'}},function(){toast('連線失敗，請稍後再試')})};
 }
 function copy(t){
   function ok(){toast('已複製，可貼到 LINE 或簡訊')}
