@@ -126,6 +126,24 @@ dl.dim dd{margin:0;font-variant-numeric:tabular-nums}
 .case .cfg dl{display:grid;grid-template-columns:auto 1fr;gap:4px 8px;margin:0;font-size:13px;line-height:1.55}
 .case .cfg dt{font-weight:700;color:var(--teal)}
 .case .cfg dd{margin:0;color:var(--ink)}
+.szc,.hsv,.sw{cursor:pointer;transition:transform .15s,box-shadow .15s}
+.szc:hover,.hsv:hover,.sw:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(7,26,29,.14)}
+.szc:focus-visible,.hsv:focus-visible,.sw:focus-visible{outline:3px solid var(--neo);outline-offset:2px}
+.cfgp .tap{display:block;font-size:12px;color:var(--teal);margin-top:6px;font-weight:700}
+dialog.pk{border:0;padding:0;border-radius:16px;width:min(96vw,920px);max-height:94vh;background:#fff;overflow:hidden}
+dialog.pk::backdrop{background:rgba(7,26,29,.72)}
+.pk .hd{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px 10px 18px;border-bottom:1px solid var(--line)}
+.pk .hd b{font-size:18px}.pk .hd small{display:block;font-size:12px;color:var(--mute);font-weight:400}
+.pk .hd button{font:inherit;font-size:22px;width:44px;height:44px;border:0;background:var(--bg);border-radius:10px;cursor:pointer;flex:none}
+.pk .bd{overflow:auto;max-height:calc(94vh - 66px);padding:14px}
+.pk .big{background:#0c1416;border-radius:12px;display:flex;justify-content:center;align-items:center;min-height:200px}
+.pk .big img{max-width:100%;max-height:58vh;display:block;border-radius:12px}
+.pk .cap{font-size:13px;color:var(--mute);margin:8px 2px 12px}
+.pk .th{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.pk .th button{border:2px solid transparent;border-radius:10px;padding:0;overflow:hidden;cursor:pointer;background:#eee;aspect-ratio:4/3}
+.pk .th button[aria-current=true]{border-color:var(--neo);box-shadow:0 0 0 2px var(--deep)}
+.pk .th img{width:100%;height:100%;object-fit:cover;display:block}
+.pk .more{display:inline-block;margin-top:12px;font-weight:700;color:var(--teal)}
 dialog.lb{border:0;padding:0;border-radius:14px;max-width:min(96vw,1000px);width:auto;background:#fff}
 dialog.lb::backdrop{background:rgba(0,0,0,.7)}
 .lb .hd{display:flex;justify-content:space-between;align-items:center;padding:10px 12px 10px 18px;font-weight:700;border-bottom:1px solid var(--line)}
@@ -482,17 +500,17 @@ footer{background:#04100f;border-top:1px solid rgba(200,240,49,.2)}
         <div class="cfgp">
           <div class="ch"><span class="no">01</span><b>選尺寸</b><span class="cut">可裁切客製</span></div>
           <div class="szg"><div class="szc std"><svg viewBox="0 0 110 64" aria-hidden="true"><rect x="19.0" y="14.0" width="72" height="36" rx="2"/><text x="55" y="11.0" text-anchor="middle">6 m</text><text x="16.0" y="34" text-anchor="end">3</text></svg><b>3 × 6 m</b><span>18 m²・約 5.4 坪</span><i>標準</i></div><div class="szc"><svg viewBox="0 0 110 64" aria-hidden="true"><rect x="7.0" y="14.0" width="96" height="36" rx="2"/><text x="55" y="11.0" text-anchor="middle">8 m</text><text x="4.0" y="34" text-anchor="end">3</text></svg><b>3 × 8 m</b><span>24 m²・約 7.3 坪</span></div><div class="szc"><svg viewBox="0 0 110 64" aria-hidden="true"><rect x="19.0" y="8.0" width="72" height="48" rx="2"/><text x="55" y="8" text-anchor="middle">6 m</text><text x="16.0" y="34" text-anchor="end">4</text></svg><b>4 × 6 m</b><span>24 m²・約 7.3 坪</span></div><div class="szc"><svg viewBox="0 0 110 64" aria-hidden="true"><rect x="7.0" y="8.0" width="96" height="48" rx="2"/><text x="55" y="8" text-anchor="middle">8 m</text><text x="4.0" y="34" text-anchor="end">4</text></svg><b>4 × 8 m</b><span>32 m²・約 9.7 坪</span></div></div>
-          <p class="cn">四種標準尺寸，另可依基地裁切成特殊尺寸。</p>
+          <p class="cn">四種標準尺寸，另可依基地裁切成特殊尺寸。<span class="tap">點尺寸看實拍 →</span></p>
         </div>
         <div class="cfgp">
           <div class="ch"><span class="no">02</span><b>選高度</b><span class="cut">可客製</span></div>
           <div class="hsv"><svg viewBox="0 0 300 184" aria-hidden="true"><line x1="0" y1="160" x2="300" y2="160" class="gl"/><g class="ps" transform="translate(24 92)"><circle cx="0" cy="0" r="6"/><path d="M0 6v26M-9 14h18M0 32l-8 28M0 32l8 28"/></g><rect x="56" y="60.0" width="62" height="100.0" class="hb std"/><text x="87" y="52.0" text-anchor="middle" class="hl">2.5 m</text><text x="87" y="176" text-anchor="middle" class="ht">標準</text><rect x="138" y="40.0" width="62" height="120.0" class="hb"/><text x="169" y="32.0" text-anchor="middle" class="hl">3.0 m</text><text x="169" y="176" text-anchor="middle" class="ht">加高</text><rect x="220" y="28.0" width="62" height="132.0" class="hb"/><text x="251" y="20.0" text-anchor="middle" class="hl">3.3 m</text><text x="251" y="176" text-anchor="middle" class="ht">加高</text><text x="24" y="178" text-anchor="middle" class="ht">170cm</text></svg></div>
-          <p class="cn">室內淨高 2.5 m 標準；加高 3.0 m／3.3 m，挑高更通透。</p>
+          <p class="cn">室內淨高 2.5 m 標準；加高 3.0 m／3.3 m，挑高更通透。<span class="tap">點圖看加高實拍 →</span></p>
         </div>
         <div class="cfgp">
           <div class="ch"><span class="no">03</span><b>選顏色</b><span class="cut">6 款搭配</span></div>
           <div class="swg"><figure class="sw"><img src="img/c1.jpg" alt="黑框木紋" loading="lazy"><figcaption><span class="dots"><i style="background:#1d2224"></i><i style="background:#8a4a2b"></i></span>黑框木紋</figcaption></figure><figure class="sw"><img src="img/c2.jpg" alt="黑框白板" loading="lazy"><figcaption><span class="dots"><i style="background:#1d2224"></i><i style="background:#f2f2ee"></i></span>黑框白板</figcaption></figure><figure class="sw"><img src="img/c3.jpg" alt="黑框灰黑" loading="lazy"><figcaption><span class="dots"><i style="background:#1d2224"></i><i style="background:#3a3f42"></i></span>黑框灰黑</figcaption></figure><figure class="sw"><img src="img/c4.jpg" alt="白框木紋" loading="lazy"><figcaption><span class="dots"><i style="background:#f5f5f2"></i><i style="background:#8a4a2b"></i></span>白框木紋</figcaption></figure><figure class="sw"><img src="img/c5.jpg" alt="白框白板" loading="lazy"><figcaption><span class="dots"><i style="background:#f5f5f2"></i><i style="background:#f2f2ee"></i></span>白框白板</figcaption></figure><figure class="sw"><img src="img/c6.jpg" alt="白框灰黑" loading="lazy"><figcaption><span class="dots"><i style="background:#f5f5f2"></i><i style="background:#3a3f42"></i></span>白框灰黑</figcaption></figure></div>
-          <p class="cn">黑框、白框 × 木紋、白板、灰黑板。</p>
+          <p class="cn">黑框、白框 × 木紋、白板、灰黑板。<span class="tap">點顏色看放大圖與實拍 →</span></p>
         </div>
       </div>
 
@@ -999,6 +1017,7 @@ footer{background:#04100f;border-top:1px solid rgba(200,240,49,.2)}
   </section>
 </main>
 
+<dialog class="pk" id="pk" aria-labelledby="pkT"><div class="hd"><b id="pkT"></b><button type="button" id="pkX" aria-label="關閉">×</button></div><div class="bd"><div class="big"><img id="pkI" alt=""></div><p class="cap" id="pkC"></p><div class="th" id="pkG"></div><a href="#gallery" class="more" id="pkM">到實拍相簿看更多 →</a></div></dialog>
 <dialog class="lb" id="lb"><div class="hd"><span id="lbT"></span><button type="button" id="lbX" aria-label="關閉">×</button></div><div class="bx"><img id="lbI" alt=""></div><p class="note">示意平面圖，實際尺寸與格局以現場丈量及設計圖為準</p></dialog>
 
 <footer>© 富林組合屋　Fulin Modular Homes</footer>
@@ -1039,6 +1058,31 @@ lb.addEventListener('click',function(e){if(e.target===lb)lb.close()});
       w.querySelectorAll('.wpl-tabs button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});});});
     btn.addEventListener('click',function(){var i2=document.getElementById('lbI');i2.src=btn.dataset.src;i2.alt=btn.dataset.t;document.getElementById('lbT').textContent=btn.dataset.t+'　平面圖';document.querySelector('#lb .note').style.display='';lb.showModal();});});
   var s=document.querySelector('.struct-img');if(s)s.addEventListener('click',function(){var i2=document.getElementById('lbI');i2.src=s.dataset.src;i2.alt=s.dataset.t;document.getElementById('lbT').textContent=s.dataset.t;document.querySelector('#lb .note').style.display='none';lb.showModal();});
+})();
+</script>
+<script>
+/* 選尺寸／高度／顏色：點了跳出大圖＋精彩實績照片 */
+(function(){
+  var pk=document.getElementById('pk');if(!pk||!pk.showModal)return;
+  var I=document.getElementById('pkI'),C=document.getElementById('pkC'),G=document.getElementById('pkG'),M=document.getElementById('pkM');
+  function photos(groups){var a=[];groups.forEach(function(g){document.querySelectorAll('#gallery .gi[data-g="'+g+'"]').forEach(function(b){a.push({src:b.dataset.src,th:b.querySelector('img').src,t:b.dataset.t})})});return a}
+  function open(title,sub,first,list,grp){
+    document.getElementById('pkT').innerHTML=title+(sub?'<small>'+sub+'</small>':'');
+    var all=(first?[first]:[]).concat(list);
+    function show(i){var p=all[i];I.src=p.src;I.alt=p.t;C.textContent=p.cap||(p.t+'・富林實際完工照片');[].forEach.call(G.children,function(b,j){b.setAttribute('aria-current',j===i)})}
+    G.innerHTML='';all.forEach(function(p,i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','看第 '+(i+1)+' 張');b.innerHTML='<img loading="lazy" alt="" src="'+p.th+'">';b.onclick=function(){show(i)};G.appendChild(b)});
+    M.style.display=grp?'':'none';M.onclick=function(){pk.close();var f=document.querySelector('.gf button[data-g="'+grp+'"]');if(f)setTimeout(function(){f.click()},50)};
+    show(0);pk.showModal();pk.querySelector('.bd').scrollTop=0;
+  }
+  document.getElementById('pkX').onclick=function(){pk.close()};
+  pk.addEventListener('click',function(e){if(e.target===pk)pk.close()});
+  function tap(el,fn){el.setAttribute('role','button');el.tabIndex=0;el.addEventListener('click',fn);el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fn()}})}
+  document.querySelectorAll('.cfg3 .sw').forEach(function(f,i){var n=f.querySelector('img').alt;
+    tap(f,function(){open(n,'顏色樣本放大＋實際完工照片',{src:'img/c'+(i+1)+'-l.jpg',th:'img/c'+(i+1)+'.jpg',t:n,cap:n+'・顏色樣本'},photos([n]),n)})});
+  var colors=['黑框木紋','黑框白板','黑框灰黑','白框木紋','白框白板','白框灰黑'];
+  document.querySelectorAll('.cfg3 .szc').forEach(function(c){var s=c.querySelector('b').textContent;
+    tap(c,function(){open(s+' 組合屋','各款完工實拍，尺寸可依基地裁切',null,photos(colors),'all')})});
+  var hv=document.querySelector('.cfg3 .hsv');if(hv)tap(hv,function(){open('加高款實拍','室內淨高 3.0 m／3.3 m，挑高更通透',null,photos(['挑高室內']),'挑高室內')});
 })();
 </script>
 </body>
