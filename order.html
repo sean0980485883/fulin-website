@@ -162,13 +162,14 @@ img{display:block;max-width:100%}
 .planlink small{display:block;font-size:11px;font-weight:500;color:rgba(255,255,255,.75)}
 @media (max-width:760px){.planlink{margin:0 0 0 6px;padding:6px 10px;font-size:13px;flex-shrink:0;border-radius:10px}.planlink small{display:none}.planlink .ic{width:24px;height:24px}}
 .line .pl{display:inline-block;font-size:11px;background:#071a1d;color:#c8f031;border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:middle}
+.vw{display:block;font-style:normal;white-space:nowrap;font-size:.85em;opacity:.85}
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
     <a class="back" href="./"><img src="img/logo.jpg" alt="">富林組合屋</a>
-    <div class="ttl"><b>自助選購試算</b><span>選好加入清單，總價即時計算</span></div>
+    <div class="ttl"><b>自助選購試算</b><span>選好加入清單，總價即時計算<em class="vw" data-views="" hidden></em></span></div>
   </header>
   <div class="main">
     <nav class="rail" id="rail" aria-label="商品分類"></nav>
@@ -622,5 +623,6 @@ renderAll();
 if(/[?&#]staff\b/.test(location.search+location.hash)&&!STAFF)staffLogin();
 if(location.hash==='#fromplan'){history.replaceState(null,'',location.pathname);if(cart.length){openCart();toast('已從圖面帶入 '+cart.filter(function(l){return l.plan}).length+' 項')}}
 </script>
+<script src="js/views.js" defer></script>
 </body>
 </html>

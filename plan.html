@@ -142,13 +142,14 @@ button{font:inherit;color:inherit;cursor:pointer}
   .mtools .del{color:#ff8a80}
   .status{font-size:11px;padding:4px 8px;right:64px}
 }
+.vw{display:block;font-style:normal;white-space:nowrap;font-size:.85em;opacity:.85}
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
     <a class="back" href="./"><img src="img/logo.jpg" alt="">富林組合屋</a>
-    <div class="ttl"><b>線上畫圖設計</b><span>拖拉擺放・畫完一鍵帶入報價單</span></div>
+    <div class="ttl"><b>線上畫圖設計</b><span>拖拉擺放・畫完一鍵帶入報價單<em class="vw" data-views="" hidden></em></span></div>
     <div class="acts">
       <button class="tb mobq" id="mobQ" type="button">清單</button>
       <button class="tb" id="bPng" type="button">下載圖片</button>
@@ -615,5 +616,6 @@ window.addEventListener('resize',applyView);
 render();
 setTimeout(function(){if(S.items.length)fit();else{var r=svg.getBoundingClientRect();view.tx=r.width/2;view.ty=r.height/2;applyView()}},30);
 </script>
+<script src="js/views.js" defer></script>
 </body>
 </html>

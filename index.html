@@ -405,6 +405,8 @@ dl.dim dt{background:var(--deep);color:var(--neo)}
 .phones a:hover{box-shadow:var(--glow)}
 .phones b{font-family:var(--mono);color:var(--neo)}
 footer{background:#04100f;border-top:1px solid rgba(200,240,49,.2)}
+footer .vw{display:block;margin-top:4px;color:#c8f031;font-size:12px}
+@media (max-width:760px){footer{padding-bottom:96px}}
 .fab .call{background:var(--neo);color:var(--deep);box-shadow:0 0 20px rgba(200,240,49,.5)}
 @media (max-width:760px){
   .hud{grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
@@ -1020,7 +1022,7 @@ footer{background:#04100f;border-top:1px solid rgba(200,240,49,.2)}
 <dialog class="pk" id="pk" aria-labelledby="pkT"><div class="hd"><b id="pkT"></b><button type="button" id="pkX" aria-label="關閉">×</button></div><div class="bd"><div class="big"><img id="pkI" alt=""></div><p class="cap" id="pkC"></p><div class="th" id="pkG"></div><a href="#gallery" class="more" id="pkM">到實拍相簿看更多 →</a></div></dialog>
 <dialog class="lb" id="lb"><div class="hd"><span id="lbT"></span><button type="button" id="lbX" aria-label="關閉">×</button></div><div class="bx"><img id="lbI" alt=""></div><p class="note">示意平面圖，實際尺寸與格局以現場丈量及設計圖為準</p></dialog>
 
-<footer>© 富林組合屋　Fulin Modular Homes</footer>
+<footer>© 富林組合屋　Fulin Modular Homes<span class="vw" data-views="本頁" hidden></span></footer>
 
 <div class="fab">
   <a class="line" href="https://line.me/R/ti/p/@aa168" aria-label="加入 LINE"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-5.9C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg></a>
@@ -1085,5 +1087,6 @@ lb.addEventListener('click',function(e){if(e.target===lb)lb.close()});
   var hv=document.querySelector('.cfg3 .hsv');if(hv)tap(hv,function(){open('加高款實拍','室內淨高 3.0 m／3.3 m，挑高更通透',null,photos(['挑高室內']),'挑高室內')});
 })();
 </script>
+<script src="js/views.js" defer></script>
 </body>
 </html>
